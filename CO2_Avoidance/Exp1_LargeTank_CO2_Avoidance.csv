@@ -1,0 +1,20 @@
+ID,Date,Time,School,Species,CO2_Side,Temp_C,Alkalinity_ppm,Initial_pH,1st_Avoid_pH,1st_Avoid_Measured_CO2_ppm,Last_Avoid_pH,Last_Avoid_Estimated_CO2_ppm,End_Trial_Measured_CO2_ppm,Last_Avoid_Calc_CO2_uatm,1st_LOE_pH,Fish1_cm,Fish2_cm,Fish3_cm,Fish4_cm,Fish5_cm,Notes
+0,6/7/2022,1600,0,Silver,L,14.6,223,,6.9,NA,6.31,,NA,,6.47,5.4,6.8,6.5,7,7.5,Testing protocol. No water samples. Video reversed direction.
+1,6/13/2022,1030,1,Silver,L,15.5,212,,7.322,11440,6.806,,20880,6995,NA,5.7,6.6,7.5,7.2,7.8,
+2,6/13/2022,1045,1,Silver,R,16.1,212,,6.909,19450,6.815,,18470,6898,NA,5.7,6.6,7.5,7.2,7.8,
+3,6/13/2022,1315,2,Silver,R,15.1,233,,7.422,8020,6.684,,43760,10090,NA,6.2,6,6.3,6.9,7.2,
+4,6/13/2022,1400,2,Silver,L,14.6,233,,6.637,33900,6.528,,49790,14364,6.44,6.2,6,6.3,6.9,7.2,
+5,6/14/2022,1045,3,Silver,R,16.3,233,,7.227,15570,6.592,,32570,,6.579,5.5,6.3,7.2,6.8,6.4,"Trial ends with avoidance, then LOE in shuttle."
+6,6/14/2022,1145,3,Silver,L,16.4,233,,6.654,43810,6.446,,44680,,6.53,5.5,6.3,7.2,6.8,6.4,
+7,6/16/2022,930,4,Silver,L,17.3,228,,6.822,12500,6.47,,26400,,6.471,6.4,8.25,6.8,6.35,8.6,
+8,6/16/2022,1030,4,Silver,R,17.4,235,,6.862,18410,6.379,,33990,,NA,6.4,8.25,6.8,6.35,8.6,
+9,8/1/2022,1249,Fish A,Bighead,R,17.5,231,8.008,8.008,11910,6.18,,47700,,NA,20.5,NA,NA,NA,NA,"CameraOne is air, CameraTwo is Co2"
+10,8/1/2022,1348,Fish A,Bighead,L,16.3,231,7.77,7.78,5830,6.26,,45600,,NA,20.5,NA,NA,NA,NA,no gopro videos. Pumps were off
+11,8/1/2022,1453,Fish A,Bighead,L,18.3,231,7.63,7.68,3100,6.45,,37860,,NA,20.5,NA,NA,NA,NA,Overhead videos are only the last few minutes
+12,8/2/2022,1146,Fish B,Bighead,L,17.1,248,7.82,7.21,6460,6.76,,20210,,NA,21.5,NA,NA,NA,NA,
+13,8/2/2022,1239,Fish B,Bighead,R,17.4,248,7.86,7.9,1410,6.65,,34300,,NA,21.5,NA,NA,NA,NA,
+14,8/2/2022,1426,Fish B,Bighead,R,16.5,248,7.96,7.96,11640,6.56,,28790,,NA,21.5,NA,NA,NA,NA,
+15,8/2/2022,1536,Fish C,Bighead,R,16.8,248,7.84,7.84,1570,6.88,,16310,,NA,19.4,NA,NA,NA,NA,
+16,8/3/2022,1410,Fish C,Bighead,L,17.9,246,7.8,6.7,8660,6.35,,44666,,NA,19.4,NA,NA,NA,NA,
+17,8/4/2022,1022,Fish C,Bighead,L,17.2,242,7.88,7.88,1730,6.79,,16670,,NA,19.4,NA,NA,NA,NA,
+18,8/4/2022,1119,Fish D,Bighead,R,18,242,7.85,7.53,3800,6.5,,29870,,NA,,NA,NA,NA,NA,

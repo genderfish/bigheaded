@@ -1,0 +1,289 @@
+---
+title: "Carbon Dioxide Avoidance"
+author: "Jackie Culotta"
+date: "2022-10-04"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup 1, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+getwd()
+```
+
+# pH Trends in Tank
+
+```{r CO2 map}
+source("./LargeTank_CO2_Trend/CO2_Map.R")
+pH_Trend_Both_Chambers
+```
+\
+**The pH trend in both chambers.** The two chambers experienced relatively little water exchange across the connecting channel due to the circular chamber design and opposing currents.
+However, water mixed uniformly within each chamber, as evidenced by similar pH values in the center of the chamber, immediately next to the exit, and at the gas stone.
+
+```{r export CO2 map, include=FALSE, eval=FALSE}
+ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig1_pH_Trend_Both_Chambers.eps",
+       dpi = 300, width = 5, height = 5, units = "in", limitsize = TRUE)
+pH_Trend_Both_Chambers
+dev.off()
+
+tiff("C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/TIF/Fig1_pH_Trend_Both_Chambers.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
+ pH_Trend_Both_Chambers
+dev.off()
+```
+
+# CO2 avoidance
+
+```{r load libraries, message=FALSE, echo=FALSE}
+library('ggplot2')
+library('ggpubr')
+library('dplyr')
+library('ggpmisc')
+library('sjPlot')
+library('knitr')
+library('gdata') # keep function
+
+keep(pH_Trend_Both_Chambers, sure = TRUE)
+
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+getwd()
+```
+
+## Large Tank
+
+```{r pH to ppm curve}
+curve <- read.csv("allFish_pH_CO2_curve.csv")
+Exp1 <- read.csv("Exp1_LargeTank_CO2_Avoidance.csv")
+
+# Create pH to CO2 ppm curve
+Model_to_predict_pCO2_from_pH <- ggplot(curve, aes(x = pH, y = ppm)) +
+  geom_point(size = 3) +
+  stat_poly_line(formula = y ~ poly(x,2,raw=TRUE),
+                 size = 2,se = FALSE,color = 'black') +
+  stat_poly_eq(label.x = 5.0, formula = y ~ poly(x, 2, raw = TRUE),
+               aes(label = paste(after_stat(eq.label),
+                   after_stat(rr.label), sep = "*\", \"*"))) +
+  scale_y_continuous(name = expression('pCO'[2]*' (ppm)')) +
+  scale_x_continuous(name = "pH", breaks = seq(6,8.5,0.5)) + 
+  theme_classic2()
+Model_to_predict_pCO2_from_pH
+```
+
+```{r Create CO2 curve figure, include=FALSE, eval=FALSE}
+ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig2_Model_to_predict_pCO2_from_pH.eps",
+       dpi = 300, width = 5, height = 5, units = "in", limitsize = TRUE)
+Model_to_predict_pCO2_from_pH
+dev.off()
+
+tiff("C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/TIF/Fig2_Model_to_predict_pCO2_from_pH.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
+Model_to_predict_pCO2_from_pH
+dev.off()
+```
+
+```{r pH to ppm model}
+# Calculate 2nd order equation
+fit2 <- lm(ppm~poly(pH,2,raw=TRUE), data = curve)
+summary(fit2) # graph rounds coefficients in this equation
+
+# Predict CO2 ppm at last avoidance pH
+Exp1$pH <- Exp1$Last_Avoid_pH
+Exp1$Last_Avoid_Estimated_CO2_ppm <- predict(fit2,newdata = Exp1)
+
+# summarize results in large tank
+Exp1_Results <- Exp1 %>% 
+  filter_at(vars(X1st_Avoid_Measured_CO2_ppm, End_Trial_Measured_CO2_ppm), all_vars(!is.na(.))) %>% 
+  group_by(Species) %>% 
+  summarize(
+  # FirstAvoid_Measured_ppm = mean(X1st_Avoid_Measured_CO2_ppm),
+  # FirstAvoid_SE = sd(X1st_Avoid_Measured_CO2_ppm)/sqrt(length(X1st_Avoid_Measured_CO2_ppm)),
+  Alk = mean(Alkalinity_ppm),
+  Alk_SE = sd(Alkalinity_ppm)/sqrt(length(Alkalinity_ppm)),
+  Temp = mean(Temp_C),
+  Temp_SE = sd(Temp_C)/sqrt(length(Temp_C)),
+   LastAvoid_Calculated = mean(Last_Avoid_Estimated_CO2_ppm, na.rm = TRUE),
+   LastAvoid_SE = sd(Last_Avoid_Estimated_CO2_ppm)/sqrt(length(Last_Avoid_Estimated_CO2_ppm)),
+   Measured = mean(End_Trial_Measured_CO2_ppm),
+   Measured_SE = sd(End_Trial_Measured_CO2_ppm)/sqrt(length(End_Trial_Measured_CO2_ppm))
+  )
+Exp1_Results
+```
+
+```{r model summary as table, eval=FALSE, include=FALSE}
+Format table to share values from 2nd order equation
+library('stargazer')
+stargazer(fit2,
+         type = "html",
+         out = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/Supplement/pH to CO2 Model Table.doc")
+```
+
+## Small Tank
+
+```{r small tank data}
+SmallExp1 <- read.csv("Exp1_SmallTank_CO2_Avoidance.csv")
+SmallExp1$Temp_C <- as.numeric(SmallExp1$Temp_C)
+
+# summarize results in small tank
+SmallExp1_Results <- SmallExp1 %>% 
+#  group_by(Species) %>% # not a high enough N for each speices
+  summarize(
+    Alk = mean(Alkalinity_Pre),
+    Alk_SE = sd(Alkalinity_Pre)/sqrt(length(Alkalinity_Pre)),
+    Temp = mean(Temp_C),
+    Temp_SE = sd(Temp_C)/sqrt(length(Temp_C)), # unclear why this returns NA
+    LastAvoid_Calculated = mean(CO2_Output_uAtm),
+    LastAvoid_SE = sd(CO2_Output_uAtm)/sqrt(length(CO2_Output_uAtm)),
+    Measured = mean(measured_pCO2_ppm, na.rm = TRUE),
+    Measured_SE = sd(measured_pCO2_ppm, na.rm = TRUE)/sqrt(5)
+  )
+SmallExp1_Results
+```
+
+# Avoidance Thresholds
+
+```{r publication table}
+# CO2 Avoidance Table
+SmallExp1_Results$Species <- c("Bigheaded")
+SmallExp1_Results$Tank <- c("Small")
+Exp1_Results$Tank <- c("Large")
+BothExp1_Results <- full_join(SmallExp1_Results, Exp1_Results) # merge small and large tank results
+BothExp1_Results <- select(BothExp1_Results, Tank, Species, everything()) # rearrange columns
+kable(BothExp1_Results, 
+      caption = "Carbon dioxide avoidance in both tanks",
+      digits = 1)
+```
+
+```{r pull avoidance thresholds, include=FALSE}
+attach(Exp1_Results)
+# Calculate average avoidance threshold for all data
+avoidAvgBoth <- round(mean(BothExp1_Results$LastAvoid_Calculated)) # option 2
+
+# large tank
+avoidBighead <- BothExp1_Results %>%  filter(Species == 'Bighead') %>%  select(LastAvoid_Calculated)
+avoidSilver <- BothExp1_Results %>%  filter(Species == 'Silver') %>%  select(LastAvoid_Calculated)
+avoidAvgLarge <- (avoidBighead + avoidSilver)/2
+measureAvgLarge <- round(mean(Exp1_Results$Measured))
+
+detach(Exp1_Results)
+```
+
+```{r Format table for publication, include=FALSE, eval=FALSE}
+labels <- c("Tank", "Species", "TA (ppm)", "SE", "Temp (°C)", "SE","Estimated (ppm)","SE","Measured (ppm)","SE")
+tab_df(BothExp1_Results,
+       title = "Dissolved carbon dioxide avoidance and ambient water parameters",
+       col.header = labels,
+       footnote = "text",
+       show.footnote = FALSE,
+       encoding = "Windows-1252",
+       digits = 1,
+       file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/CO2 Avoidance Table.doc"
+    #  user.viewer = TRUE
+)
+```
+
+## CO2 avoidance boxplots figure
+
+```{r Boxplot Figure, message=FALSE, warning=FALSE}
+SmallExp1$Tank <- c("Small")
+Exp1$Tank <- c("Large")
+
+SmallExp1$Species <- gsub("S", "Bigheaded", fixed = TRUE, SmallExp1$Species) # grouping small tank across species
+SmallExp1$Species <- gsub("BH", "Bigheaded", SmallExp1$Species)
+
+BothExp1 <- full_join(Exp1, SmallExp1) %>% 
+  mutate(Avoid = coalesce(Last_Avoid_Estimated_CO2_ppm,CO2_Output_uAtm))  %>% 
+  select(Species,Avoid,Tank)
+
+CO2_Avoidance_Boxplots <-  ggplot(BothExp1, aes(x = Species, y = Avoid, fill = Tank)) +
+  stat_compare_means(label.x = 2.5) +
+  geom_boxplot(position = position_dodge(1)) +
+  geom_dotplot(binaxis = 'y',
+               stackdir = 'center',
+               position = position_dodge(1)) + # add dots
+  labs(x = "Species", 
+       y = expression("pCO"[2]*" (ppm) at Last Avoidance ")) +
+  theme_classic2() + scale_fill_grey()
+```
+
+```{r output boxplot file, include=FALSE, eval=FALSE}
+tiff("C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/TIF/Fig5_CO2_Avoidance_Boxplots.tif", width = 1800, height = 1200, units = "px", res = 300, compression = c("none"))
+CO2_Avoidance_Boxplots
+dev.off()
+
+ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig5_CO2_Avoidance_Boxplots.eps",
+       dpi = 300, width = 6, height = 5, units = "in", limitsize = TRUE)
+CO2_Avoidance_Boxplots
+dev.off()
+
+```
+
+## pH Avoidance Thresholds
+
+Calculate the pH at the avoidance threshold using the reverse equation from before: now ppm to pH
+
+```{r Avoidance Thresholds}
+fit <- lm(pH~poly(ppm,2,raw=TRUE), data = curve)
+
+pH <- as.numeric(c("NA"))
+ppm <- as.numeric(c(avoidAvgBoth))
+threshold <- data.frame(pH, ppm)
+
+threshold$pH <- predict(fit, newdata = threshold)
+threshold$avoidAvgRound <- round(avoidAvgBoth, digits = 1)
+threshold
+```
+
+```{r figure and kruscal test}
+mod <- kruskal.test(Avoid ~ Species, data = BothExp1)
+mod
+```
+
+```{r formating variables, include = FALSE}
+# paragraph one: both tanks
+chi2 <- format(round(as.numeric(mod$statistic), 2), nsmall = 2, big.mark = ",")
+pval <- format(round(as.numeric(mod$p.value), 2), nsmall = 2, big.mark = ",")
+avoidPPM <- format(round(as.numeric(avoidAvgBoth), 1), nsmall = 1, big.mark = ",")
+pHThreshold <- format(round(as.numeric(threshold$pH), 2), nsmall = 2, big.mark = ",")
+
+# paragraph two 
+smallCO2 <- format(round(as.numeric(BothExp1_Results %>% filter(Species == 'Bigheaded') %>% select(LastAvoid_Calculated)), 1), nsmall = 1, big.mark = ",")
+smallCO2_SE <- format(round(as.numeric(BothExp1_Results %>% filter(Species == 'Bigheaded') %>% select(LastAvoid_SE)), 1), nsmall = 1, big.mark = ",")
+smallMeasured <- format(round(as.numeric(BothExp1_Results %>% filter(Species == 'Bigheaded') %>% select(Measured)), 1), nsmall = 1, big.mark = ",")
+smallMeasured_SE <- format(round(as.numeric(BothExp1_Results %>% filter(Species == 'Bigheaded') %>% select(Measured_SE)), 1), nsmall = 1, big.mark = ",")
+
+# paragraph three
+largeBighead <- format(round(as.numeric(BothExp1_Results %>%  filter(Species == 'Bighead') %>% select(LastAvoid_Calculated)), 1), nsmall = 1, big.mark = ",")
+largeBighead_SE <- format(round(as.numeric(BothExp1_Results %>%  filter(Species == 'Bighead') %>% select(LastAvoid_SE)), 1), nsmall = 1, big.mark = ",")
+largeSilver <- format(round(as.numeric(BothExp1_Results %>%  filter(Species == 'Silver') %>% select(LastAvoid_Calculated)), 1), nsmall = 1, big.mark = ",")
+largeSilver_SE <- format(round(as.numeric(BothExp1_Results %>%  filter(Species == 'Silver') %>% select(LastAvoid_SE)), 1), nsmall = 1, big.mark = ",")
+largeBoth <- format(round(as.numeric(avoidAvgLarge), 1), nsmall = 1, big.mark = ",")
+largeMeasured <- format(round(as.numeric(measureAvgLarge), 1), nsmall = 1, big.mark = ",")
+
+largeMeasured_SE <- sd(Exp1$End_Trial_Measured_CO2_ppm, na.rm = TRUE)/sqrt(length(Exp1$End_Trial_Measured_CO2_ppm))
+largeMeasured_SE <- format(round(as.numeric(largeMeasured_SE), 1), nsmall = 1, big.mark = ",")
+largeMeasured_N <- as.numeric(length(Exp1$End_Trial_Measured_CO2_ppm))
+```
+
+# Results
+
+```{r graph, echo=FALSE, message=FALSE}
+CO2_Avoidance_Boxplots
+```
+
+\
+**CO~2~ avoidance boxplots.** Bighead and silver carp avoided dissolved carbon dioxide at the same threshold level in the small and large tanks (`r mod$method`, Χ^2^ = `r chi2`, p = `r pval`).
+Carp avoided pCO~2~ at `r avoidPPM` ppm.\
+
+\
+There is not a significant difference in dissolved CO~2~ avoidance thresholds between species or tank size (`r mod$method`, Χ^2^ = `r chi2`, p = `r pval`, Fig 1).
+Across all trials in both tanks, bigheaded carp avoided pCO~2~ at `r avoidPPM` ppm.
+Previous studies have found multiple species share similar CO~2~ avoidance thresholds (CITATION 17).
+This threshold pCO~2~ level was used in CO~2~ conditioning treatments, by reaching an instantaneous pH of approximately `r pHThreshold` by the conditioning midpoint.
+
+In the small shuttle tank, schools of five juvenile untrained bighead (n = 5) and silver (n = 5) carp exhibited CO~2~ avoidance at `r smallCO2` ± `r smallCO2_SE` ppm (n = 10, mean ± SE, Table 1) as estimated by instantaneous pH, TA, and temperature in CO2Calc.
+Avoidance occurred at `r smallMeasured` ± `r smallMeasured_SE` ppm (n = 6) as measured from water samples by NDIR probe.
+In the large shuttle tank, individual bighead carp (n = 10) exhibited their last CO~2~ avoidance at `r largeBighead` ± `r largeBighead_SE` ppm (Table 1).
+Schools of five silver carp (n = 9) last avoided the increasing chamber at `r largeSilver` ± `r largeSilver_SE` ppm.
+In the large tank, the last avoidance occurred at `r largeBoth` ppm CO~2~ on average for both species, as estimated by pH (S1).
+The average pCO~2~ in the increasing chamber was measured at `r largeMeasured` ± `r largeMeasured_SE` ppm (n = `r largeMeasured_N`) three minutes after the last avoidance.
