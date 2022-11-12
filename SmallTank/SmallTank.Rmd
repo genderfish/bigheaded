@@ -1,0 +1,468 @@
+---
+title: "SmallTank"
+author: "Jackie Culotta"
+date: "2022-06-14"
+output:
+  html_document: default
+  word_document: default
+---
+
+# Setup
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+
+# Set Up & Data Management
+
+# Packages
+library('dplyr')
+library('ggplot2')
+library('ggpubr')
+library('tidyverse')
+library('rstatix')
+library('lme4') # lmer
+
+data <- read.csv("SmallTank_Exp2_2022_10_25.csv") %>% 
+  filter(VID_ID >= 53) %>% # first 52 trials used pure tones, all later trials used broadband
+  filter(Days_Since_Train < 29) %>% # all broadband trials went at least 29 days
+  select(-c(Stopped_Sound_On_Return, Avoids_N, Returns_N, Quiet_Chamber_.,First_Return_s)) %>% 
+  rename(
+    Sound = Frequency_Hz, # whether BB sound was on (BB) or off (acclimation)
+  )
+
+# Replace acronyms with full text
+data$Species <- gsub("BH", "Bighead", data$Species)
+data$Species <- gsub("S", "Silver", data$Species)
+
+data$Side <- gsub("R", "Right", data$Side)
+data$Side <- gsub("L", "Left", data$Side)
+
+# Convert variables to factors
+data$School_ID <- as.factor(data$School_ID) 
+data$Side <- as.factor(data$Side)
+data$Sound <- as.factor(data$Sound)
+data$Trained <- as.factor(data$Trained)
+data$Species <- as.factor(data$Species)
+data$Day <- as.factor(data$Days_Since_Train) # Day needs to be factor for Boxplots
+str(data) # Is everything the right variable type?
+
+# Convert other variable types
+data$First_Exit_s <- as.integer(data$First_Exit_s)
+data$First_Quiet_Side_s <- as.integer(data$First_Quiet_Side_s)
+data$Angle <- as.integer(data$Angle)
+data$Temp <- as.numeric(data$Temp)
+
+data$logQuiet <- log(data$First_Quiet_Side_s)
+data$logExit <- log(data$First_Exit_s)
+
+str(data)
+summary(data)
+```
+
+Assumption checking for Mixed ANOVA (e.g. repeated measures) from <https://www.datanovia.com/en/lessons/mixed-anova-in-r/>
+
+# First Exit
+
+```{r first exit anova assumptions}
+data2 <- data %>% filter(!is.na(First_Exit_s), !is.infinite(First_Exit_s))
+
+# identify outliers 
+outliers <- data2 %>% 
+  group_by(Day, Trained, Sound) %>%
+  identify_outliers(First_Exit_s) # beyond 1.5 x IQR
+
+extremeOutliers <- outliers %>% 
+  filter(is.extreme == "TRUE") # beyond 3 x IQR
+
+dataNoOut <- data2 %>% anti_join(outliers) # remove outliers
+dataNoExtremeOut <- data2 %>% anti_join(extremeOutliers) # remove only extreme outliers
+
+# normality assumption
+ggqqplot(dataNoOut, "First_Exit_s", ggtheme = theme_bw()) +
+  facet_grid(Day ~ Trained) 
+# if points fall along expected line in each grid, meets assumption
+
+
+# Homogeneity of variances assumption
+dataNoOut %>%
+  group_by(Day) %>%
+  levene_test(First_Exit_s ~ Trained)
+# if p > .05 for each day assumption is met
+
+# Homogeneity of covariances assumption
+box_m(dataNoOut[, "First_Exit_s", drop = FALSE], dataNoOut$Trained)
+# if p is > 0.001 this assumption is met
+# Note: Box's M test is very sensitive
+```
+
+```{r first exit anova computation}
+# mixed ANOVA computation
+
+# no outliers
+mod1 <- lmer(First_Exit_s ~ Trained*Sound + Days_Since_Train + (1|School_ID), data = dataNoOut)
+Anova(mod1)
+
+mod2 <- lmer(First_Exit_s ~ Trained*Sound*Days_Since_Train + (1|School_ID), data = dataNoOut)
+Anova(mod2)
+
+anova(mod1,mod2) # if p < 0.05, reject the simpler model
+mod <- mod2 # better model of the two is THE model
+
+# no extreme outliers
+mod3 <- lmer(First_Exit_s ~ Trained*Sound + Days_Since_Train + (1|School_ID), data = dataNoExtremeOut)
+Anova(mod3)
+
+mod4 <- lmer(First_Exit_s ~ Trained*Sound*Days_Since_Train + (1|School_ID), data = dataNoExtremeOut)
+Anova(mod4)
+
+anova(mod3,mod4)
+```
+
+```{r SmallBoxplotExit figure}
+# Including only sound trials, ie excluding acclimation period
+data3 <- dataNoOut %>% filter(Sound == 'BB')
+
+SmallboxplotExit <- ggplot(data3, aes(x = Day,y = First_Exit_s, fill = Trained)) +
+  geom_boxplot(position = position_dodge(1)) +
+  stat_compare_means(aes(group = Trained), method = "t.test", 
+                     label = "p.signif", hide.ns = TRUE) + 
+  labs(x = "Day", y ="Seconds to Exit Sound Chamber") +
+  scale_fill_brewer(palette = "Greys") +
+  theme_classic2()
+  # geom_dotplot(binaxis='y', stackdir='center', position=position_dodge(1)) # add dots
+
+ # SmallboxplotExit
+```
+
+```{r day 1 t test}
+# T test for day 1
+data4 <- data3 %>% filter(Day == 1)
+modDay1 <- t.test(data = data4, First_Exit_s ~ Trained)
+```
+
+```{r in text numbers, include=FALSE}
+# ANOVA (including acclimation)
+modSummary <- as.data.frame(Anova(mod)) %>% rename(pval = 3)
+
+soundPval <- modSummary %>% slice(2) %>% select(pval)
+soundPval <- format(round(as.numeric(soundPval), 3), nsmall = 2, big.mark = ",")
+
+soundChisq <- modSummary %>% slice(2) %>% select(Chisq)
+soundChisq <- format(round(as.numeric(soundChisq), 2), nsmall = 2, big.mark = ",")
+
+
+# t test, day 1 sound only
+day1Untrained <- modDay1$estimate[1]
+day1Untrained <- format(round(as.numeric(day1Untrained), 1), nsmall = 1, big.mark = ",")
+
+day1Trained <- modDay1$estimate[2]
+day1Trained <- format(round(as.numeric(day1Trained), 1), nsmall = 1, big.mark = ",")
+
+day1Method <- modDay1$method
+
+day1Stat <- modDay1$statistic
+day1Stat <- format(round(as.numeric(day1Stat), 2), nsmall = 2, big.mark = ",")
+
+day1DF <- modDay1$parameter
+day1DF <- format(round(as.numeric(day1Stat), 2), nsmall = 2, big.mark = ",")
+
+day1Pval <- modDay1$p.value
+day1Pval <- format(round(as.numeric(day1Pval), 2), nsmall = 2, big.mark = ",")
+```
+
+## Results
+
+All trained carp exhibited negative phonotaxis by shuttling out of the sound chamber.
+Two untrained schools did not exit the sound chamber within the allotted five minutes of acoustic playback.
+Sound was the only predictor that had a significant effect on seconds until first exit (Mixed ANOVA, Χ^2^ = `r soundChisq`, p = `r soundPval`).
+Notably on the first day of phonotaxis trials, trained schools initially left the sound chamber in `r day1Trained` s, whereas untrained schools took `r day1Untrained` s to exit (`r day1Method`, df = `r day1DF`, t = `r day1Stat`, p = `r day1Pval`).
+There were no differences in time to exit due to training treatment on later sound presentations (Fig SmallBoxplotExit).
+
+```{r Small boxplot exit figure}
+SmallboxplotExit
+```
+
+**Fig SmallBoxplotExit. Seconds in the sound chamber until exiting to the quiet chamber.** On the first day, trained schools initially left the sound chamber in `r day1Trained` s, whereas untrained schools took `r day1Untrained` s to exit (`r day1Method`, df = `r day1DF`, t = `r day1Stat`, p = `r day1Pval`).
+There were no differences in time to exit due to training treatment on later sound presentations.
+
+```{r export exit boxplot, eval=FALSE, include=FALSE}
+ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig6_smallboxplotExit.eps",
+       dpi = 300, width = 5, height = 5, units = "in", limitsize = TRUE)
+SmallboxplotExit
+dev.off()
+
+tiff("C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/TIF/Fig6_smallboxplotExit.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
+ SmallboxplotExit
+dev.off()
+```
+
+```{r cleanup, include=FALSE}
+rm(mod)
+rm(mod2)
+rm(mod3)
+rm(mod4)
+rm(modDay1)
+rm(SmallboxplotExit)
+rm(outliers)
+rm(extremeOutliers)
+rm(dataNoOut)
+rm(dataNoExtremeOut)
+rm(data4)
+rm(data3)
+rm(data2)
+```
+
+# Time to Return
+
+```{r first return anova assumptions, echo=TRUE}
+data2 <- data %>% filter(!is.na(First_Quiet_Side_s), !is.infinite(First_Quiet_Side_s))
+
+# identify outliers (both species)
+outliers <- data2 %>% 
+  group_by(Days_Since_Train, Trained, Sound) %>%
+  identify_outliers(First_Quiet_Side_s)
+
+extremeOutliers <- outliers %>% filter(is.extreme == TRUE)
+
+dataNoOut <- data2 %>% anti_join(outliers) # remove outliers
+dataNoExtremeOut <- data2 %>% anti_join(extremeOutliers)
+
+# normality assumption
+ggqqplot(dataNoOut, "First_Quiet_Side_s", ggtheme = theme_bw()) +
+  facet_grid(Day ~ Trained) 
+# points fall along expected line in each grid, meets assumption
+
+# Homogeneity of variances assumption
+dataNoOut %>%
+  group_by(Day) %>%
+  levene_test(First_Quiet_Side_s ~ Trained)
+# if p > .05 for each day assumption is met
+
+# Homogeneity of covariances assumption
+box_m(dataNoOut[, "First_Quiet_Side_s", drop = FALSE], dataNoOut$Trained)
+# if p is > 0.001 this assumption is met
+# Note: Box's M test is very sensitive
+```
+
+```{r return anova computation}
+# mixed ANOVA computation
+mod1 <- lmer(First_Quiet_Side_s ~ Trained*Sound + Days_Since_Train + (1|School_ID), data = dataNoOut)
+
+mod2 <- lmer(First_Quiet_Side_s ~ Trained*Sound*Days_Since_Train + (1|School_ID), data = dataNoOut)
+
+anova(mod1,mod2)# if p < 0.05, reject simpler model
+mod <- mod2 # better model wins
+
+Anova(mod)
+```
+
+```{r create return boxplot}
+# Including only sound trials, ie excluding acclimation period
+data3 <- dataNoOut %>% filter(Sound == 'BB')
+
+smallboxplotReturn <- ggplot(data3, aes(x = Day,y=First_Quiet_Side_s, fill = Trained)) +
+  geom_boxplot(position = position_dodge(1)) +
+  stat_compare_means(aes(group = Trained), method = "t.test", 
+                     label = "p.signif", hide.ns = TRUE) + 
+  labs(x = "Day", y = "Seconds in Quiet Chamber until Return") + 
+  scale_fill_brewer(palette = "Greys") +
+  theme_classic2()
+  # geom_dotplot(binaxis='y', stackdir='center', position=position_dodge(1)) # add dots
+
+# smallboxplotReturn
+```
+
+```{r export return boxplot, eval=FALSE, include=FALSE}
+ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig8_smallboxplotReturn.eps",
+       dpi = 300, width = 5, height = 5, units = "in", limitsize = TRUE)
+smallboxplotReturn
+dev.off()
+
+tiff("C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/TIF/Fig8_smallboxplotReturn.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
+ smallboxplotReturn
+dev.off()
+```
+
+```{r t tests day 1 and 7}
+# T test for day 1
+data4 <- data3 %>% filter(Day == 1)
+modDay1 <- t.test(data = data4, First_Quiet_Side_s ~ Trained)
+modDay1
+
+# T test for day 7
+data4 <- data3 %>% filter(Day == 7)
+modDay7 <- t.test(data = data4, First_Quiet_Side_s ~ Trained)
+modDay7
+```
+
+## Results
+
+```{r anova in text numbers, include=FALSE}
+modSummary <- as.data.frame(Anova(mod)) %>% rename(pval = 3)
+
+# training
+trainPval <- modSummary %>% slice(1) %>% select(pval)
+trainPval <- format(round(as.numeric(trainPval), 3), nsmall = 2, big.mark = ",")
+trainChisq <- modSummary %>% slice(1) %>% select(Chisq)
+trainChisq <- format(round(as.numeric(trainChisq), 2), nsmall = 2, big.mark = ",")
+
+# sound
+soundPval <- modSummary %>% slice(2) %>% select(pval)
+soundPval <- format(round(as.numeric(soundPval), 3), nsmall = 2, big.mark = ",")
+soundChisq <- modSummary %>% slice(2) %>% select(Chisq)
+soundChisq <- format(round(as.numeric(soundChisq), 2), nsmall = 2, big.mark = ",")
+
+# day
+dayPval <- modSummary %>% slice(3) %>% select(pval)
+dayPval <- format(round(as.numeric(dayPval), 3), nsmall = 2, big.mark = ",")
+dayChisq <- modSummary %>% slice(3) %>% select(Chisq)
+dayChisq <- format(round(as.numeric(dayChisq), 2), nsmall = 2, big.mark = ",")
+
+# interaction
+interactPval <- modSummary %>% slice(7) %>% select(pval)
+interactPval <- format(round(as.numeric(interactPval), 3), nsmall = 2, big.mark = ",")
+interactChisq <- modSummary %>% slice(7) %>% select(Chisq)
+interactChisq <- format(round(as.numeric(interactChisq), 2), nsmall = 2, big.mark = ",")
+```
+
+The assumptions of no outliers, normality, and homogeneity of variances are met.
+A significant result for Box's M-test for Homogeneity of Covariance Matrices is likely due to unequal sample sizes between trained and untrained groups after removal of outliers.
+A mixed ANOVA is run noting this violation.
+
+Training with CO~2~ had a marginally significant effect on seconds to return to the sound chamber (Mixed ANOVA, Χ^2^ = `r trainChisq`, p = `r trainPval`).
+Presence of the acoustic signal had a highly significant effect on time to return (Χ^2^ = `r soundChisq`, p = `r soundPval`).
+Additionally, the number of days since training had a significant effect on time to return (Χ^2^ = `r dayChisq`, p = `r dayPval`).
+Notably, there was a significant three-way interaction between training, presence of sound, and the number of days since trial onset (Χ^2^ = `r interactChisq`, p = `r interactPval`).
+
+```{r t test in text numbers, include=FALSE}
+# t test, day 1 sound only
+day1Untrained <- modDay1$estimate[1]
+day1Untrained <- format(round(as.numeric(day1Untrained), 1), nsmall = 1, big.mark = ",")
+
+day1Trained <- modDay1$estimate[2]
+day1Trained <- format(round(as.numeric(day1Trained), 1), nsmall = 1, big.mark = ",")
+
+day1Method <- modDay1$method
+
+day1Stat <- modDay1$statistic
+day1Stat <- format(round(as.numeric(day1Stat), 2), nsmall = 2, big.mark = ",")
+
+day1DF <- modDay1$parameter
+day1DF <- format(round(as.numeric(day1Stat), 2), nsmall = 2, big.mark = ",")
+
+day1Pval <- modDay1$p.value
+day1Pval <- format(round(as.numeric(day1Pval), 2), nsmall = 2, big.mark = ",")
+
+# day 7
+day7Untrained <- modDay7$estimate[1]
+day7Untrained <- format(round(as.numeric(day7Untrained), 1), nsmall = 1, big.mark = ",")
+
+day7Trained <- modDay7$estimate[2]
+day7Trained <- format(round(as.numeric(day7Trained), 1), nsmall = 1, big.mark = ",")
+
+day7Method <- modDay7$method
+
+day7Stat <- modDay7$statistic
+day7Stat <- format(round(as.numeric(day7Stat), 2), nsmall = 2, big.mark = ",")
+
+day7DF <- modDay7$parameter
+day7DF <- format(round(as.numeric(day7Stat), 2), nsmall = 2, big.mark = ",")
+
+day7Pval <- modDay7$p.value
+day7Pval <- format(round(as.numeric(day7Pval), 2), nsmall = 2, big.mark = ",")
+```
+
+On the first day of phonotaxis trials, trained schools spent `r day1Trained` s in the quiet chamber before returning to the loud chamber, whereas untrained schools took only `r day1Untrained` s to return (`r day1Method`, df = `r day1DF`, t = `r day1Stat`, p = `r day1Pval`).
+One week after training, trained schools spent `r day7Trained` s in the quiet chamber before returning, compared to `r day7Untrained` s for untrained schools (`r day7Method`, df = `r day7DF`, t = `r day7Stat`, p = `r day7Pval`).
+There were no differences in time to return to the sound chamber due to training treatment on sound presentations after one week (Fig SmallBoxplotReturn).
+
+```{r print return boxplot}
+smallboxplotReturn
+```
+
+**Fig smallboxplotReturn Seconds in the quiet chamber until returning to the sound chamber.** On the first day, trained schools stayed in the quiet chamber for `r day1Trained` s, whereas untrained schools returned after only `r day1Untrained` s (`r day1Method`, df = `r day1DF`, t = `r day1Stat`, p = `r day1Pval`).
+On the seventh day, trained schools returned after `r day7Trained` s, compared to `r day7Untrained` s for untrained schools (`r day7Method`, df = `r day7DF`, t = `r day7Stat`, p = `r day7Pval`).
+There were no differences in time to return due to training treatment beyond one week after conditioning.
+
+```{r habituation}
+# Trained
+data4 <- data3 %>% filter(Trained == '2 days') %>% filter(Day == 1 | Day == 4)
+modTrained <- t.test(data = data4, First_Quiet_Side_s ~ Day)
+modTrained
+
+data4 <- data3 %>% filter(Trained == '0 days') %>% filter(Day == 1 | Day == 4)
+moduntrained <- t.test(data = data4, First_Quiet_Side_s ~ Day)
+moduntrained
+```
+
+```{r habituation t tests, include=FALSE}
+# Trained
+
+day1Trained <- modTrained$estimate[1]
+day4Trained <- modTrained$estimate[2]
+TrainedDiff <- day1Trained - day4Trained
+TrainedDiff <- format(round(as.numeric(TrainedDiff), 1), nsmall = 1, big.mark = ",")
+
+TrainedMethod <- modTrained$method
+
+TrainedStat <- modTrained$statistic
+TrainedStat <- format(round(as.numeric(TrainedStat), 2), nsmall = 2, big.mark = ",")
+
+TrainedDF <- modTrained$parameter
+TrainedDF <- format(round(as.numeric(TrainedDF), 2), nsmall = 2, big.mark = ",")
+
+TrainedPval <- modTrained$p.value
+TrainedPval <- format(round(as.numeric(TrainedPval), 2), nsmall = 2, big.mark = ",")
+
+# Untrained
+day1untrained <- moduntrained$estimate[1]
+day4untrained <- moduntrained$estimate[2]
+untrainedDiff <- day1untrained - day4untrained
+untrainedDiff <- format(round(as.numeric(untrainedDiff), 1), nsmall = 1, big.mark = ",")
+
+untrainedMethod <- moduntrained$method
+
+untrainedStat <- moduntrained$statistic
+untrainedStat <- format(round(as.numeric(untrainedStat), 2), nsmall = 2, big.mark = ",")
+
+untrainedDF <- moduntrained$parameter
+untrainedDF <- format(round(as.numeric(untrainedDF), 2), nsmall = 2, big.mark = ",")
+
+untrainedPval <- moduntrained$p.value
+untrainedPval <- format(round(as.numeric(untrainedPval), 2), nsmall = 2, big.mark = ",")
+```
+
+Untrained fish returned to the sound chamber `r untrainedDiff` s faster on the second sound presentation, which occurred on the 4th day after conditioning, than they had during the first presentation, although this difference was not significant (df = `r untrainedDF`, t = `r untrainedStat`, p = `r untrainedPval`).
+In contrast, trained fish returned to the sound chamber `r TrainedDiff` s faster than they had for the second sound presentation (df = `r TrainedDF`, t = `r TrainedStat`, p = `r TrainedPval`).
+This suggests trained fish may have habituated to the sound stimulus on the second presentation in a way the untrained fish did not.
+
+# Extra unused code included in source file
+
+```{r scatterplot1, include=FALSE, eval=FALSE, echo=FALSE}
+# Scatterplot linear model for first return
+p <- ggplot(dataNoOut, aes(x=Days_Since_Train,y=First_Quiet_Side_s, color=Trained)) + geom_point() +
+  geom_smooth(method="lm", se=TRUE, level=0.95, fullrange=FALSE, aes(fill=Trained)) +
+  # labs(x="Days Since Conditioning", y="Seconds in Opposite Chamber till First Return") 
+  coord_cartesian(xlim = c(1, 28), ylim = c(0,300)) + # crop display area
+  scale_y_continuous(name = "Seconds till Return to Sound Chamber") +
+  scale_x_continuous(name = "Days", breaks = seq(1,28,3)) +
+  ggtitle("Silver and Bighead Carp")
+p + theme_classic2()
+```
+
+```{r summary stats method 2, include=FALSE, eval=FALSE}
+# Another way to pull summary stats for each group
+dataSummary <- data3 %>% # or dataNoOut to include acclimation
+group_by(Sound,Trained,Day) %>%
+  summarize(
+    Quiet_s = mean(First_Quiet_Side_s),
+    Quiet_s_sd = sd(First_Quiet_Side_s))
+dataSummary <- as.data.frame(dataSummary)
+dataSummary
+
+day1Trained <- dataSummary %>% slice(8) %>% select(Quiet_s)
+day4Trained <- dataSummary %>% slice(9) %>% select(Quiet_s)
+day1To4Trained <- day1Trained - day4Trained
+day1To4Trained <- format(round(as.numeric(day1To4Trained), 1), nsmall = 1, big.mark = ",")
+day1To4Trained
+```

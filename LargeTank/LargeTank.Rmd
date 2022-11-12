@@ -1,0 +1,557 @@
+---
+title: "LargeTank"
+author: "Jackie Culotta"
+date: '2022-10-11'
+output: 
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+
+library('dplyr')
+library('ggpubr')
+library('ggplot2')
+library('reshape2')
+library('stringr')
+library('rstatix') # identify_outliers
+# library('agricolae') #value_mean hsd
+library('lme4') # mixed anova
+library('gdata') # keep function
+```
+
+```{r load clean and merge data, include=FALSE}
+source('loadLargeTank.R')
+
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+getwd()
+```
+
+# First Exit
+
+## Mixed ANOVA
+
+```{r exit mixed anova assumptions}
+data2 <- data %>% filter(!is.na(Exit_s), !is.infinite(Exit_s))
+
+# outliers are removed
+outliers <- data2 %>% 
+  group_by(Day, TrainedWith, Sound) %>%
+  identify_outliers(Exit_s) # beyond 1.5 x IQR
+dataNoOut <- data2 %>% anti_join(outliers)
+
+# normality
+ggqqplot(dataNoOut, "Exit_s", ggtheme = theme_bw()) +
+  facet_grid(Sound + TrainedWith ~ Day, labeller = "label_both") # assume normality as points typically fall along expected line
+
+
+# Homogeneity of variances assumption
+dataNoOut %>%
+  group_by(Day) %>%
+  levene_test(Exit_s ~ TrainedWith)
+# if p > .05 for each day assumption is met
+
+# Homogeneity of covariances assumption
+box_m(dataNoOut[, "Exit_s", drop = FALSE], dataNoOut$TrainedWith)
+# if p is > 0.001 this assumption is met
+# Note: Box's M test is very sensitive
+
+#For time to exit in the large tank, the assumptions of no outliers, normality, and homogeneity of variances and covariances are met.
+```
+
+```{r exit anova computation}
+mod <- lmer(Exit_s ~ TrainedWith*Sound*Day + (1|FishID), data = dataNoOut)
+Anova(mod)
+```
+
+## T tests
+
+```{r exit pairwise comparisons and boxplot}
+# compute pairwise comparisons
+  # because this is a paired test, must also remove pairs from outliers & NAs/Inf trials
+outlierPairs <- data2 %>% semi_join(outliers, by = c("FishID","TrainedWith","Fish_TrialNum"))
+dataNoOut <- dataNoOut %>% anti_join(outlierPairs)
+
+missing <- data %>% filter(is.na(Exit_s) | is.infinite(Exit_s))
+missingPairs <- data %>% semi_join(missing, by = c("FishID","TrainedWith","Fish_TrialNum"))
+dataNoOut <- dataNoOut %>% anti_join(missingPairs)
+
+pwc <- dataNoOut %>% 
+  group_by(Day,TrainedWith) %>% 
+  pairwise_t_test(
+    Exit_s ~ Sound, 
+    paired = TRUE, # run as false to see N for each sample
+   # conf.level = 0.95,
+    detailed = FALSE, # TRUE gives confidence intervals
+    p.adjust.method = "bonferroni"
+  )
+pwc %>% select(-df,-statistic,-p)
+
+pwc <- pwc %>% add_xy_position(x = "TrainedWith") # add (x,y) coord on graph for display
+
+
+# First exit graph
+largeBoxplotExit <- ggboxplot(
+  dataNoOut, x = "TrainedWith", y = "Exit_s",
+  fill = "Sound",
+  facet.by = "Day",
+) + 
+  labs(x = "Trained With", y = "Seconds to Exit Sound Chamber") +
+  theme_classic2() +
+  scale_fill_brewer(palette = "Greys", labels = c('Before','During')) +
+  stat_pvalue_manual(pwc, label = "p.adj.signif", tip.length = 0, hide.ns = FALSE) +
+  labs(
+    caption = get_pwc_label(pwc)
+  )
+
+# largeBoxplotExit
+```
+
+```{r cleanup 1, include=FALSE}
+rm(outlierPairs)
+rm(missingPairs)
+rm(outliers)
+rm(missing)
+```
+
+```{r export exit figure for publication, eval=FALSE, include=FALSE}
+ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig7_Seconds_to_exit.eps",
+       dpi = 300, width = 6, height = 5, units = "in", limitsize = TRUE)
+largeBoxplotExit
+dev.off()
+
+tiff("C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/TIF/Fig7_Seconds_to_exit.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
+largeBoxplotExit
+dev.off()
+```
+
+## Results
+
+```{r exit in text anova, include=FALSE}
+Anova(mod)
+modSummary <- as.data.frame(Anova(mod)) %>% rename(pval = 3)
+
+# Sound
+soundPval <- modSummary %>% slice(2) %>% select(pval)
+if (soundPval < 0.001) {
+  soundPval <- "< 0.001"
+}
+soundChisq <- modSummary %>% slice(2) %>% select(Chisq)
+soundChisq <- format(round(as.numeric(soundChisq), 2), nsmall = 2, big.mark = ",")
+
+# Day
+dayPval <- modSummary %>% slice(3) %>% select(pval)
+dayPval <- format(round(as.numeric(dayPval), 3), nsmall = 2, big.mark = ",")
+dayChisq <- modSummary %>% slice(3) %>% select(Chisq)
+dayChisq <- format(round(as.numeric(dayChisq), 2), nsmall = 2, big.mark = ",")
+
+# TrainedWith*Sound*Day interaction
+interactPval <- modSummary %>% slice(7) %>% select(pval)
+interactPval <- format(round(as.numeric(interactPval), 3), nsmall = 2, big.mark = ",")
+interactChisq <- modSummary %>% slice(7) %>% select(Chisq)
+interactChisq <- format(round(as.numeric(interactChisq), 2), nsmall = 2, big.mark = ",")
+```
+
+```{r exit in text t tests, include=FALSE}
+# summary of effect sizes
+dataSummary <- dataNoOut %>%
+group_by(Sound,TrainedWith,Day) %>%
+  summarize(
+    Exit_s = mean(Exit_s))
+dataSummary <- as.data.frame(dataSummary)
+
+dataSummary
+pwc
+
+# Day 1 CO2
+day1CO2Stat <- pwc %>% slice(2) %>% select(statistic)
+day1CO2Stat <- format(round(as.numeric(day1CO2Stat), 2), nsmall = 2, big.mark = ",")
+
+day1CO2DF <- pwc %>% slice(2) %>% select(df)
+day1CO2DF <- format(round(as.numeric(day1CO2DF), 3), nsmall = 0, big.mark = ",")
+
+day1CO2Pval <- pwc %>% slice(2) %>% select(p.adj)
+day1CO2Pval <- format(round(as.numeric(day1CO2Pval), 3), nsmall = 2, big.mark = ",")
+
+# Day 7 Air
+day7AirStat <- pwc %>% slice(5) %>% select(statistic)
+day7AirStat <- format(round(as.numeric(day7AirStat), 2), nsmall = 2, big.mark = ",")
+
+day7AirDF <- pwc %>% slice(5) %>% select(df)
+day7AirDF <- format(round(as.numeric(day7AirDF), 3), nsmall = 0, big.mark = ",")
+
+day7AirPval <- pwc %>% slice(5) %>% select(p.adj)
+day7AirPval <- format(round(as.numeric(day7AirPval), 3), nsmall = 2, big.mark = ",")
+```
+
+In the large tank, two predictors of time to exit were highly significant: sound (Χ^2^ = `r soundChisq`, p `r soundPval`) and day (Χ^2^ = `r dayChisq`, p = `r dayPval`). The three-way interaction of training treatment, sound, and day was marginally significant (Χ^2^ = `r interactChisq`, p = `r interactPval`).
+Bighead carp conditioned with CO~2~ exited the sound chamber significantly faster when the sound stimulus was playing than during the pre-stimulus period on the first day (t = `r day1CO2Stat`, df = `r day1CO2DF`, p = `r day1CO2Pval`, Fig largeBoxplotExit). In contrast, bighead carp trained with air exited as quickly as they had during the pre-stimulus period on the first day. Carp exited the sound chamber similarly regardless of training treatment on the second day. On the seventh day, bighead carp trained with air exited the sound chamber more quickly than they had during the acclimation period (t = `r day7AirStat`, df = `r day7AirDF`, p = `r day7AirPval`), suggesting sound may encourage leaving an area regardless of conditioning.
+
+```{r print exit return figure}
+largeBoxplotExit
+```
+
+**Fig largeBoxplotExit Seconds until exit from the sound chamber in the large tank.** Bighead carp conditioned with CO~2~ exited more quickly than the pre-stimulus period on the first day. However, on the seventh day, carp conditioned with air also exited more quickly during acoustic playback. 
+
+# First Return
+
+## Mixed ANOVA
+
+```{r mixed anova assumptions}
+data2 <- data %>% filter(!is.na(Return_s), !is.infinite(Return_s))
+
+# outliers are removed
+outliers <- data2 %>% 
+  group_by(Day, TrainedWith, Sound) %>%
+  identify_outliers(Return_s) # beyond 1.5 x IQR
+
+dataNoOut <- data2 %>% anti_join(outliers)
+
+# normality
+# assume normality as points typically fall along expected line
+ggqqplot(dataNoOut, "Return_s", ggtheme = theme_bw()) +
+  facet_grid(Sound + TrainedWith ~ Day, labeller = "label_both") 
+
+
+# Homogeneity of variances assumption
+dataNoOut %>%
+  group_by(Day) %>%
+  levene_test(Return_s ~ TrainedWith)
+# if p > .05 for each day assumption is met
+
+# Homogeneity of covariances assumption
+box_m(dataNoOut[, "Return_s", drop = FALSE], dataNoOut$TrainedWith)
+# if p is > 0.001 this assumption is met
+# Note: Box's M test is very sensitive
+```
+
+```{r extreme outliers, include=FALSE,eval=FALSE}
+outliersExtreme <- outliers %>% 
+  filter(is.extreme == "TRUE") # beyond 3 x IQR
+dataNoExtremeOut <- data2 %>% anti_join(outliersExtreme)
+```
+
+```{r anova computation}
+## Mixed Anova model selection
+mod1 <- lmer(Return_s ~ TrainedWith*Sound + Day + (1|FishID), data = dataNoOut)
+Anova(mod1)
+#summary(mod1)
+
+mod2 <- lmer(Return_s ~ TrainedWith*Sound*Day + (1|FishID), data = dataNoOut)
+Anova(mod2)
+
+anova(mod1,mod2)# if p < 0.05, reject simpler model
+# since more complex model is marginally significant, will use that
+
+mod <- mod2 # better model wins
+rm(mod1)
+rm(mod2)
+
+Anova(mod)
+```
+
+## T tests
+
+```{r pairwise comparisons and boxplot}
+missing <- data %>% filter(is.na(Return_s) | is.infinite(Return_s))
+data2 <- data %>% anti_join(missing)
+
+outliers <- data2 %>% 
+  group_by(Day, TrainedWith, Sound) %>%
+  identify_outliers(Return_s)
+
+# compute pairwise comparisons
+  # because this is a paired t test, must also remove pairs from outliers & NAs/Inf trials
+outlierPairs <- data2 %>% semi_join(outliers, by = c("FishID","TrainedWith","Fish_TrialNum"))
+dataNoOut <- data2 %>% anti_join(outlierPairs)
+
+missingPairs <- data %>% semi_join(missing, by = c("FishID","TrainedWith","Fish_TrialNum"))
+dataNoOut <- dataNoOut %>% anti_join(missingPairs)
+
+dataNoOut <- dataNoOut %>%  filter(ID != '45') # because trial 44 was removed earlier, 45 is also as the pair
+
+pwc <- dataNoOut %>% 
+  group_by(Day,TrainedWith) %>% 
+  pairwise_t_test(
+    Return_s ~ Sound, 
+    paired = TRUE, # run as false to see N for each sample
+   # conf.level = 0.95,
+    detailed = FALSE, # TRUE gives confidence intervals
+    p.adjust.method = "bonferroni"
+  )
+pwc # %>% select(-df,-statistic,-p)
+
+pwc <- pwc %>% add_xy_position(x = "TrainedWith") # add (x,y) coord on graph for display
+
+
+# First Return graph
+largeBoxplotReturn <- ggboxplot(
+  dataNoOut, x = "TrainedWith", y = "Return_s",
+  fill = "Sound",
+  facet.by = "Day",
+) + 
+  labs(x = "Trained With", y = "Seconds in Quiet Chamber until Return") +
+  theme_classic2() +
+  scale_fill_brewer(palette = "Greys", labels = c('Before','During')) +
+  stat_pvalue_manual(pwc, label = "p.adj.signif", tip.length = 0, hide.ns = FALSE) +
+  labs(
+    caption = get_pwc_label(pwc)
+  )
+
+# largeBoxplotReturn
+```
+
+```{r cleanup 2, include=FALSE}
+# clean up
+rm(outlierPairs)
+rm(missingPairs)
+rm(outliers)
+rm(missing)
+```
+
+```{r export return figure for publication, eval=FALSE, include=FALSE}
+ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig9_Seconds_to_return.eps",
+       dpi = 300, width = 6, height = 5, units = "in", limitsize = TRUE)
+largeBoxplotReturn
+dev.off()
+
+# Beware: apparently tiff files exported from R have a max resolution of 72
+tiff("C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/TIF/Fig9_Seconds_to_return.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
+largeBoxplotReturn
+ dev.off()
+```
+
+## Results
+
+```{r in text anova, include = FALSE}
+Anova(mod)
+
+modSummary <- as.data.frame(Anova(mod)) %>% rename(pval = 3)
+
+# Sound
+soundPval <- modSummary %>% slice(2) %>% select(pval)
+if (soundPval < 0.001) {
+  soundPval <- "< 0.001"
+}
+soundChisq <- modSummary %>% slice(2) %>% select(Chisq)
+soundChisq <- format(round(as.numeric(soundChisq), 2), nsmall = 2, big.mark = ",")
+
+# Day
+dayPval <- modSummary %>% slice(3) %>% select(pval)
+dayPval <- format(round(as.numeric(dayPval), 3), nsmall = 2, big.mark = ",")
+dayChisq <- modSummary %>% slice(3) %>% select(Chisq)
+dayChisq <- format(round(as.numeric(dayChisq), 2), nsmall = 2, big.mark = ",")
+
+# TrainedWith*Sound interaction
+trainSoundPval <- modSummary %>% slice(4) %>% select(pval)
+trainSoundPval <- format(round(as.numeric(trainSoundPval), 3), nsmall = 2, big.mark = ",")
+trainSoundChisq <- modSummary %>% slice(4) %>% select(Chisq)
+trainSoundChisq <- format(round(as.numeric(trainSoundChisq), 2), nsmall = 2, big.mark = ",")
+
+# Sound*Day interaction
+soundDayPval <- modSummary %>% slice(6) %>% select(pval)
+soundDayPval <- format(round(as.numeric(soundDayPval), 3), nsmall = 2, big.mark = ",")
+soundDayChisq <- modSummary %>% slice(6) %>% select(Chisq)
+soundDayChisq <- format(round(as.numeric(soundDayChisq), 2), nsmall = 2, big.mark = ",")
+```
+
+For time to return in the large tank, the assumptions of no outliers, normality, and homogeneity of covariances are met.
+There was a significant result for Levene's Test For Equality of Variances on the first trial day and a mixed ANOVA is run noting this violation.
+
+Similarly to the small tank, in the large tank the acoustic signal significantly affected time to return (Χ^2^ = `r soundChisq`, p `r soundPval`), as did the trial day (Χ^2^ = `r dayChisq`, p = `r dayPval`).
+Although there was not a significant three-way interaction as in the small tank, the interactions of sound with day (Χ^2^ = `r soundDayChisq`, p = `r soundDayPval`), and with training treatment (Χ^2^ = `r trainSoundChisq`, p = `r trainSoundPval`) were notable.
+
+```{r in text t tests, include=FALSE}
+# summary of effect sizes
+dataSummTrained <- dataNoOut %>%
+group_by(Sound,TrainedWith,Day) %>%
+  summarize(
+    Quiet_s = mean(Return_s),
+    Quiet_s_sd = sd(Return_s))
+dataSummary <- as.data.frame(dataSummary)
+
+dataSummary
+pwc
+
+# Day 7 Air
+day7AirStat <- pwc %>% slice(6) %>% select(statistic)
+day7AirStat <- format(round(as.numeric(day7AirStat), 2), nsmall = 2, big.mark = ",")
+
+day7AirDF <- pwc %>% slice(6) %>% select(df)
+day7AirDF <- format(round(as.numeric(day7AirDF), 3), nsmall = 0, big.mark = ",")
+
+day7AirPval <- pwc %>% slice(6) %>% select(p.adj)
+day7AirPval <- format(round(as.numeric(day7AirPval), 3), nsmall = 2, big.mark = ",")
+```
+
+Bighead carp conditioned with air returned to the sound chamber significantly faster when the sound stimulus was playing than during the pre-stimulus period for all three days (Fig largeBoxplotReturn.) In contrast, bighead carp trained with CO~2~ returned to the sound chamber as quickly as they had during the pre-stimulus period the first and third day after conditioning.
+However, one week after conditioning, bighead carp conditioned with CO~2~ began returning to the sound chamber more quickly than they had during the acclimation period (t = `r day7AirStat`, df = `r day7AirDF`, p = `r day7AirPval`), exhibiting similar behavior to carp trained with air.
+
+```{r print return figure}
+largeBoxplotReturn
+```
+
+**Fig largeBoxplotReturn. Seconds in the quiet chamber until returning to the sound chamber in the large tank.**
+Bighead carp conditioned with sound and CO~2~ are more averse to sound alone for the first two days, but begin responding more like carp conditioned with air on the seventh day.
+
+```{r cleanup 3, include=FALSE}
+library(gdata)
+keep(data) # lists everything that will be cleared from environment
+keep(data, sure = TRUE) # clears that data
+```
+
+
+```{r avoids, include=FALSE, eval = FALSE}
+data$var = data$Avoid_N
+graphLabel = "Shuttles Away from Sound (N)"
+
+source('pwc_and_boxplot.R')
+largeBoxplot
+
+keep(data, sure = TRUE)
+```
+
+```{r returns, include=FALSE, eval=FALSE}
+data$var = data$Return_N
+graphLabel = "Shuttles Towards Sound (N)"
+
+source('pwc_and_boxplot.R')
+largeBoxplot
+
+keep(data, sure = TRUE)
+```
+
+
+# Metrics from Ethovision
+
+## Not Moving %
+
+```{r not moving}
+keep(data, sure = TRUE)
+
+data$var = data$NotMoving_per
+graphLabel = "Time Not Moving (%)"
+
+source('pwc_and_boxplot.R')
+```
+
+During the acclimation period before sound playback, carp typically swam in a figure-eight pattern through both chambers of the tank. In response to sound playback, carp often froze in place. In the large tank, this freezing behavior was quantified with tracking software. This strategy was chosen by many fish in both training treatments (Fig XXX Not moving). An acoustic deterrent can be considered successful by either causing a flight or a freeze response. However, carp conditioned with CO~2~ may be more likely to move away from the acoustic stimulus, as they did not spend more time in the loud side until the seventh day, unlike those trained with air (Fig XXX Duration in loud). Carp trained with air had closer average distances to the speaker during playback compared to the acclimation period for all days, whereas those trained with CO~2~ were not significantly closer to the speaker on the first and third days (Fig XXX Distance to speaker).
+
+```{r print not moving boxplot}
+largeBoxplot
+```
+\
+**Fig Not moving. Duration not moving.** Carp from both training treatments often exhibited freezing responses to sound playback. 
+
+```{r export not moving figure for publication, eval=FALSE, include=FALSE}
+ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig10_Not_moving.eps",
+       dpi = 300, width = 6, height = 5, units = "in", limitsize = TRUE)
+largeBoxplot
+dev.off()
+
+tiff("C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/TIF/Fig10_Not_moving.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
+largeBoxplot
+ dev.off()
+```
+
+## Duration In Sound Chamber (%)
+```{r time in loud side}
+keep(data, sure = TRUE)
+
+data$var = data$InLoud_per
+graphLabel = "Time in Sound Chamber (%)"
+
+source('pwc_and_boxplot.R')
+largeBoxplot
+```
+\
+**Fig XXX. Duration in sound chamber.** Carp trained with air spent a larger proportion of time in the sound chamber than they had during the acclimation period for all trial days. Carp trained with CO~2~ did not spend significantly more time in the sound chamber until the seventh day after conditioning. 
+
+```{r export duration in loud figure for publication, eval=FALSE, include=FALSE}
+ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig11_Duration_in_loud.eps",
+       dpi = 300, width = 6, height = 5, units = "in", limitsize = TRUE)
+largeBoxplot
+dev.off()
+
+tiff("C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/TIF/Fig11_Duration_in_loud.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
+largeBoxplot
+ dev.off()
+```
+
+
+## Distance to Speaker (cm)
+
+```{r distance to speaker}
+keep(data, sure = TRUE)
+
+data$var = data$DistanceToSpeaker_cm
+graphLabel = "Average Distance to Speaker (cm)"
+
+source('pwc_and_boxplot.R')
+
+largeBoxplot
+```
+\
+**Fig XXX. Distance to the speaker.** Carp trained with air remained closer to the speaker during playback than during the acclimation period for all three days. In contrast, carp trained with CO~2~ were not significantly closer to the speaker during playback on the first and third days. By the seventh day after conditioning, carp trained with CO~2~ exhibited similar behavior to those trained with air by staying closer to the speaker than they had during the acclimation period.
+
+```{r unused inline code, include=FALSE, eval=FALSE}
+# inline code
+#  (t = `r day7CO2Stat`, df = `r day7CO2DF`, p = `r day7CO2Pval`).
+
+# Day 7 CO2
+day7CO2Val <- pwc %>% slice(6) %>% select(estimate)
+day7CO2Val <- format(round(as.numeric(day7CO2Val), 1), nsmall = 1, big.mark = ",")
+
+day7CO2Stat <- pwc %>% slice(6) %>% select(statistic)
+day7CO2Stat <- format(round(as.numeric(day7CO2Stat), 2), nsmall = 2, big.mark = ",")
+
+day7CO2DF <- pwc %>% slice(6) %>% select(df)
+day7CO2DF <- format(round(as.numeric(day7CO2DF), 3), nsmall = 0, big.mark = ",")
+
+day7CO2Pval <- pwc %>% slice(6) %>% select(p.adj)
+day7CO2Pval <- format(round(as.numeric(day7CO2Pval), 3), nsmall = 2, big.mark = ",")
+```
+
+
+```{r export distance to speaker figure for publication, eval=FALSE, include=FALSE}
+ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig12_Distance_to_speaker.eps",
+       dpi = 300, width = 6, height = 5, units = "in", limitsize = TRUE)
+largeBoxplot
+dev.off()
+
+tiff("C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/TIF/Fig12_Distance_to_speaker.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
+largeBoxplot
+ dev.off()
+```
+
+
+```{r total distance moved, include=FALSE, eval=FALSE}
+data$var = data$DistanceMoved_cm
+graphLabel = "Total Distance Moved (cm)"
+
+source('pwc_and_boxplot.R')
+largeBoxplot
+
+keep(data, sure = TRUE)
+```
+
+```{r velocity, include=FALSE, eval=FALSE}
+data$var = data$Velocity
+graphLabel = "Velocity (UNITS? XXX)"
+
+source('pwc_and_boxplot.R')
+largeBoxplot
+
+# keep(data, sure = TRUE)
+```
+
+# Citations
+
+```{r}
+R.version # Originally R version 4.1.0
+citation("rstatix") # identify outliers
+citation("lme4") # mixed ANOVA computations
+citation("ggplot2") # data visualization
+```
+
