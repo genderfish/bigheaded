@@ -7,6 +7,8 @@ output:
     df_print: paged
 ---
 
+This Rmd file predicts dissolved CO~2~ (ppm) from instantaneous pH from water samples taken during avoidance trials. Thresholds for dissolved CO~2~ avoidance are estimated from pH using the resulting model.
+
 ```{r setup 1, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
@@ -19,6 +21,7 @@ getwd()
 source("./LargeTank_CO2_Trend/CO2_Map.R")
 pH_Trend_Both_Chambers
 ```
+
 \
 **The pH trend in both chambers.** The two chambers experienced relatively little water exchange across the connecting channel due to the circular chamber design and opposing currents.
 However, water mixed uniformly within each chamber, as evidenced by similar pH values in the center of the chamber, immediately next to the exit, and at the gas stone.
@@ -54,8 +57,8 @@ getwd()
 ## Large Tank
 
 ```{r pH to ppm curve}
-curve <- read.csv("allFish_pH_CO2_curve.csv")
-Exp1 <- read.csv("Exp1_LargeTank_CO2_Avoidance.csv")
+curve <- read.csv("allFish_pH_CO2_curve.csv") # All samples relating pH to pCO2 (ppm)
+Exp1 <- read.csv("Exp1_LargeTank_CO2_Avoidance.csv") # Avoidance thresholds from last tank
 
 # Create pH to CO2 ppm curve
 Model_to_predict_pCO2_from_pH <- ggplot(curve, aes(x = pH, y = ppm)) +
@@ -71,7 +74,7 @@ Model_to_predict_pCO2_from_pH <- ggplot(curve, aes(x = pH, y = ppm)) +
 Model_to_predict_pCO2_from_pH
 ```
 
-```{r Create CO2 curve figure, include=FALSE, eval=FALSE}
+```{r export CO2 curve figure, include=FALSE, eval=FALSE}
 ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig2_Model_to_predict_pCO2_from_pH.eps",
        dpi = 300, width = 5, height = 5, units = "in", limitsize = TRUE)
 Model_to_predict_pCO2_from_pH
@@ -81,6 +84,7 @@ tiff("C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/
 Model_to_predict_pCO2_from_pH
 dev.off()
 ```
+
 
 ```{r pH to ppm model}
 # Calculate 2nd order equation

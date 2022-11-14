@@ -7,6 +7,8 @@ output:
   html_document: default
 ---
 
+This Rmd file analyzes the time until first exit and first return for bigheaded carps in the large shuttle tank. Mixed ANOVAs and t-tests are computed. Boxplots for the associated manuscript are generated. Additionally, paired t-tests are run on behavioral metrics from the fish tracking software. 
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE)
 
@@ -16,7 +18,6 @@ library('ggplot2')
 library('reshape2')
 library('stringr')
 library('rstatix') # identify_outliers
-# library('agricolae') #value_mean hsd
 library('lme4') # mixed anova
 library('gdata') # keep function
 ```
@@ -61,7 +62,7 @@ box_m(dataNoOut[, "Exit_s", drop = FALSE], dataNoOut$TrainedWith)
 ```
 
 ```{r exit anova computation}
-mod <- lmer(Exit_s ~ TrainedWith*Sound*Day + (1|FishID), data = dataNoOut)
+mod <- lmer(Exit_s ~ TrainedWith*Sound*Day + (1|Fish_ID), data = dataNoOut)
 Anova(mod)
 ```
 
@@ -70,11 +71,11 @@ Anova(mod)
 ```{r exit pairwise comparisons and boxplot}
 # compute pairwise comparisons
   # because this is a paired test, must also remove pairs from outliers & NAs/Inf trials
-outlierPairs <- data2 %>% semi_join(outliers, by = c("FishID","TrainedWith","Fish_TrialNum"))
+outlierPairs <- data2 %>% semi_join(outliers, by = c("Fish_ID","TrainedWith","Fish_TrialNum"))
 dataNoOut <- dataNoOut %>% anti_join(outlierPairs)
 
 missing <- data %>% filter(is.na(Exit_s) | is.infinite(Exit_s))
-missingPairs <- data %>% semi_join(missing, by = c("FishID","TrainedWith","Fish_TrialNum"))
+missingPairs <- data %>% semi_join(missing, by = c("Fish_ID","TrainedWith","Fish_TrialNum"))
 dataNoOut <- dataNoOut %>% anti_join(missingPairs)
 
 pwc <- dataNoOut %>% 
@@ -234,11 +235,11 @@ dataNoExtremeOut <- data2 %>% anti_join(outliersExtreme)
 
 ```{r anova computation}
 ## Mixed Anova model selection
-mod1 <- lmer(Return_s ~ TrainedWith*Sound + Day + (1|FishID), data = dataNoOut)
+mod1 <- lmer(Return_s ~ TrainedWith*Sound + Day + (1|Fish_ID), data = dataNoOut)
 Anova(mod1)
 #summary(mod1)
 
-mod2 <- lmer(Return_s ~ TrainedWith*Sound*Day + (1|FishID), data = dataNoOut)
+mod2 <- lmer(Return_s ~ TrainedWith*Sound*Day + (1|Fish_ID), data = dataNoOut)
 Anova(mod2)
 
 anova(mod1,mod2)# if p < 0.05, reject simpler model
@@ -263,13 +264,13 @@ outliers <- data2 %>%
 
 # compute pairwise comparisons
   # because this is a paired t test, must also remove pairs from outliers & NAs/Inf trials
-outlierPairs <- data2 %>% semi_join(outliers, by = c("FishID","TrainedWith","Fish_TrialNum"))
+outlierPairs <- data2 %>% semi_join(outliers, by = c("Fish_ID","TrainedWith","Fish_TrialNum"))
 dataNoOut <- data2 %>% anti_join(outlierPairs)
 
-missingPairs <- data %>% semi_join(missing, by = c("FishID","TrainedWith","Fish_TrialNum"))
+missingPairs <- data %>% semi_join(missing, by = c("Fish_ID","TrainedWith","Fish_TrialNum"))
 dataNoOut <- dataNoOut %>% anti_join(missingPairs)
 
-dataNoOut <- dataNoOut %>%  filter(ID != '45') # because trial 44 was removed earlier, 45 is also as the pair
+dataNoOut <- dataNoOut %>%  filter(VID_ID != '45') # because trial 44 was removed earlier, 45 is also as the pair
 
 pwc <- dataNoOut %>% 
   group_by(Day,TrainedWith) %>% 
@@ -403,7 +404,7 @@ keep(data, sure = TRUE) # clears that data
 
 
 ```{r avoids, include=FALSE, eval = FALSE}
-data$var = data$Avoid_N
+data$var = data$Exit_N
 graphLabel = "Shuttles Away from Sound (N)"
 
 source('pwc_and_boxplot.R')
