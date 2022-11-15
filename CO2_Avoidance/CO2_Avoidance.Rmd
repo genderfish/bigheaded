@@ -18,7 +18,7 @@ getwd()
 
 # pH Trends in Tank
 
-```{r CO2 map}
+```{r CO2 map, message=FALSE}
 source("./LargeTank_CO2_Trend/CO2_Map.R")
 pH_Trend_Both_Chambers
 ```
@@ -57,7 +57,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 ## Large Tank
 
-Create the figure for the model that predicts pCO2 (ppm) from pH.
+Create the figure for the model that predicts pCO~2~ (ppm) from pH.
 
 ```{r pH to ppm curve}
 curve <- read.csv("allFish_pH_CO2_curve.csv") # All samples relating pH to pCO2 (ppm)
@@ -77,7 +77,7 @@ Model_to_predict_pCO2_from_pH
 ```
 
 \
-**Fig 2. Model to predict pCO2 from pH.** The relationship between pH and dissolved carbon dioxide in the large tank.
+**Fig 2. Model to predict pCO~2~ from pH.** The relationship between pH and dissolved carbon dioxide in the large tank.
 Water samples were collected from the increasing pCO~2~ chamber after first exit and three minutes after the last exit at the end of the trial.
 Avoidance thresholds for dissolved carbon dioxide were predicted from the instantaneous pH value using this model.\
 
@@ -162,7 +162,7 @@ SmallExp1_Results
 
 Generate the table with water parameters, measured, and predicted pCO~2~ values at last exit from the increasing pCO~2~ chamber.
 
-**Table 2. Dissolved carbon dioxide avoidance and ambient water parameters.** The pCO~2~ is estimated from instantaneous pH at the last exit and measured from water samples taken three minutes afterwards.
+**Table 2. Dissolved carbon dioxide avoidance and ambient water parameters.** The pCO~2~ at last exit is estimated from instantaneous pH in both tanks.
 
 ```{r create co2 avoidance table}
 # CO2 Avoidance Table
@@ -171,9 +171,12 @@ SmallExp1_Results$Tank <- c("Small")
 Exp1_Results$Tank <- c("Large")
 BothExp1_Results <- full_join(SmallExp1_Results, Exp1_Results) # merge small and large tank results
 BothExp1_Results <- select(BothExp1_Results, Tank, Species, everything()) # rearrange columns
-kable(BothExp1_Results, 
-      caption = "Carbon dioxide avoidance in both tanks",
+
+CO2_Avoidance_Table <- kable(BothExp1_Results, 
+     # caption = "Carbon dioxide avoidance and ambient water parameters in both tanks.",
       digits = 1)
+
+CO2_Avoidance_Table
 ```
 
 ```{r pull avoidance thresholds for in-text render, include=FALSE}
@@ -261,16 +264,29 @@ threshold
 ```
 
 ```{r figure and kruscal test}
-mod <- kruskal.test(Avoid ~ Species, data = BothExp1)
-mod
+modTank <- kruskal.test(Avoid ~ Tank, data = BothExp1)
+modTank
+
+modSpecies <- kruskal.test(Avoid ~ Species, data = BothExp1)
+modSpecies
 ```
 
 ```{r formating variables, include = FALSE}
-# paragraph one: both tanks
-chi2 <- format(round(as.numeric(mod$statistic), 2), nsmall = 2, big.mark = ",")
-pval <- format(round(as.numeric(mod$p.value), 2), nsmall = 2)
-avoidPPM <- format(signif(as.numeric(avoidAvgBoth), 3), big.mark = ".", width = 3)
-avoidPPM <- substr(avoidPPM, 1, 4)
+# paragraph one: both tanks, both species, one avoidance threshold
+chi2Tank <- format(round(as.numeric(modTank$statistic), 2), nsmall = 2, big.mark = ",")
+pvalTank <- format(round(as.numeric(modTank$p.value), 2), nsmall = 2)
+
+chi2Species <- format(round(as.numeric(modSpecies$statistic), 2), nsmall = 2, big.mark = ",")
+pvalSpecies <- format(round(as.numeric(modSpecies$p.value), 2), nsmall = 2)
+
+avoidPPM <- format(signif(as.numeric(avoidAvgBoth), 3), big.mark = ",")
+
+# format for xy.z ppt (parts per thousand)
+#avoidPPM <- format(signif(as.numeric(avoidAvgBoth), 3), big.mark = ".", width = 3)
+#avoidPPM <- substr(avoidPPM, 1, 4)
+
+
+
 
 pHThreshold <- format(round(as.numeric(threshold$pH), 2), nsmall = 2, big.mark = ",")
 
@@ -295,25 +311,32 @@ largeMeasured_N <- as.numeric(length(Exp1$End_Trial_Measured_CO2_ppm))
 
 # Results
 
-## CO~2~ Avoidance Threshold
+## CO~2~ avoidance threshold
 
-There was not a significant difference in dissolved CO~2~ avoidance thresholds between species or tank size (`r mod$method`, Χ^2^ = `r chi2`, p = `r pval`, Fig 5).
-Across all trials in both tanks, bigheaded carp avoided pCO~2~ at approximately `r avoidPPM` K ppm.
+There was not a significant difference in dissolved CO~2~ avoidance thresholds between species (`r modSpecies$method`, Χ^2^ = `r chi2Species`, p = `r pvalSpecies`) or tank size (`r modTank$method`, Χ^2^ = `r chi2Tank`, p = `r pvalTank`, Fig 5).
+Across all trials in both tanks, bigheaded carp avoided pCO~2~ at approximately `r avoidPPM` ppm.
 This threshold pCO~2~ level was for CO~2~ conditioning treatments, with an instantaneous pH of approximately `r pHThreshold` by the conditioning treatment midpoint in the small tank, and endpoint in the large tank.
-Due to tank volume differences, it was possible to reach this threshold within two minutes in the small tank, and approximately 10 minutes in the large tank, when addition was stopped for researcher safety.
+Due to tank volume differences, it was possible to reach this threshold within two minutes in the small tank, and ten minutes in the large tank, when addition was stopped for researcher safety.
 
-```{r graph, echo=FALSE, message=FALSE}
+```{r graph in results, echo=FALSE, message=FALSE}
 CO2_Avoidance_Boxplots
 ```
 
 \
-**Fig 5. CO~2~ avoidance boxplots.** Bighead and silver carp exited the increasing pCO~2~ chamber for the last time at the same threshold level in the small and large tanks (`r mod$method`, Χ^2^ = `r chi2`, p = `r pval`).
-Carp avoided pCO~2~ at `r avoidPPM` K ppm.\
+**Fig 5. CO~2~ avoidance boxplots.** Bigheaded carps exited the increasing pCO~2~ chamber for the last time at the same threshold level in the small and large tanks (`r modTank$method`, Χ^2^ = `r chi2Tank`, p = `r pvalTank`).
+Carp avoided pCO~2~ at `r avoidPPM` ppm.
 
 Avoidance was defined as the last time the individual or the majority of the school (3 or more fish) exited the CO~2~ chamber.
-In the small shuttle tank, schools of five juvenile untrained bighead (n = 5) and silver (n = 5) carp exhibited CO~2~ avoidance at `r smallCO2` ± `r smallCO2_SE` ppm (n = 10, mean ± SE, Table 2) as estimated by pH, TA, and temperature in CO2Calc.
-As a secondary measurement of pCO~2~ from water samples by NDIR probe, avoidance occurred at `r smallMeasured` ± `r smallMeasured_SE` ppm (n = 6).
-In the large shuttle tank, individual bighead carp (n = 10) exhibited their last CO~2~ avoidance at `r largeBighead` ± `r largeBighead_SE` ppm (Table 2).
+After this last exit, some fish entered the shuttle channel and then turned around without crossing into the increasing pCO~2~ chamber, indicating their avoidance threshold had already been passed.
+In the small shuttle tank, schools of five juvenile untrained bighead (n = 5) and silver (n = 5) carp exhibited CO~2~ avoidance at `r smallCO2` ± `r smallCO2_SE` ppm (n = 10, mean ± SE, Table 2) as estimated in CO2Calc.
+As a secondary measurement of pCO~2~ from water samples, avoidance occurred at `r smallMeasured` ± `r smallMeasured_SE` ppm (n = 6).
+In the large shuttle tank, individual bighead carp (n = 10) exhibited CO~2~ avoidance at `r largeBighead` ± `r largeBighead_SE` ppm (Table 2).
 Schools of five silver carp (n = 9) last exited the increasing chamber at `r largeSilver` ± `r largeSilver_SE` ppm.
 In the large tank, the last avoidance occurred at `r largeBoth` ppm CO~2~ on average for both species, as estimated by pH (Fig 2).
 The average pCO~2~ in the increasing chamber was measured at `r largeMeasured` ± `r largeMeasured_SE` ppm (n = `r largeMeasured_N`) three minutes after the last avoidance.
+
+**Table 2. Carbon dioxide avoidance and ambient water parameters in both tanks.** The pCO~2~ is estimated from instantaneous pH at the last exit and measured from water samples.
+
+```{r table in results, echo=FALSE, message=FALSE}
+CO2_Avoidance_Table
+```
