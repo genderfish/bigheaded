@@ -1,0 +1,82 @@
+---
+title: "CO2_Conditioning"
+author: "Jackie Culotta"
+date: "2022-11-15"
+output:
+  html_document: default
+  word_document: default
+---
+This Rmd file summarizes water parameters for the conditioning treatments in both tanks.
+
+# Setup
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+library('dplyr')
+library('ggpubr')
+library('rstatix')
+
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+getwd()
+```
+
+```{r load data}
+# Import csv files
+largeTank <- read.csv("Conditioning_LargeTank.csv")
+smallTank <- read.csv("Conditioning_SmallTank.csv")
+
+# Change columns to factors
+factorColumns <- c("Fish_ID", "Conditioning", "Speaker", "Species", "Day")
+largeTank <- largeTank %>% 
+  mutate_at(factorColumns, factor) %>% 
+  mutate_if(is.character, as.numeric)
+
+str(largeTank)
+
+factorColumns <- c("School_ID", "Conditioning", "Speaker", "Species")
+smallTank <- smallTank %>% 
+  mutate_at(factorColumns, factor) %>% 
+  mutate_if(is.character, as.numeric)
+
+str(smallTank)
+```
+
+```{r summary stats}
+# Remove rows with NAs
+smallTank2 <- smallTank %>% filter(!is.na(Mid_ppm) | !is.na(End_ppm))
+largeTank2 <- largeTank %>% filter(!is.na(Start_ppm) & !is.na(End_ppm))
+
+# summary in small tank
+smallSummary <- smallTank2 %>%
+group_by(Conditioning) %>%
+  summarize(
+    smallMid_ppm = mean(Mid_ppm),
+    smallEnd_ppm = mean(End_ppm))
+smallSummary <- as.data.frame(smallSummary)
+smallSummary
+
+# summary in large tank
+largeSummary <- largeTank2 %>%
+group_by(Conditioning) %>%
+  summarize(
+    largeStart_ppm = mean(Start_ppm),
+    largeEnd_ppm = mean(End_ppm))
+largeSummary <- as.data.frame(largeSummary)
+largeSummary
+```
+```{r in text, include=FALSE}
+# CHECK BACK on how Al wants these formatted !
+
+largeEnd_ppm <- largeSummary %>% slice(2) %>% select(largeEnd_ppm)
+largeEnd_ppm <- format(signif(as.numeric(largeEnd_ppm), 3), big.mark = ",")
+```
+
+# Results
+## Small Tank
+
+pCO~2~ at conditioning midpoint was `r smallMidpoint` ± `r smallMidpoint_SE` ppm. 
+pCO~2~ at conditoining endpoint was `r smallEnd`± `r smallEnd_SE` ppm. 
+
+## Large tank
+In the large tank, dissolved CO~2~ before trial initiation was 2310 ± 239 ppm for schools trained with CO~2~, and 1459 ± 45 ppm for schools trained with air. 
+At the trial endpoint, the dissolved CO2 for carp undergoing conditioning with air was 1494 ± 65 ppm. 
+Carp in the CO~2~ treatment (N = 10) were conditioned at 34577 ± 2,068 by the conditioning period endpoint.  
