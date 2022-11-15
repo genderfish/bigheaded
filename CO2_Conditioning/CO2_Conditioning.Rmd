@@ -43,7 +43,7 @@ str(smallTank)
 ```{r summary stats}
 # Remove rows with NAs
 smallTank2 <- smallTank %>% filter(!is.na(Mid_ppm) | !is.na(End_ppm))
-largeTank2 <- largeTank %>% filter(!is.na(Start_ppm) & !is.na(End_ppm))
+largeTank2 <- largeTank %>% filter(!is.na(Start_ppm) | !is.na(End_ppm))
 
 # summary in small tank
 smallSummary <- smallTank2 %>%
@@ -59,15 +59,20 @@ largeSummary <- largeTank2 %>%
 group_by(Conditioning) %>%
   summarize(
     largeStart_ppm = mean(Start_ppm),
-    largeEnd_ppm = mean(End_ppm))
+    largeEnd_ppm = mean(End_ppm),
+    largeEnd_SE = sd(End_ppm)/sqrt(length(End_ppm))
+    )
 largeSummary <- as.data.frame(largeSummary)
 largeSummary
 ```
 ```{r in text, include=FALSE}
-# CHECK BACK on how Al wants these formatted !
+# large tank start
 
+
+# large tank end point
 largeEnd_ppm <- largeSummary %>% slice(2) %>% select(largeEnd_ppm)
 largeEnd_ppm <- format(signif(as.numeric(largeEnd_ppm), 3), big.mark = ",")
+largeEnd_ppm_SE <- format(signif(as.numeric(largeSummary %>% filter(Conditioning == 'Carbon dioxide') %>% select(largeEnd_SE)), 3), big.mark = ",")
 ```
 
 # Results
@@ -79,4 +84,4 @@ pCO~2~ at conditoining endpoint was `r smallEnd`± `r smallEnd_SE` ppm.
 ## Large tank
 In the large tank, dissolved CO~2~ before trial initiation was 2310 ± 239 ppm for schools trained with CO~2~, and 1459 ± 45 ppm for schools trained with air. 
 At the trial endpoint, the dissolved CO2 for carp undergoing conditioning with air was 1494 ± 65 ppm. 
-Carp in the CO~2~ treatment (N = 10) were conditioned at 34577 ± 2,068 by the conditioning period endpoint.  
+Carp in the CO~2~ treatment (N = 10) were conditioned at `r largeEnd_ppm` ± `r largeEnd_ppm_SE` ppm by the conditioning period endpoint.  
