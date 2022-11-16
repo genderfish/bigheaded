@@ -3,6 +3,7 @@ title: "Carbon Dioxide Avoidance"
 author: "Jackie Culotta"
 date: "2022-10-04"
 output:
+  word_document: default
   html_document:
     df_print: paged
 ---
@@ -19,13 +20,13 @@ getwd()
 # pH Trends in Tank
 
 ```{r CO2 map, message=FALSE}
-source("./LargeTank_CO2_Trend/CO2_Map.R")
-pH_Trend_Both_Chambers
+source("./CO2_Map.R")
+pH_Trends_Both_Tanks
 ```
 
 \
-**Fig 1A. The pH trend in both chambers.** The two chambers experienced relatively little water exchange across the connecting channel due to the circular chamber design and opposing currents.
-However, water mixed uniformly within each chamber, as evidenced by similar pH values in the center of the chamber, immediately next to the exit, and at the gas stone.
+**Fig 1A. Separate pH trends in each chamber.** The two chambers experienced relatively little water exchange across the connecting channel due to their circular design and opposing currents.
+Water mixed uniformly within each chamber, as evidenced in the large tank by similar pH values in the center of the chamber, immediately next to the exit, and at the gas stone.
 
 ```{r export CO2 map, eval=FALSE, include=FALSE}
 ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig1_pH_Trend_Both_Chambers.eps",
@@ -79,11 +80,10 @@ Model_to_predict_pCO2_from_pH
 \
 **Fig 1B. Model to predict pCO~2~ from pH.** The relationship between pH and dissolved carbon dioxide in the large tank.
 Water samples were collected from the increasing pCO~2~ chamber after first exit and three minutes after the last exit at the end of the trial.
-Avoidance thresholds for dissolved carbon dioxide were predicted from the instantaneous pH value using this model.
-\
+Avoidance thresholds for dissolved carbon dioxide were predicted from the instantaneous pH value using this model.\
 
 ```{r export figure 1, include=FALSE, eval=FALSE}
-Fig1 <- ggarrange(pH_Trend_Both_Chambers, Model_to_predict_pCO2_from_pH,
+Fig1 <- ggarrange(pH_Trends_Both_Tanks, Model_to_predict_pCO2_from_pH,
                   labels = c("A","B"),
                   ncol = 1, nrow = 2,
                  # align = "v",
@@ -170,7 +170,7 @@ SmallExp1_Results
 
 Generate the table with water parameters, measured, and predicted pCO~2~ values at last exit from the increasing pCO~2~ chamber.
 
-**Table 2. Dissolved carbon dioxide avoidance and ambient water parameters.** The pCO~2~ at last exit is estimated from instantaneous pH in both tanks.
+**Table 1. Dissolved carbon dioxide avoidance and ambient water parameters.** The pCO~2~ at last exit is estimated from instantaneous pH in both tanks.
 
 ```{r create co2 avoidance table}
 # CO2 Avoidance Table
@@ -260,20 +260,19 @@ CO2_Avoidance_Boxplot_2 # better compares species
 ```
 
 ```{r export boxplot fig, include=FALSE, eval=FALSE}
-tiff("./Figures/TIF/Fig5_CO2_Avoidance_Boxplot_1.tif", width = 1800, height = 1200, units = "px", res = 300, compression = c("none"))
-CO2_Avoidance_Boxplot_1
+tiff("./Figures/TIF/Fig3_CO2_Avoidance_Boxplot.tif", width = 1800, height = 1200, units = "px", res = 300, compression = c("none"))
+CO2_Avoidance_Boxplot_2
 dev.off()
 
-ggsave(file = "./Figures/EPS/Fig5_CO2_Avoidance_Boxplot_1.eps",
+ggsave(file = "./Figures/EPS/Fig3_CO2_Avoidance_Boxplot.eps",
        dpi = 300, width = 6, height = 5, units = "in", limitsize = TRUE)
-CO2_Avoidance_Boxplot_1
+CO2_Avoidance_Boxplot_2
 dev.off()
 ```
 
 ## Avoidance Threshold in pH
 
-Calculate the pH at the avoidance threshold using the reverse equation from before: now ppm to pH
-This code was used to predict the pH to reach during conditioning treatments.
+Calculate the pH at the avoidance threshold using the reverse equation from before: now ppm to pH This code was used to predict the pH to reach during conditioning treatments.
 
 ```{r Avoidance Thresholds}
 fit <- lm(pH~poly(ppm,2,raw=TRUE), data = curve)
@@ -337,44 +336,44 @@ largeMeasured_N <- as.numeric(length(Exp1$End_Trial_Measured_CO2_ppm))
 
 ## CO~2~ avoidance threshold
 
-There was not a significant difference in dissolved CO~2~ avoidance thresholds between species (`r modSpecies$method`, Χ^2^ = `r chi2Species`, p = `r pvalSpecies`) or tank size (`r modTank$method`, Χ^2^ = `r chi2Tank`, p = `r pvalTank`, Fig 5).
+There was not a significant difference in dissolved CO~2~ avoidance thresholds between tank size (`r modTank$method`, Χ^2^ = `r chi2Tank`, p = `r pvalTank`) or species (`r modSpecies$method`, Χ^2^ = `r chi2Species`, p = `r pvalSpecies`, Fig 5).
 Across all trials in both tanks, bigheaded carp avoided pCO~2~ at approximately `r avoidPPM` ppm.
 This threshold pCO~2~ level was used for CO~2~ conditioning treatments by reaching an instantaneous pH of approximately `r pHThreshold` by the conditioning treatment midpoint in the small tank and endpoint in the large tank.
 Due to tank volume differences, it was possible to reach this threshold within two minutes in the small tank, and ten minutes in the large tank, when addition was stopped for researcher safety.
 
 ```{r graph in results, echo=FALSE, message=FALSE}
-CO2_Avoidance_Boxplot_1
+CO2_Avoidance_Boxplot_2
 ```
 
 \
-**Fig 5. CO~2~ avoidance boxplots.** 
-Carp avoided pCO~2~ at `r avoidPPM` ppm on average.
-Boxplots include median ± quartiles for each tank size.  
-Whiskers extend to 1.5 times IQR. 
-Dark points are bighead, and light points are silver carp.
-Circles are individuals, and triangles are schools of five fish. 
-Bigheaded carps exited the increasing pCO~2~ chamber for the last time at the same threshold level in the small and large tanks (`r modTank$method`, Χ^2^ = `r chi2Tank`, p = `r pvalTank`).
-\
+**Fig 5. CO~2~ avoidance boxplots.** Bigheaded carps avoided pCO~2~ at `r avoidPPM` ppm on average.
+Boxplots include median ± quartiles for each species.
+Whiskers extend to 1.5 times IQR.
+Dark and light points are from the large and small tank respectively.
+Silver and bighead exited the increasing pCO~2~ chamber for the last time at the same threshold (`r modSpecies$method`, Χ^2^ = `r chi2Species`, p = `r pvalSpecies`).\
 
 Avoidance was defined as the last time the individual or the majority of the school (3 or more fish) exited the CO~2~ chamber.
 After this last exit, some fish entered the shuttle channel and then turned around without crossing into the increasing pCO~2~ chamber, indicating their avoidance threshold had already been passed.
-In the small shuttle tank, schools of five juvenile untrained bighead (n = 5) and silver (n = 5) carp exhibited CO~2~ avoidance at `r smallCO2` ± `r smallCO2_SE` ppm (n = 10, mean ± SE, Table 2) as estimated in CO2Calc.
-\
+In the small shuttle tank, schools of five juvenile untrained bighead (n = 5) and silver (n = 5) carp exhibited CO~2~ avoidance at `r smallCO2` ± `r smallCO2_SE` ppm (n = 10, mean ± SE, Table 2) as estimated in CO2Calc.\
 
 As a secondary measurement of pCO~2~ from water samples, avoidance occurred at `r smallMeasured` ± `r smallMeasured_SE` ppm (n = 6).
-In the large shuttle tank, individual bighead carp (n = 10) exhibited CO~2~ avoidance at `r largeBighead` ± `r largeBighead_SE` ppm (Table 2).
+In the large shuttle tank, individual bighead carp (n = 10) exhibited CO~2~ avoidance at `r largeBighead` ± `r largeBighead_SE` ppm (Table 1).
 Schools of five silver carp (n = 9) last exited the increasing chamber at `r largeSilver` ± `r largeSilver_SE` ppm.
 In the large tank, the last avoidance occurred at `r largeBoth` ppm CO~2~ on average for both species, as estimated by pH (Fig 2).
 The average pCO~2~ in the increasing chamber was measured at `r largeMeasured` ± `r largeMeasured_SE` ppm (n = `r largeMeasured_N`) three minutes after the last avoidance.
 
-**Table 2. Carbon dioxide avoidance and ambient water parameters in both tanks.** The pCO~2~ is estimated from instantaneous pH at the last exit and measured from water samples.
+**Table 1. Carbon dioxide avoidance and ambient water parameters in both tanks.** The pCO~2~ is estimated from instantaneous pH at the last exit and measured from water samples.
 
 ```{r table in results, echo=FALSE, message=FALSE}
 CO2_Avoidance_Table
 ```
 
+\
+\
+\
 
 XXX Unused code below, cut before final archiving XXX
+
 ```{r Boxplot Figure OPTIONS, include=FALSE, eval=FALSE, message=FALSE, warning=FALSE}
 SmallExp1$Tank <- c("Small")
 Exp1$Tank <- c("Large")
