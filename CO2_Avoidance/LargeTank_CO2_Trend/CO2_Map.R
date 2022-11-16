@@ -26,7 +26,10 @@ meltCO2 <- melt(CO2_v2, na.rm = TRUE, id = 'Seconds')
 pH_Trend_Both_Chambers <- ggplot(meltCO2, aes(x = Seconds, y = value, color = variable)) + 
   geom_point() +
   geom_line() +
-  theme_classic2() +
- scale_color_brewer('Location', palette = 'PuOr', labels = c(expression('CO'[2]*' Stone'), expression('CO'[2]*' Center'), expression('CO'[2]*' Exit'), 'Air Exit', 'Air Center','Air Stone')) +
+  theme_pubr(legend = "right") +
+ scale_color_brewer('Location',
+                    palette = 'PuOr', 
+                    labels = c(expression('CO'[2]*' Stone'), expression('CO'[2]*' Center'), expression('CO'[2]*' Exit'), 'Air Exit', 'Air Center','Air Stone')
+                    ) +
   labs(y = "pH", x = "Time (s)") # +
 pH_Trend_Both_Chambers
