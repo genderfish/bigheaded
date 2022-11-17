@@ -19,14 +19,15 @@ getwd()
 
 # pH Trends in Tank
 
-```{r CO2 map, message=FALSE}
+```{r CO2 map, message=FALSE, warning=FALSE}
 source("./CO2_Map.R")
 pH_Trends_Both_Tanks
 ```
 
 \
-**Fig 1A. Separate pH trends in each chamber.** The two chambers experienced relatively little water exchange across the connecting channel due to their circular design and opposing currents.
-Water mixed uniformly within each chamber, as evidenced in the large tank by similar pH values in the center of the chamber, immediately next to the exit, and at the gas stone.
+**Fig 1. A.** Water pH is plotted versus time (seconds) in the large and small shuttle tanks.
+Time zero represents CO~2~ bubble initiation in the experimental chamber.
+The dotted line indicates the approximate threshold for CO~2~ avoidance in bigheaded carps.
 
 ```{r export CO2 map, eval=FALSE, include=FALSE}
 ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig1_pH_Trend_Both_Chambers.eps",
@@ -50,7 +51,7 @@ library('sjPlot')
 library('knitr')
 library('gdata') # keep function
 
-keep(pH_Trend_Both_Chambers, sure = TRUE)
+keep(pH_Trends_Both_Tanks, sure = TRUE)
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # getwd()
@@ -78,9 +79,10 @@ Model_to_predict_pCO2_from_pH
 ```
 
 \
-**Fig 1B. Model to predict pCO~2~ from pH.** The relationship between pH and dissolved carbon dioxide in the large tank.
-Water samples were collected from the increasing pCO~2~ chamber after first exit and three minutes after the last exit at the end of the trial.
-Avoidance thresholds for dissolved carbon dioxide were predicted from the instantaneous pH value using this model.\
+**Fig 1. B. Model to predict pCO~2~ from pH in the large tank.** Dissolved CO~2~ is plotted versus pH in the large tank.
+Water samples were collected from the increasing pCO~2~ chamber after first exit and three minutes after the last exit.
+The solid line represents the model described by the equation above (n = 72, F = 209, p \< 0.0001, adj R2 = 0.854).
+Water pH was used as a proxy to determine CO~2~ concentrations according to the model.
 
 ```{r export figure 1, include=FALSE, eval=FALSE}
 Fig1 <- ggarrange(pH_Trends_Both_Tanks, Model_to_predict_pCO2_from_pH,
@@ -335,6 +337,9 @@ largeMeasured_N <- as.numeric(length(Exp1$End_Trial_Measured_CO2_ppm))
 # Results
 
 ## CO~2~ avoidance threshold
+
+The two chambers experienced relatively little water exchange across the connecting channel due to their circular design and opposing currents.
+Water mixed uniformly within each chamber, as evidenced in the large tank by similar pH values in the center of the chamber, immediately next to the exit, and at the gas stone.
 
 There was not a significant difference in dissolved CO~2~ avoidance thresholds between tank size (`r modTank$method`, Χ^2^ = `r chi2Tank`, p = `r pvalTank`) or species (`r modSpecies$method`, Χ^2^ = `r chi2Species`, p = `r pvalSpecies`, Fig 5).
 Across all trials in both tanks, bigheaded carp avoided pCO~2~ at approximately `r avoidPPM` ppm.
