@@ -4,6 +4,7 @@ library("ggplot2")
 library("ggpubr")
 library("dplyr")
 
+# uncomment to run script outside of CO2_Avoidance.Rmd
 #setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 #getwd()
 
@@ -30,10 +31,13 @@ meltCO2_Small$Tank <- c("Small Tank")
 # join small and large tank datasets
 merge <- rbind(meltCO2_Large, meltCO2_Small)
 
-# Scatterplot of pH
+# Scatterplot of pH over time
+
+# Without facet
 pH_Trend_Both_Chambers <- ggplot(merge, aes(x = Seconds, y = value, color = variable)) + 
   geom_point() +
-  geom_line() +
+ # geom_line() + # connect the dots for each sample location
+ # geom_hline(yintercept = 6.44, linetype = "dashed") + # add approximate threshold value
   theme_pubr(legend = "right") +
   scale_color_brewer('Location',
                      palette = 'PuOr', 
@@ -41,5 +45,21 @@ pH_Trend_Both_Chambers <- ggplot(merge, aes(x = Seconds, y = value, color = vari
   ) +
   labs(y = "pH", x = "Time (s)") # +
 
-pH_Trends_Both_Tanks <- pH_Trend_Both_Chambers + facet_grid(factor(merge$Tank, levels = c("Small Tank", "Large Tank")) ~.)
+# pH_Trend_Both_Chambers
+
+# With facet
+merge$Tank <- factor(merge$Tank, levels = c("Small Tank", "Large Tank"))
  
+pH_Trends_Both_Tanks <- ggplot(merge, aes(x = Seconds, y = value, color = variable)) + 
+   geom_point(size = 2) +
+   xlim(c(0,750)) +
+   theme_pubr(legend = "right") +
+   scale_color_brewer('Location',
+                      palette = 'PuOr', 
+                      labels = c(expression('CO'[2]*' Stone'), expression('CO'[2]*' Center'), expression('CO'[2]*' Exit'), 'Air Exit', 'Air Center','Air Stone')
+   ) +
+   labs(y = "pH", x = "Time (s)") + 
+  geom_hline(yintercept = 6.44, linetype = "dashed") + # add approximate threshold value
+  facet_grid(Tank ~.)
+
+# pH_Trends_Both_Tanks
