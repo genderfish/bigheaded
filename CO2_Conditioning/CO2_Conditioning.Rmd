@@ -19,7 +19,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 getwd()
 ```
 
-```{r load data}
+```{r load data, message=FALSE, warning=FALSE}
 # Import csv files
 largeTank <- read.csv("Conditioning_LargeTank.csv")
 smallTank <- read.csv("Conditioning_SmallTank.csv")

@@ -359,13 +359,14 @@ Silver and bighead exited the increasing pCO~2~ chamber for the last time at the
 
 Avoidance was defined as the last time the individual or the majority of the school (3 or more fish) exited the CO~2~ chamber.
 After this last exit, some fish entered the shuttle channel and then turned around without crossing into the increasing pCO~2~ chamber, indicating their avoidance threshold had already been passed.
-In the small shuttle tank, schools of five juvenile untrained bighead (n = 5) and silver (n = 5) carp exhibited CO~2~ avoidance at `r smallCO2` ± `r smallCO2_SE` ppm (n = 10, mean ± SE, Table 2) as estimated in CO2Calc.\
-
+In the small shuttle tank, schools of five juvenile untrained bighead (n = 5) and silver (n = 5) carp exhibited CO~2~ avoidance at `r smallCO2` ± `r smallCO2_SE` ppm (n = 10, mean ± SE, Table 2) as estimated in CO2Calc.
 As a secondary measurement of pCO~2~ from water samples, avoidance occurred at `r smallMeasured` ± `r smallMeasured_SE` ppm (n = 6).
+
+\
 In the large shuttle tank, individual bighead carp (n = 10) exhibited CO~2~ avoidance at `r largeBighead` ± `r largeBighead_SE` ppm (Table 1).
 Schools of five silver carp (n = 9) last exited the increasing chamber at `r largeSilver` ± `r largeSilver_SE` ppm.
-In the large tank, the last avoidance occurred at `r largeBoth` ppm CO~2~ on average for both species, as estimated by pH (Fig 2).
-The average pCO~2~ in the increasing chamber was measured at `r largeMeasured` ± `r largeMeasured_SE` ppm (n = `r largeMeasured_N`) three minutes after the last avoidance.
+In the large tank, the last exit occurred at `r largeBoth` ppm CO~2~ on average for both species, as estimated by pH (Fig 2).
+The average pCO~2~ in the increasing chamber was measured at `r largeMeasured` ± `r largeMeasured_SE` ppm (n = `r largeMeasured_N`) three minutes after the last exit.
 
 **Table 1. Carbon dioxide avoidance and ambient water parameters in both tanks.** The pCO~2~ is estimated from instantaneous pH at the last exit and measured from water samples.
 
