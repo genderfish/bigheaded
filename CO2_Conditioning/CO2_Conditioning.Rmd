@@ -3,8 +3,8 @@ title: "CO2_Conditioning"
 author: "Jackie Culotta"
 date: "2022-11-15"
 output:
-  html_document: default
   word_document: default
+  html_document: default
 ---
 This Rmd file summarizes water parameters for the conditioning treatments in both tanks.
 
@@ -38,6 +38,8 @@ smallTank <- smallTank %>%
   mutate_if(is.character, as.numeric)
 
 str(smallTank)
+
+rm(factorColumns)
 ```
 
 ```{r summary stats}
@@ -50,7 +52,10 @@ smallSummary <- smallTank2 %>%
 group_by(Conditioning) %>%
   summarize(
     smallMid_ppm = mean(Mid_ppm),
-    smallEnd_ppm = mean(End_ppm))
+    smallMid_SE = sd(Mid_ppm)/sqrt(length(Mid_ppm)),
+    smallEnd_ppm = mean(End_ppm),
+    smallEnd_SE = sd(End_ppm)/sqrt(length(End_ppm))
+    )
 smallSummary <- as.data.frame(smallSummary)
 smallSummary
 
@@ -59,6 +64,7 @@ largeSummary <- largeTank2 %>%
 group_by(Conditioning) %>%
   summarize(
     largeStart_ppm = mean(Start_ppm),
+    largeStart_SE = sd(Start_ppm)/sqrt(length(Start_ppm)),
     largeEnd_ppm = mean(End_ppm),
     largeEnd_SE = sd(End_ppm)/sqrt(length(End_ppm))
     )
@@ -66,22 +72,56 @@ largeSummary <- as.data.frame(largeSummary)
 largeSummary
 ```
 ```{r in text, include=FALSE}
+# small tank midpoint
+smallMid_ppm <- smallSummary %>% slice(1) %>% select(smallMid_ppm)
+smallMid_ppm <- format(signif(as.numeric(smallMid_ppm), 3))
+
+smallMid_SE <- smallSummary %>% slice(1) %>% select(smallMid_SE)
+smallMid_SE <- format(signif(as.numeric(smallMid_SE), 3))
+
+# small tank end point
+
+smallEnd_ppm <- smallSummary %>% slice(1) %>% select(smallEnd_ppm)
+smallEnd_ppm <- format(signif(as.numeric(smallEnd_ppm), 3))
+
+smallEnd_SE <- smallSummary %>% slice(1) %>% select(smallEnd_SE)
+smallEnd_SE <- format(signif(as.numeric(smallEnd_SE), 3))
+
+
 # large tank start
+CO2largeStart_ppm <- largeSummary %>% slice(2) %>% select(largeStart_ppm)
+CO2largeStart_ppm <- format(signif(as.numeric(CO2largeStart_ppm), 3))
+
+CO2largeStart_SE <- largeSummary %>% slice(2) %>% select(largeStart_SE)
+CO2largeStart_SE <- format(signif(as.numeric(CO2largeStart_SE), 3))
+
+
+AIRlargeStart_ppm <- largeSummary %>% slice(1) %>% select(largeStart_ppm)
+AIRlargeStart_ppm <- format(signif(as.numeric(AIRlargeStart_ppm), 3))
+
+AIRlargeStart_SE <- largeSummary %>% slice(1) %>% select(largeStart_SE)
+AIRlargeStart_SE <- format(signif(as.numeric(AIRlargeStart_SE), 3))
 
 
 # large tank end point
-largeEnd_ppm <- largeSummary %>% slice(2) %>% select(largeEnd_ppm)
-largeEnd_ppm <- format(signif(as.numeric(largeEnd_ppm), 3), big.mark = ",")
-largeEnd_ppm_SE <- format(signif(as.numeric(largeSummary %>% filter(Conditioning == 'Carbon dioxide') %>% select(largeEnd_SE)), 3), big.mark = ",")
+CO2largeEnd_ppm <- largeSummary %>% slice(2) %>% select(largeEnd_ppm)
+CO2largeEnd_ppm <- format(signif(as.numeric(CO2largeEnd_ppm), 3))
+
+CO2largeEnd_SE <- largeSummary %>% slice(2) %>% select(largeEnd_SE)
+CO2largeEnd_SE <- format(signif(as.numeric(CO2largeEnd_SE), 3))
+
+AIRlargeEnd_ppm <- largeSummary %>% slice(1) %>% select(largeEnd_ppm)
+AIRlargeEnd_ppm <- format(signif(as.numeric(AIRlargeEnd_ppm), 3))
+
+AIRlargeEnd_SE <- largeSummary %>% slice(1) %>% select(largeEnd_SE)
+AIRlargeEnd_SE <- format(signif(as.numeric(AIRlargeEnd_SE), 3))
 ```
 
 # Results
-## Small Tank
 
-pCO~2~ at conditioning midpoint was `r smallMidpoint` ± `r smallMidpoint_SE` ppm. 
-pCO~2~ at conditoining endpoint was `r smallEnd`± `r smallEnd_SE` ppm. 
+In the small tank, the pCO~2~ halfway into the conditioning treatment was `r smallMid_ppm` ± `r smallMid_SE` ppm. Dissolved CO~2~ reached `r smallEnd_ppm` ± `r smallEnd_SE` ppm at the end of the treatment.
+\
+In the large tank, dissolved CO~2~ before conditioning was `r CO2largeStart_ppm` ± `r CO2largeStart_SE` ppm for schools trained with CO~2~, and `r AIRlargeStart_ppm` ± `r AIRlargeStart_SE` ppm for schools trained with air. 
+At the end of the conditioning treatment, the dissolved CO~2~ for carp conditioned with air was `r AIRlargeEnd_ppm` ± `r AIRlargeEnd_SE` ppm. 
+Carp in the CO~2~ treatment (N = 10) were conditioned at `r CO2largeEnd_ppm` ± `r CO2largeEnd_SE` ppm by the conditioning period endpoint.  
 
-## Large tank
-In the large tank, dissolved CO~2~ before trial initiation was 2310 ± 239 ppm for schools trained with CO~2~, and 1459 ± 45 ppm for schools trained with air. 
-At the trial endpoint, the dissolved CO2 for carp undergoing conditioning with air was 1494 ± 65 ppm. 
-Carp in the CO~2~ treatment (N = 10) were conditioned at `r largeEnd_ppm` ± `r largeEnd_ppm_SE` ppm by the conditioning period endpoint.  
