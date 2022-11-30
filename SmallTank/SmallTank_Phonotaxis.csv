@@ -1,329 +1,329 @@
 VID_ID,School_ID,Stopped_Sound_On_Return,Trained,Species,Trial,Days_Since_Train,Speaker,Date,Temp,Time,Frequency_Hz,Exit_s,Return_s,Angle,Exit_N,Return_N,Notes
-1,1,FALSE,1 day,Silver,1,5,Left,10/26/2021,NR,1215,Acclimation,84,14,63,NR,20,"7 days since start of training, 5 days since end of training....."
-2,1,FALSE,1 day,Silver,1,5,Left,10/26/2021,NR,1230,2000,1,10,323,NR,26,"7 days since start of training, 5 days since end of training....."
-3,2,FALSE,1 day,Silver,1,5,Right,10/26/2021,NR,1245,Acclimation,14,10,135,NR,47,
-4,2,FALSE,1 day,Silver,1,5,Right,10/26/2021,NR,1300,2000,7,13,176,NR,49,
-5,2,FALSE,1 day,Silver,2,7,Left,10/28/2021,NR,1535,Acclimation,6,10,158,NR,62,
-6,2,FALSE,1 day,Silver,2,7,Left,10/28/2021,NR,1550,2000,7,15,66,NR,38,"In the video, there was a weird timeskip at 4:09"
-7,3,FALSE,1 day,Silver,1,1,Right,10/29/2021,NR,915,Acclimation,12,19,136,NR,24,
-8,3,FALSE,1 day,Silver,1,1,Right,10/29/2021,NR,930,2000,25,18,154,NR,20,
-9,4,FALSE,1 day,Silver,1,1,Left,10/29/2021,NR,945,Acclimation,9,55,253,NR,19,
-10,4,FALSE,1 day,Silver,1,1,Left,10/29/2021,NR,1000,2000,19,68,157,NR,16,
-11,1,FALSE,1 day,Silver,2,8,Right,10/29/2021,NR,1030,Acclimation,5,35,45,NR,21,"10 days since start, 8 since end of training / time skip at 2:05"
-12,1,FALSE,1 day,Silver,2,8,Right,10/29/2021,NR,1045,2000,8,22,226,NR,22,"10 days since start, 8 since end of training"
-13,3,FALSE,1 day,Silver,2,5,Left,11/2/2021,NR,1030,Acclimation,20,64,290,NR,23,
-14,3,FALSE,1 day,Silver,2,5,Left,11/2/2021,NR,1045,2000,15,24,227,NR,19,
-15,4,FALSE,1 day,Silver,2,5,Right,11/2/2021,NR,1145,Acclimation,9,11,24,NR,46,
-16,4,FALSE,1 day,Silver,2,5,Right,11/2/2021,NR,1200,2000,31,14,151,NR,29,
-17,2,FALSE,1 day,Silver,3,12,Right,11/2/2021,NR,1215,Acclimation,1,16,62,NR,47,
-18,2,FALSE,1 day,Silver,3,12,Right,11/2/2021,NR,1230,2000,2,35,342,NR,41,
-19,1,FALSE,1 day,Silver,3,13,Left,11/2/2021,NR,1245,Acclimation,31,49,272,NR,38,
-20,1,FALSE,1 day,Silver,3,13,Left,11/2/2021,NR,1300,2000,7,19,117,NR,40,
-21,3,FALSE,1 day,Silver,3,7,Right,11/4/2021,NR,1100,Acclimation,64,12,234,NR,9,Started acclimation video when they entered R side
-22,3,FALSE,1 day,Silver,3,7,Right,11/4/2021,NR,1115,2000,Inf,NA,205,NR,8,
-23,4,FALSE,1 day,Silver,3,7,Left,11/4/2021,NR,1125,Acclimation,4,11,282,NR,69,
-24,4,FALSE,1 day,Silver,3,7,Left,11/4/2021,NR,1140,2000,11,22,318,NR,41,
-25,1,FALSE,1 day,Silver,4,15,Right,11/4/2021,NR,1245,Acclimation,6,9,173,NR,53,Started acclimation video when they entered R side / Good schooling figure 8 behavior example
-26,1,FALSE,1 day,Silver,4,15,Right,11/4/2021,NR,1300,2000,7,6,166,NR,62,
-27,2,FALSE,1 day,Silver,4,14,Left,11/4/2021,NR,1315,Acclimation,21,30,186,NR,36,Started acclimation video when they entered L side
-28,2,FALSE,1 day,Silver,4,14,Left,11/4/2021,NR,1330,2000,39,9,248,NR,8,Lots of jumping on left side... Avoidance behavior? 
-29,3,FALSE,1 day,Silver,4,10,Left,11/7/2021,NR,1015,Acclimation,1,13,357,NR,46,
-30,3,FALSE,1 day,Silver,4,10,Left,11/7/2021,NR,1030,2000,9,37,165,NR,15,
-31,4,FALSE,1 day,Silver,4,10,Right,11/7/2021,NR,1025,Acclimation,5,13,215,NR,80,
-32,4,FALSE,1 day,Silver,4,10,Right,11/7/2021,NR,1050,2000,1,5,296,NR,72,
-33,3,FALSE,1 day,Silver,4,14,Right,11/11/2021,NR,1015,Acclimation,4,19,162,NR,35,
-34,3,FALSE,1 day,Silver,4,14,Right,11/11/2021,NR,1050,2000,31,27,128,NR,31,
-35,4,FALSE,1 day,Silver,4,14,Left,11/11/2021,NR,1115,Acclimation,5,8,250,NR,48,
-36,4,FALSE,1 day,Silver,4,14,Left,11/11/2021,NR,1125,2000,8,16,200,NR,55,
-37,2,FALSE,1 day,Silver,5,21,Right,11/11/2021,NR,1140,Acclimation,13,15,219,NR,43,
-38,2,FALSE,1 day,Silver,5,21,Right,11/11/2021,NR,1055,2000,61,26,238,NR,33,
-39,1,FALSE,1 day,Silver,5,22,Left,11/11/2021,NR,1205,Acclimation,6,18,194,NR,37,
-40,1,FALSE,1 day,Silver,5,22,Left,11/11/2021,NR,1225,2000,5,9,146,NR,20,
-41,1,FALSE,1 day,Silver,6,28,Left,11/18/2021,NR,1030,Acclimation,25,42,307,NR,30,"Implented changes going forward: arrow on bottom of tank, water circulating during sound trial"
-42,1,FALSE,1 day,Silver,6,28,Left,11/18/2021,NR,1050,2000,31,147,141,NR,20,
-43,2,FALSE,1 day,Silver,6,29,Right,11/18/2021,NR,1100,Acclimation,19,21,200,NR,30,
-44,2,FALSE,1 day,Silver,6,29,Right,11/18/2021,NR,1115,2000,19,82,224,NR,24,
-45,3,FALSE,1 day,Silver,5,21,Left,11/18/2021,NR,1125,Acclimation,14,61,185,NR,12,
-46,3,FALSE,1 day,Silver,5,21,Left,11/18/2021,NR,1150,2000,1,62,0,NR,10,
-47,4,FALSE,1 day,Silver,5,21,Right,11/18/2021,NR,1200,Acclimation,11,31,273,NR,23,
-48,4,FALSE,1 day,Silver,5,21,Right,11/18/2021,NR,1235,2000,83,17,122,NR,21,
-49,3,FALSE,1 day,Silver,7,35,Left,12/2/2021,NR,1100,Acclimation,3,41,314,NR,15,
-50,3,FALSE,1 day,Silver,7,35,Left,12/2/2021,NR,1130,2000,74,9,321,NR,18,
-51,4,FALSE,1 day,Silver,7,35,Right,12/2/2021,NR,1145,Acclimation,60,13,160,NR,29,this video was 8 minutes long but I measured until 5:05
-52,4,FALSE,1 day,Silver,7,35,Right,12/2/2021,NR,1200,2000,86,9,187,NR,18,They really liked the right side of the tank
-53,5,FALSE,2 days,Bighead,1,1,Left,1/4/2022,NR,1045,Acclimation,10,13,311,NR,NR,"""Acclimation"" video recorded after trial."
-54,5,FALSE,2 days,Bighead,1,1,Left,1/4/2022,NR,1015,BB,9,257,322,NR,NR,
-55,6,FALSE,2 days,Bighead,1,1,Left,1/4/2022,NR,1230,Acclimation,108,31,263,NR,NR,"Forgot to check which side fish were on, left"
-56,6,FALSE,2 days,Bighead,1,1,Right,1/4/2022,NR,1245,BB,57,300,197,NR,NR,First quiet side S was Inf -- replacing 300 as max numeric value
-57,5,FALSE,2 days,Bighead,2,4,Right,1/7/2022,NR,930,Acclimation,13,65,68,NR,NR,
-58,5,FALSE,2 days,Bighead,2,4,Right,1/7/2022,NR,945,BB,33,28,201,NR,NR,Anec: Don't seem especially averse to sound
-59,6,FALSE,2 days,Bighead,2,4,Left,1/7/2022,NR,1030,Acclimation,32,31,148,NR,NR,
-60,6,FALSE,2 days,Bighead,2,4,Left,1/7/2022,NR,1045,BB,31,122,98,NR,NR,
-61,7,FALSE,2 days,Bighead,1,1,Right,1/7/2022,NR,1100,Acclimation,14,42,67,NR,NR,Only 3 fish remaining
+251,18,TRUE,0 days,Bighead,1,1,Right,3/17/2022,17.9,1415,Acclimation,NA,NA,49,NA,NA,"Trial error: Fish start on left side in video, but should be right"
+22,3,FALSE,1 day,Silver,3,7,Right,11/4/2021,NR,1115,2000,300,NA,205,NR,8,Inf for exit changed to 300
+250,17,TRUE,0 days,Bighead,1,1,Left,3/17/2022,17.9,1345,BB,300,NA,32,NA,NA,"Inf for exit changed to 300, Freeze response?"
+314,19,TRUE,0 days,Bighead,4,11,Left,4/28/2022,17.3,1330,BB,300,8,87,NA,NA,Inf for exit changed to 300
 62,7,FALSE,2 days,Bighead,1,1,Right,1/7/2022,NR,1115,BB,205,58,52,NR,NR,"Only 3 fish remaining, Anec: Don't seem especially averse to sound"
-63,8,FALSE,2 days,Bighead,1,1,Left,1/7/2022,NR,1000,Acclimation,46,53,46,NR,NR,
-64,8,FALSE,2 days,Bighead,1,1,Left,1/7/2022,NR,1015,BB,29,48,72,NR,NR,
-65,5,FALSE,2 days,Bighead,3,7,Left,1/10/2022,NR,1130,Acclimation,18,14,43,NR,NR,
-66,5,FALSE,2 days,Bighead,3,7,Left,1/10/2022,NR,1145,BB,43,19,120,NR,NR,Anec: Not responding to sound at all
-67,6,FALSE,2 days,Bighead,3,7,Right,1/10/2022,NR,1215,Acclimation,36,39,314,NR,NR,
-68,6,FALSE,2 days,Bighead,3,7,Right,1/10/2022,NR,1230,BB,12,73,103,NR,NR,Anec: Initial shuttle but returned mid trial 
-69,7,FALSE,2 days,Bighead,2,4,Left,1/10/2022,NR,1300,Acclimation,49,70,194,NR,NR,
-70,7,FALSE,2 days,Bighead,2,4,Left,1/10/2022,NR,1315,BB,6,43,313,NR,NR,Anec: Initial shuttle but returned after 30 sec
-71,8,FALSE,2 days,Bighead,2,4,Right,1/10/2022,NR,1245,Acclimation,5,15,319,NR,NR,
-72,8,FALSE,2 days,Bighead,2,4,Right,1/10/2022,NR,1300,BB,11,24,106,NR,NR,Anec: Initial shuttle (strong reaction) but returned after 30 seconds
-73,1,FALSE,2 days,Silver,1,1,Left,1/11/2022,NR,945,Acclimation,3,37,44,NR,NR,
-74,1,FALSE,2 days,Silver,1,1,Left,1/11/2022,NR,1000,BB,9,29,286,NR,NR,
-75,2,FALSE,2 days,Silver,1,1,Right,1/11/2022,NR,1045,Acclimation,33,25,225,NR,NR,
-76,2,FALSE,2 days,Silver,1,1,Right,1/11/2022,NR,1100,BB,18,10,133,NR,NR,
-77,8,FALSE,2 days,Bighead,3,7,Left,1/13/2022,NR,1015,Acclimation,45,24,35,NR,NR,One fish found dead (6.2 cm)
-78,8,FALSE,2 days,Bighead,3,7,Left,1/13/2022,NR,1030,BB,25,56,54,NR,NR,One fish found dead (6.2 cm)
-79,7,FALSE,2 days,Bighead,3,7,Right,1/13/2022,NR,1045,Acclimation,29,76,208,NR,NR,
-80,7,FALSE,2 days,Bighead,3,7,Right,1/13/2022,NR,1115,BB,23,38,219,NR,NR,Anec: Not averse to sound
-81,2,FALSE,2 days,Silver,2,4,Left,1/14/2022,NR,1000,Acclimation,13,64,95,NR,NR,Jumping
-82,2,FALSE,2 days,Silver,2,4,Left,1/14/2022,NR,1015,BB,12,27,313,NR,NR,"Seem to be avoiding the sound; even though they swim toward the speaker at first, swim out of the tank"
-83,6,FALSE,2 days,Bighead,4,11,Left,1/14/2022,NR,1030,Acclimation,85,22,113,NR,NR,
-84,6,FALSE,2 days,Bighead,4,11,Left,1/14/2022,NR,1045,BB,120,28,136,NR,NR,"Startled at first sound playing, though did not move out of the tank"
-85,1,FALSE,2 days,Silver,2,4,Right,1/14/2022,NR,1215,Acclimation,9,24,120,NR,NR,
-86,1,FALSE,2 days,Silver,2,4,Right,1/14/2022,NR,1230,BB,58,9,203,NR,NR,Anec: Not responding to sound
-87,5,FALSE,2 days,Bighead,4,11,Right,1/14/2022,NR,1245,Acclimation,15,65,114,NR,NR,
-88,5,FALSE,2 days,Bighead,4,11,Right,1/14/2022,NR,1300,BB,14,57,93,NR,NR,
-89,1,FALSE,2 days,Silver,3,7,Left,1/17/2022,NR,945,Acclimation,5,9,228,NR,NR,
-90,1,FALSE,2 days,Silver,3,7,Left,1/17/2022,NR,1000,BB,48,7,187,NR,NR,Anec: Not averse to sound
-91,7,FALSE,2 days,Bighead,4,11,Left,1/17/2022,NR,1015,Acclimation,14,83,2,NR,NR,
-92,7,FALSE,2 days,Bighead,4,11,Left,1/17/2022,NR,1030,BB,21,121,131,NR,NR,Anec: Freeze response then shuttle away
-93,5,FALSE,2 days,Bighead,5,14,Left,1/17/2022,NR,1035,Acclimation,9,102,146,NR,NR,One fish looks sick.
-94,5,FALSE,2 days,Bighead,5,14,Left,1/17/2022,NR,1050,BB,145,36,143,NR,NR,Anec: Not averse to sound
-95,2,FALSE,2 days,Silver,3,7,Right,1/17/2022,NR,1100,Acclimation,7,20,203,NR,NR,
-96,2,FALSE,2 days,Silver,3,7,Right,1/17/2022,NR,1130,BB,4,55,301,NR,NR,Anec: Still avoiding sound
-97,8,FALSE,2 days,Bighead,4,11,Right,1/17/2022,NR,1135,Acclimation,3,33,330,NR,NR,
-98,8,FALSE,2 days,Bighead,4,11,Right,1/17/2022,NR,1150,BB,164,39,140,NR,NR,Anec: Startle and freeze but did not shuttle away in 30 sec
-99,6,FALSE,2 days,Bighead,5,14,Right,1/17/2022,NR,1200,Acclimation,100,32,133,NR,NR,
-100,6,FALSE,2 days,Bighead,5,14,Right,1/17/2022,NR,1215,BB,37,11,159,NR,NR,Anec: Still avoiding sound
-101,7,FALSE,2 days,Bighead,5,14,Right,1/20/2022,NR,900,Acclimation,4,42,298,NR,NR,
 102,7,FALSE,2 days,Bighead,5,14,Right,1/20/2022,NR,915,BB,200,13,74,NR,NR,Soundplay back starts at 7 s into video
-103,8,FALSE,2 days,Bighead,5,14,Left,1/20/2022,NR,1200,Acclimation,64,51,45,NR,NR,
-104,8,FALSE,2 days,Bighead,5,14,Left,1/20/2022,NR,1230,BB,12,23,120,NR,NR,Anec: Freeze and then shuttle away within 30 s
-105,1,FALSE,2 days,Silver,4,11,Right,1/21/2022,NR,945,Acclimation,4,13,259,NR,NR,
-106,1,FALSE,2 days,Silver,4,11,Right,1/21/2022,NR,1000,BB,25,15,188,NR,NR,
-107,2,FALSE,2 days,Silver,4,11,Left,1/21/2022,NR,1015,Acclimation,18,23,152,NR,NR,
-108,2,FALSE,2 days,Silver,4,11,Left,1/21/2022,NR,1030,BB,11,13,215,NR,NR,
-109,4,FALSE,2 days,Silver,1,1,Right,1/21/2022,NR,1045,Acclimation,22,28,341,NR,NR,
+124,3,FALSE,2 days,Silver,2,4,Right,1/24/2022,NR,1230,BB,176,11,182,NR,NR,
+98,8,FALSE,2 days,Bighead,4,11,Right,1/17/2022,NR,1150,BB,164,39,140,NR,NR,Anec: Startle and freeze but did not shuttle away in 30 sec
+247,16,TRUE,0 days,Bighead,1,1,Left,3/17/2022,17.9,1330,Acclimation,160,78,8,NA,NA,
+317,19,TRUE,0 days,Bighead,5,14,Right,5/2/2022,17.9,1130,Acclimation,154,106,32,NA,NA,
+308,20,TRUE,0 days,Bighead,2,4,Left,4/21/2022,17.9,1330,BB,153,93,73,NA,NA,2 returned around 3:30
+188,12,TRUE,0 days,Silver,2,4,Right,2/21/2022,17.1,1215,BB,148,13,151,NA,NA,"Jump after sound playback, takes awhile for 3/5ths of school to exit"
+94,5,FALSE,2 days,Bighead,5,14,Left,1/17/2022,NR,1050,BB,145,36,143,NR,NR,Anec: Not averse to sound
 110,4,FALSE,2 days,Silver,1,1,Right,1/21/2022,NR,1100,BB,143,35,171,NR,NR,"Anec: Not averse to sound in first 30 s, some jumping on R side"
 111,3,FALSE,2 days,Silver,1,1,Left,1/21/2022,NR,1115,Acclimation,141,97,200,NR,NR,A fish jumped and escaped into drain during acclimation period. 
+300,18,TRUE,0 days,Bighead,7,28,Right,4/14/2022,17.6,1100,BB,128,29,146,NA,NA,
+323,20,TRUE,0 days,Bighead,6,21,Left,5/9/2022,20.1,1200,Acclimation,122,46,205,NA,NA,Replaced 7.5 cm fish with 7.7 cm
+84,6,FALSE,2 days,Bighead,4,11,Left,1/14/2022,NR,1045,BB,120,28,136,NR,NR,"Startled at first sound playing, though did not move out of the tank"
+267,17,TRUE,0 days,Bighead,3,7,Left,3/24/2022,17.9,1015,Acclimation,117,27,53,NA,NA,
+282,17,TRUE,0 days,Bighead,4,11,Right,3/28/2022,16.9,1330,BB,116,43,47,NA,NA,
+264,17,TRUE,0 days,Bighead,2,4,Right,3/21/2022,18.3,1315,BB,115,49,21,NA,NA,
+126,3,FALSE,2 days,Silver,3,7,Left,1/27/2022,NR,1000,BB,111,73,223,NR,NR,"Anec: Maybe freezing, otherwise no reaction"
+164,10,TRUE,2 days,Silver,2,4,Left,2/7/2022,15.6,1330,BB,109,11,185,NA,NA,
+55,6,FALSE,2 days,Bighead,1,1,Left,1/4/2022,NR,1230,Acclimation,108,31,263,NR,NR,"Forgot to check which side fish were on, left"
+268,17,TRUE,0 days,Bighead,3,7,Left,3/24/2022,17.9,1030,BB,105,24,144,NA,NA,
+306,19,TRUE,0 days,Bighead,2,4,Left,4/21/2022,18.3,1300,BB,104,151,183,NA,NA,
+99,6,FALSE,2 days,Bighead,5,14,Right,1/17/2022,NR,1200,Acclimation,100,32,133,NR,NR,
+303,19,TRUE,0 days,Bighead,1,1,Right,4/18/2022,17.9,1500,Acclimation,100,131,220,NA,NA,
+305,19,TRUE,0 days,Bighead,2,4,Left,4/21/2022,18.3,1245,Acclimation,94,41,42,NA,NA,
+160,2,TRUE,2 days,Silver,7,28,Right,2/7/2022,15.8,1230,BB,88,39,163,NA,NA,Stopped video about a minute after sound ended. 
+52,4,FALSE,1 day,Silver,7,35,Right,12/2/2021,NR,1200,2000,86,9,187,NR,18,They really liked the right side of the tank
+83,6,FALSE,2 days,Bighead,4,11,Left,1/14/2022,NR,1030,Acclimation,85,22,113,NR,NR,
+216,10,TRUE,2 days,Silver,7,28,Left,3/3/2022,16.8,1330,BB,85,44,93,NA,NA,
+281,17,TRUE,0 days,Bighead,4,11,Right,3/28/2022,16.9,1315,Acclimation,85,6,134,NA,NA,
+284,16,TRUE,0 days,Bighead,5,14,Left,3/31/2022,17.7,1145,BB,85,39,0,NA,NA,
+1,1,FALSE,1 day,Silver,1,5,Left,10/26/2021,NR,1215,Acclimation,84,14,63,NR,20,"7 days since start of training, 5 days since end of training....."
+122,4,FALSE,2 days,Silver,2,4,Left,1/24/2022,NR,1200,BB,84,34,279,NR,NR,
+48,4,FALSE,1 day,Silver,5,21,Right,11/18/2021,NR,1235,2000,83,17,122,NR,21,
+312,19,TRUE,0 days,Bighead,3,7,Right,4/25/2022,18.2,1200,BB,81,42,160,NA,NA,
+248,16,TRUE,0 days,Bighead,1,1,Left,3/17/2022,17.9,1345,BB,79,12,81,NA,NA,
+260,15,TRUE,0 days,Silver,6,21,Right,3/21/2022,18.5,1215,BB,78,89,228,NA,NA,
+180,11,TRUE,0 days,Silver,1,1,Left,2/17/2022,16.6,1400,BB,77,10,253,NA,NA,"When school is behind speaker at playback, they struggle to find exit....."
+232,12,TRUE,0 days,Silver,6,21,Right,3/10/2022,16.6,1315,BB,76,12,174,NA,NA,
+50,3,FALSE,1 day,Silver,7,35,Left,12/2/2021,NR,1130,2000,74,9,321,NR,18,
+252,18,TRUE,0 days,Bighead,1,1,Right,3/17/2022,17.9,1430,BB,73,92,195,NA,NA,"fish start on left side, start time 8.63 to get better view"
+315,20,TRUE,0 days,Bighead,4,11,Left,4/28/2022,17.3,1400,Acclimation,71,37,318,NA,NA,
+152,3,FALSE,2 days,Silver,5,14,Left,2/3/2022,NR,1530,BB,70,193,139,NR,NR,Only 3 fish remain. Stopping future trials. 
+324,20,TRUE,0 days,Bighead,6,21,Left,5/9/2022,20.1,1215,BB,69,33,33,NA,NA,Startled but stayed on speaker side
+190,10,TRUE,2 days,Silver,6,21,Right,2/24/2022,15.3,1300,BB,68,23,161,NA,NA,
+297,17,TRUE,0 days,Bighead,7,28,Left,4/14/2022,17.8,1015,Acclimation,67,18,88,NA,NA,
+21,3,FALSE,1 day,Silver,3,7,Right,11/4/2021,NR,1100,Acclimation,64,12,234,NR,9,Started acclimation video when they entered R side
+103,8,FALSE,2 days,Bighead,5,14,Left,1/20/2022,NR,1200,Acclimation,64,51,45,NR,NR,
+114,5,FALSE,2 days,Bighead,6,21,Right,1/24/2022,NR,1000,BB,64,21,188,NR,NR,"Anec: Startled at noise, continued to stay in chamber"
+38,2,FALSE,1 day,Silver,5,21,Right,11/11/2021,NR,1055,2000,61,26,238,NR,33,
+117,6,FALSE,2 days,Bighead,6,21,Left,1/24/2022,NR,1045,Acclimation,61,20,124,NR,NR,
+148,4,FALSE,2 days,Silver,5,14,Right,2/3/2022,NR,1400,BB,61,166,190,NR,NR,moved to right side with net
+51,4,FALSE,1 day,Silver,7,35,Right,12/2/2021,NR,1145,Acclimation,60,13,160,NR,29,this video was 8 minutes long but I measured until 5:05
+275,18,TRUE,0 days,Bighead,4,11,Left,3/28/2022,17.3,1215,Acclimation,60,56,273,NA,NA,
+294,17,TRUE,0 days,Bighead,6,21,Right,4/7/2022,17.7,1400,BB,60,238,40,NA,NA,2:35  deflection
+127,7,FALSE,2 days,Bighead,6,21,Left,1/27/2022,NR,1015,Acclimation,59,25,141,NR,NR,Anec: Swimming primarily on the right side bottom right corner
+86,1,FALSE,2 days,Silver,2,4,Right,1/14/2022,NR,1230,BB,58,9,203,NR,NR,Anec: Not responding to sound
+132,8,FALSE,2 days,Bighead,6,21,Right,1/27/2022,NR,1315,BB,58,33,260,NR,NR,Anec: Freeze then quick shuttle away
+304,19,TRUE,0 days,Bighead,1,1,Right,4/18/2022,17.9,1515,BB,58,67,98,NA,NA,startle response
+56,6,FALSE,2 days,Bighead,1,1,Right,1/4/2022,NR,1245,BB,57,300,197,NR,NR,First quiet side S was Inf -- replacing 300 as max numeric value
+289,18,TRUE,0 days,Bighead,6,21,Left,4/7/2022,17.9,1245,Acclimation,57,25,52,NA,NA,
+150,8,FALSE,2 days,Bighead,7,28,Left,2/3/2022,NR,1430,BB,55,108,38,NR,NR,"startle, freeze, then shuttle. Seemed averse to sound. Only 4 fish remain, canceling future trials. "
+182,10,TRUE,2 days,Silver,5,14,Right,2/17/2022,16.3,1430,BB,55,52,310,NA,NA,sound played @ 6s
+246,12,TRUE,0 days,Silver,7,28,Left,3/17/2022,18.1,1315,BB,55,31,232,NA,NA,
+313,19,TRUE,0 days,Bighead,4,11,Left,4/28/2022,17.3,1315,Acclimation,55,21,40,NA,NA,
+174,9,TRUE,2 days,Bighead,4,11,Right,2/14/2022,15.8,1200,BB,54,34,134,NA,NA,
+311,19,TRUE,0 days,Bighead,3,7,Right,4/25/2022,18.2,1145,Acclimation,53,42,116,NA,NA,
+200,12,TRUE,0 days,Silver,4,11,Right,2/28/2022,16.8,1200,BB,52,16,266,NA,NA,Sound starts @ 1 s into video
+258,13,TRUE,0 days,Silver,6,21,Right,3/21/2022,18.6,1145,BB,50,18,104,NA,NA,
+319,20,TRUE,0 days,Bighead,5,14,Right,5/2/2022,18.1,1200,Acclimation,50,46,13,NA,NA,
+69,7,FALSE,2 days,Bighead,2,4,Left,1/10/2022,NR,1300,Acclimation,49,70,194,NR,NR,
+90,1,FALSE,2 days,Silver,3,7,Left,1/17/2022,NR,1000,BB,48,7,187,NR,NR,Anec: Not averse to sound
+261,16,TRUE,0 days,Bighead,2,4,Right,3/21/2022,18.3,1230,Acclimation,48,29,174,NA,NA,
+63,8,FALSE,2 days,Bighead,1,1,Left,1/7/2022,NR,1000,Acclimation,46,53,46,NR,NR,
+143,5,FALSE,2 days,Bighead,7,28,Left,1/31/2022,NR,1545,Acclimation,46,18,57,NR,NR,
+77,8,FALSE,2 days,Bighead,3,7,Left,1/13/2022,NR,1015,Acclimation,45,24,35,NR,NR,One fish found dead (6.2 cm)
+206,14,TRUE,0 days,Silver,1,1,Right,2/28/2022,16.4,1330,BB,45,21,107,NA,NA,"1st fish never shuttled, used avg time"
+263,17,TRUE,0 days,Bighead,2,4,Right,3/21/2022,18.3,1300,Acclimation,45,52,339,NA,NA,"@ 0:00 1 left, 4 right "
+168,6,TRUE,2 days,Bighead,8,35,Left,2/7/2022,15.3,1430,BB,44,22,204,NA,NA,Stopped sound playback on return.
+249,17,TRUE,0 days,Bighead,1,1,Left,3/17/2022,17.9,1400,Acclimation,44,53,72,NA,NA,"""Acclimation"" video recorded after trial. "
+266,16,TRUE,0 days,Bighead,3,7,Left,3/24/2022,18.1,1000,BB,44,39,106,NA,NA,"This is an acclimation video, does it mean 266?"
+66,5,FALSE,2 days,Bighead,3,7,Left,1/10/2022,NR,1145,BB,43,19,120,NR,NR,Anec: Not responding to sound at all
+189,10,TRUE,2 days,Silver,6,21,Right,2/24/2022,15.3,1245,Acclimation,43,15,112,NA,NA,
+283,16,TRUE,0 days,Bighead,5,14,Left,3/31/2022,17.7,1130,Acclimation,43,43,306,NA,NA,
+296,16,TRUE,0 days,Bighead,7,28,Left,4/14/2022,17.7,1000,BB,43,52,4,NA,NA,2 fish returned much earlier than the rest of the school
+146,7,FALSE,2 days,Bighead,7,28,Right,2/3/2022,NR,1330,BB,42,28,127,NR,NR,Only 3 fish remain. Cancelling future trials.
+125,3,FALSE,2 days,Silver,3,7,Left,1/27/2022,NR,945,Acclimation,41,7,129,NR,NR,
+130,4,FALSE,2 days,Silver,3,7,Right,1/27/2022,NR,1245,BB,41,12,247,NR,NR,Anec: Jumping and exit searching but in sound chamber
+219,14,TRUE,0 days,Silver,2,4,Left,3/3/2022,16.6,1415,Acclimation,41,42,151,NA,NA,
+262,16,TRUE,0 days,Bighead,2,4,Right,3/21/2022,18.3,1245,BB,41,10,72,NA,NA,
+316,20,TRUE,0 days,Bighead,4,11,Left,4/28/2022,17.3,1415,BB,41,64,12,NA,NA,
+28,2,FALSE,1 day,Silver,4,14,Left,11/4/2021,NR,1330,2000,39,9,248,NR,8,Lots of jumping on left side... Avoidance behavior? 
+280,16,TRUE,0 days,Bighead,4,11,Right,3/28/2022,17.1,1300,BB,39,47,84,NA,NA,
+165,1,TRUE,2 days,Silver,7,28,Left,2/7/2022,15.5,1345,Acclimation,38,21,182,NA,NA,
+195,9,TRUE,2 days,Bighead,6,21,Left,2/24/2022,15.6,1400,Acclimation,38,33,118,NA,NA,"At start of vid, 4 fish on left, 1 on right side. "
+100,6,FALSE,2 days,Bighead,5,14,Right,1/17/2022,NR,1215,BB,37,11,159,NR,NR,Anec: Still avoiding sound
+301,20,TRUE,0 days,Bighead,1,1,Right,4/18/2022,17.9,1430,Acclimation,37,30,71,NA,NA,
+67,6,FALSE,2 days,Bighead,3,7,Right,1/10/2022,NR,1215,Acclimation,36,39,314,NR,NR,
+171,9,TRUE,2 days,Bighead,3,7,Right,2/10/2022,16.7,1115,Acclimation,36,37,210,NA,NA,
+318,19,TRUE,0 days,Bighead,5,14,Right,5/2/2022,17.9,1145,BB,36,96,67,NA,NA,
+293,17,TRUE,0 days,Bighead,6,21,Right,4/7/2022,17.7,1345,Acclimation,35,17,103,NA,NA,
+310,20,TRUE,0 days,Bighead,3,7,Right,4/25/2022,18.2,1130,BB,35,25,185,NA,NA,
+290,18,TRUE,0 days,Bighead,6,21,Left,4/7/2022,17.9,1300,BB,34,54,198,NA,NA, one fish left after ~5 seconds but returned to school on sound side
+298,17,TRUE,0 days,Bighead,7,28,Left,4/14/2022,17.8,1030,BB,34,19,132,NA,NA,
+309,20,TRUE,0 days,Bighead,3,7,Right,4/25/2022,18.2,1115,Acclimation,34,31,351,NA,NA,
+58,5,FALSE,2 days,Bighead,2,4,Right,1/7/2022,NR,945,BB,33,28,201,NR,NR,Anec: Don't seem especially averse to sound
+75,2,FALSE,2 days,Silver,1,1,Right,1/11/2022,NR,1045,Acclimation,33,25,225,NR,NR,
+159,2,TRUE,2 days,Silver,7,28,Right,2/7/2022,15.8,1215,Acclimation,33,99,128,NA,NA,
+187,12,TRUE,0 days,Silver,2,4,Right,2/21/2022,17.1,1200,Acclimation,33,53,164,NA,NA,
+321,19,TRUE,0 days,Bighead,6,21,Left,5/9/2022,20.1,1130,Acclimation,33,45,39,NA,NA,
+59,6,FALSE,2 days,Bighead,2,4,Left,1/7/2022,NR,1030,Acclimation,32,31,148,NR,NR,
+155,10,TRUE,2 days,Silver,1,1,Right,2/4/2022,NR,1615,Acclimation,32,47,84,NA,NA,
+186,11,TRUE,0 days,Silver,2,4,Left,2/21/2022,17.2,1145,BB,32,8,19,NA,NA,
+193,12,TRUE,0 days,Silver,3,7,Left,2/24/2022,15.7,1330,Acclimation,32,170,49,NA,NA,
+222,13,TRUE,0 days,Silver,3,7,Left,3/7/2022,17.1,1415,BB,32,12,217,NA,NA,
+285,17,TRUE,0 days,Bighead,5,14,Left,3/31/2022,17.6,1145,Acclimation,32,134,293,NA,NA,
+16,4,FALSE,1 day,Silver,2,5,Right,11/2/2021,NR,1200,2000,31,14,151,NR,29,
+19,1,FALSE,1 day,Silver,3,13,Left,11/2/2021,NR,1245,Acclimation,31,49,272,NR,38,
+34,3,FALSE,1 day,Silver,4,14,Right,11/11/2021,NR,1050,2000,31,27,128,NR,31,
+42,1,FALSE,1 day,Silver,6,28,Left,11/18/2021,NR,1050,2000,31,147,141,NR,20,
+60,6,FALSE,2 days,Bighead,2,4,Left,1/7/2022,NR,1045,BB,31,122,98,NR,NR,
+123,3,FALSE,2 days,Silver,2,4,Right,1/24/2022,NR,1215,Acclimation,31,14,166,NR,NR,One fish died over the weekend
+128,7,FALSE,2 days,Bighead,6,21,Left,1/27/2022,NR,1045,BB,31,38,145,NR,NR,"Had to restart trial, speaker stopped working and computer glitched --> working now"
+153,9,FALSE,2 days,Bighead,1,1,Left,2/4/2022,NR,1230,Acclimation,31,209,132,NR,NR,
+167,6,TRUE,2 days,Bighead,8,35,Left,2/7/2022,15.3,1415,Acclimation,31,56,131,NA,NA,
+259,15,TRUE,0 days,Silver,6,21,Right,3/21/2022,18.5,1200,Acclimation,31,44,219,NA,NA,
+213,15,TRUE,0 days,Silver,2,4,Right,3/3/2022,16.9,1300,Acclimation,30,12,101,NA,NA,
+265,16,TRUE,0 days,Bighead,3,7,Left,3/24/2022,18.1,945,Acclimation,30,50,73,NA,NA,
+299,18,TRUE,0 days,Bighead,7,28,Right,4/14/2022,17.6,1045,Acclimation,30,32,97,NA,NA,
+64,8,FALSE,2 days,Bighead,1,1,Left,1/7/2022,NR,1015,BB,29,48,72,NR,NR,
+79,7,FALSE,2 days,Bighead,3,7,Right,1/13/2022,NR,1045,Acclimation,29,76,208,NR,NR,
+131,8,FALSE,2 days,Bighead,6,21,Right,1/27/2022,NR,1300,Acclimation,28,81,125,NR,NR,
+142,2,FALSE,2 days,Silver,6,21,Left,1/31/2022,NR,1530,BB,28,30,288,NR,NR,"shuttle to other tank, returned after 1 min, "
+224,15,TRUE,0 days,Silver,3,7,Left,3/7/2022,16.9,1445,BB,28,11,225,NA,NA,
+291,16,TRUE,0 days,Bighead,6,21,Right,4/7/2022,17.8,1315,Acclimation,28,50,321,NA,NA,
+269,18,TRUE,0 days,Bighead,3,7,Right,3/24/2022,17.7,1030,Acclimation,27,50,112,NA,NA,
+141,2,FALSE,2 days,Silver,6,21,Left,1/31/2022,NR,1515,Acclimation,26,25,152,NR,NR,
+229,11,TRUE,0 days,Silver,6,21,Left,3/10/2022,16.6,1230,Acclimation,26,11,36,NA,NA,
+277,14,TRUE,0 days,Silver,7,28,Right,3/28/2022,17.1,1230,Acclimation,26,13,224,NA,NA,
+8,3,FALSE,1 day,Silver,1,1,Right,10/29/2021,NR,930,2000,25,18,154,NR,20,
+41,1,FALSE,1 day,Silver,6,28,Left,11/18/2021,NR,1030,Acclimation,25,42,307,NR,30,"Implented changes going forward: arrow on bottom of tank, water circulating during sound trial"
+78,8,FALSE,2 days,Bighead,3,7,Left,1/13/2022,NR,1030,BB,25,56,54,NR,NR,One fish found dead (6.2 cm)
+106,1,FALSE,2 days,Silver,4,11,Right,1/21/2022,NR,1000,BB,25,15,188,NR,NR,
+191,11,TRUE,0 days,Silver,3,7,Right,2/24/2022,15.7,1315,Acclimation,25,12,96,NA,NA,Jackie throws a fish back into the tank :) 
+254,14,TRUE,0 days,Silver,6,21,Left,3/21/2022,18.9,1100,BB,25,18,162,NA,NA,
+279,16,TRUE,0 days,Bighead,4,11,Right,3/28/2022,17.1,1245,Acclimation,25,49,274,NA,NA,
+295,16,TRUE,0 days,Bighead,7,28,Left,4/14/2022,17.7,945,Acclimation,25,13,106,NA,NA,
+166,1,TRUE,2 days,Silver,7,28,Left,2/7/2022,15.5,1400,BB,24,9,200,NA,NA,Stopped sound playback on return.
+205,14,TRUE,0 days,Silver,1,1,Right,2/28/2022,16.4,1315,Acclimation,24,10,49,NA,NA,"first fish kept swimming in circles the longest, used avg time"
+292,16,TRUE,0 days,Bighead,6,21,Right,4/7/2022,17.8,1330,BB,24,126,58,NA,NA,"@ 72 seconds they deflected, @ start we had startle and freeze"
+80,7,FALSE,2 days,Bighead,3,7,Right,1/13/2022,NR,1115,BB,23,38,219,NR,NR,Anec: Not averse to sound
+115,1,FALSE,2 days,Silver,5,14,Right,1/24/2022,NR,1015,Acclimation,23,13,58,NR,NR,Anec: Jumping --> avoidance?
+109,4,FALSE,2 days,Silver,1,1,Right,1/21/2022,NR,1045,Acclimation,22,28,341,NR,NR,
+270,18,TRUE,0 days,Bighead,3,7,Right,3/24/2022,17.7,1045,BB,22,40,73,NA,NA,
+276,18,TRUE,0 days,Bighead,4,11,Left,3/28/2022,17.3,1230,BB,22,25,55,NA,NA,
+27,2,FALSE,1 day,Silver,4,14,Left,11/4/2021,NR,1315,Acclimation,21,30,186,NR,36,Started acclimation video when they entered L side
+92,7,FALSE,2 days,Bighead,4,11,Left,1/17/2022,NR,1030,BB,21,121,131,NR,NR,Anec: Freeze response then shuttle away
+137,6,FALSE,2 days,Bighead,7,28,Right,1/31/2022,NR,1415,Acclimation,21,12,200,NR,NR,
+13,3,FALSE,1 day,Silver,2,5,Left,11/2/2021,NR,1030,Acclimation,20,64,290,NR,23,
+172,9,TRUE,2 days,Bighead,3,7,Right,2/10/2022,16.7,1130,BB,20,93,40,NA,NA,
+199,12,TRUE,0 days,Silver,4,11,Right,2/28/2022,16.8,1145,Acclimation,20,12,173,NA,NA,
+240,15,TRUE,0 days,Silver,5,14,Left,3/14/2022,17.8,1215,BB,20,11,193,NA,NA,
+255,18,TRUE,0 days,Bighead,2,4,Left,3/21/2022,18.8,1115,Acclimation,20,37,17,NA,NA,
+274,15,TRUE,0 days,Silver,7,28,Left,3/28/2022,17.3,1200,BB,20,18,171,NA,NA,
+10,4,FALSE,1 day,Silver,1,1,Left,10/29/2021,NR,1000,2000,19,68,157,NR,16,
+43,2,FALSE,1 day,Silver,6,29,Right,11/18/2021,NR,1100,Acclimation,19,21,200,NR,30,
+44,2,FALSE,1 day,Silver,6,29,Right,11/18/2021,NR,1115,2000,19,82,224,NR,24,
+149,8,FALSE,2 days,Bighead,7,28,Left,2/3/2022,NR,1415,Acclimation,19,35,48,NR,NR,
+207,9,TRUE,2 days,Bighead,7,28,Right,3/3/2022,16.9,1200,Acclimation,19,37,153,NA,NA,Strong startle response and shuttle away
+225,14,TRUE,0 days,Silver,3,7,Right,3/7/2022,16.9,1500,Acclimation,19,18,99,NA,NA,
+328,20,TRUE,0 days,Bighead,7,28,Right,5/16/2022,20.8,1200,BB,19,93,238,NA,NA,
+65,5,FALSE,2 days,Bighead,3,7,Left,1/10/2022,NR,1130,Acclimation,18,14,43,NR,NR,
+76,2,FALSE,2 days,Silver,1,1,Right,1/11/2022,NR,1100,BB,18,10,133,NR,NR,
+107,2,FALSE,2 days,Silver,4,11,Left,1/21/2022,NR,1015,Acclimation,18,23,152,NR,NR,
+196,9,TRUE,2 days,Bighead,6,21,Left,2/24/2022,15.6,1415,BB,18,57,53,NA,NA,
+210,11,TRUE,0 days,Silver,5,14,Right,3/3/2022,16.9,1230,BB,18,24,238,NA,NA,
+245,12,TRUE,0 days,Silver,7,28,Left,3/17/2022,18.1,1300,Acclimation,18,15,172,NA,NA,
+287,18,TRUE,0 days,Bighead,5,14,Right,3/31/2022,17.4,215,Acclimation,18,20,75,NA,NA,
+136,1,FALSE,2 days,Silver,6,21,Right,1/31/2022,NR,1400,BB,17,49,109,NR,NR,"Swam away from sound in first 30 seconds, went back towards the sound around 1 minute in, looking for a way out"
+185,11,TRUE,0 days,Silver,2,4,Left,2/21/2022,17.2,1130,Acclimation,17,135,306,NA,NA,fish jumps out @4.15. First left side @ 2:47 
+320,20,TRUE,0 days,Bighead,5,14,Right,5/2/2022,18.1,1215,BB,17,131,309,NA,NA,
+325,19,TRUE,0 days,Bighead,7,28,Right,5/16/2022,20.8,1115,Acclimation,17,80,150,NA,NA,
+140,4,FALSE,2 days,Silver,4,11,Left,1/31/2022,NR,1500,BB,16,30,210,NR,NR,
+145,7,FALSE,2 days,Bighead,7,28,Right,2/3/2022,NR,1300,Acclimation,16,99,146,NR,NR,
+227,14,TRUE,0 days,Silver,4,11,Left,3/10/2022,16.4,1200,Acclimation,16,12,155,NA,NA,"@ 0:00, 3 left, 1 shuttle, 1 right "
+235,15,TRUE,0 days,Silver,4,11,Right,3/10/2022,16.3,1400,Acclimation,16,8,135,NA,NA,"1 fish dead (6.4 cm), replaced with new fish (7.4 cm)"
+14,3,FALSE,1 day,Silver,2,5,Left,11/2/2021,NR,1045,2000,15,24,227,NR,19,
+87,5,FALSE,2 days,Bighead,4,11,Right,1/14/2022,NR,1245,Acclimation,15,65,114,NR,NR,
+226,14,TRUE,0 days,Silver,3,7,Right,3/7/2022,16.9,1515,BB,15,11,258,NA,NA,
+288,18,TRUE,0 days,Bighead,5,14,Right,3/31/2022,17.4,1230,BB,15,24,34,NA,NA,
+327,20,TRUE,0 days,Bighead,7,28,Right,5/16/2022,20.8,1145,Acclimation,15,100,315,NA,NA,
+3,2,FALSE,1 day,Silver,1,5,Right,10/26/2021,NR,1245,Acclimation,14,10,135,NR,47,
+45,3,FALSE,1 day,Silver,5,21,Left,11/18/2021,NR,1125,Acclimation,14,61,185,NR,12,
+61,7,FALSE,2 days,Bighead,1,1,Right,1/7/2022,NR,1100,Acclimation,14,42,67,NR,NR,Only 3 fish remaining
+88,5,FALSE,2 days,Bighead,4,11,Right,1/14/2022,NR,1300,BB,14,57,93,NR,NR,
+91,7,FALSE,2 days,Bighead,4,11,Left,1/17/2022,NR,1015,Acclimation,14,83,2,NR,NR,
+134,3,FALSE,2 days,Silver,4,11,Right,1/31/2022,NR,1330,BB,14,75,269,NR,NR,"All fish swam into tank without sound and stayed in a group on that side, looking for exit away from sound. All back in tank with sound, fish jumping and trying to find an exit, but could not escape the chamber "
+138,6,FALSE,2 days,Bighead,7,28,Right,1/31/2022,NR,1430,BB,14,20,23,NR,NR,"Startle freeze then shuttle, returned around 31 s"
+158,5,TRUE,2 days,Bighead,8,35,Right,2/7/2022,15.9,1200,BB,14,34,258,NA,NA,Stopped sound playback on return.
+161,9,FALSE,2 days,Bighead,2,4,Right,2/7/2022,15.8,1245,Acclimation,14,103,348,NA,NA,
+173,9,TRUE,2 days,Bighead,4,11,Right,2/14/2022,15.8,1145,Acclimation,14,71,47,NA,NA,
+215,10,TRUE,2 days,Silver,7,28,Left,3/3/2022,16.8,1315,Acclimation,14,20,127,NA,NA,
+233,13,TRUE,0 days,Silver,4,11,Right,3/10/2022,16.4,1315,Acclimation,14,18,260,NA,NA,
+271,13,TRUE,0 days,Silver,7,28,Left,3/28/2022,17.5,1115,Acclimation,14,15,300,NA,NA,
+326,19,TRUE,0 days,Bighead,7,28,Right,5/16/2022,20.8,1130,BB,14,33,228,NA,NA,
+37,2,FALSE,1 day,Silver,5,21,Right,11/11/2021,NR,1140,Acclimation,13,15,219,NR,43,
+57,5,FALSE,2 days,Bighead,2,4,Right,1/7/2022,NR,930,Acclimation,13,65,68,NR,NR,
+81,2,FALSE,2 days,Silver,2,4,Left,1/14/2022,NR,1000,Acclimation,13,64,95,NR,NR,Jumping
 112,3,FALSE,2 days,Silver,1,1,Left,1/21/2022,NR,1130,BB,13,21,323,NR,NR,"4th fish never left sound chamber, used average exit time for denominator"
 113,5,FALSE,2 days,Bighead,6,21,Right,1/24/2022,NR,945,Acclimation,13,16,41,NR,NR,
-114,5,FALSE,2 days,Bighead,6,21,Right,1/24/2022,NR,1000,BB,64,21,188,NR,NR,"Anec: Startled at noise, continued to stay in chamber"
-115,1,FALSE,2 days,Silver,5,14,Right,1/24/2022,NR,1015,Acclimation,23,13,58,NR,NR,Anec: Jumping --> avoidance?
-116,1,FALSE,2 days,Silver,5,14,Right,1/24/2022,NR,1030,BB,5,15,298,NR,NR,Anec: Fish shuttled away from the sound 
-117,6,FALSE,2 days,Bighead,6,21,Left,1/24/2022,NR,1045,Acclimation,61,20,124,NR,NR,
-118,6,FALSE,2 days,Bighead,6,21,Left,1/24/2022,NR,1100,BB,6,17,150,NR,NR,"Anec: Freeze and then shuttled away, after a while returned to loud chamber"
-119,2,FALSE,2 days,Silver,5,14,Left,1/24/2022,NR,1115,Acclimation,2,64,330,NR,NR,Anec: Jumping --> avoidance?
-120,2,FALSE,2 days,Silver,5,14,Left,1/24/2022,NR,1130,BB,1,28,25,NR,NR,
-121,4,FALSE,2 days,Silver,2,4,Left,1/24/2022,NR,1145,Acclimation,11,13,193,NR,NR,
-122,4,FALSE,2 days,Silver,2,4,Left,1/24/2022,NR,1200,BB,84,34,279,NR,NR,
-123,3,FALSE,2 days,Silver,2,4,Right,1/24/2022,NR,1215,Acclimation,31,14,166,NR,NR,One fish died over the weekend
-124,3,FALSE,2 days,Silver,2,4,Right,1/24/2022,NR,1230,BB,176,11,182,NR,NR,
-125,3,FALSE,2 days,Silver,3,7,Left,1/27/2022,NR,945,Acclimation,41,7,129,NR,NR,
-126,3,FALSE,2 days,Silver,3,7,Left,1/27/2022,NR,1000,BB,111,73,223,NR,NR,"Anec: Maybe freezing, otherwise no reaction"
-127,7,FALSE,2 days,Bighead,6,21,Left,1/27/2022,NR,1015,Acclimation,59,25,141,NR,NR,Anec: Swimming primarily on the right side bottom right corner
-128,7,FALSE,2 days,Bighead,6,21,Left,1/27/2022,NR,1045,BB,31,38,145,NR,NR,"Had to restart trial, speaker stopped working and computer glitched --> working now"
-129,4,FALSE,2 days,Silver,3,7,Right,1/27/2022,NR,1230,Acclimation,1,12,104,NR,NR,
-130,4,FALSE,2 days,Silver,3,7,Right,1/27/2022,NR,1245,BB,41,12,247,NR,NR,Anec: Jumping and exit searching but in sound chamber
-131,8,FALSE,2 days,Bighead,6,21,Right,1/27/2022,NR,1300,Acclimation,28,81,125,NR,NR,
-132,8,FALSE,2 days,Bighead,6,21,Right,1/27/2022,NR,1315,BB,58,33,260,NR,NR,Anec: Freeze then quick shuttle away
-133,3,FALSE,2 days,Silver,4,11,Right,1/31/2022,NR,1300,Acclimation,8,12,287,NR,NR,
-134,3,FALSE,2 days,Silver,4,11,Right,1/31/2022,NR,1330,BB,14,75,269,NR,NR,"All fish swam into tank without sound and stayed in a group on that side, looking for exit away from sound. All back in tank with sound, fish jumping and trying to find an exit, but could not escape the chamber "
-135,1,FALSE,2 days,Silver,6,21,Right,1/31/2022,NR,1345,Acclimation,2,22,311,NR,NR,
-136,1,FALSE,2 days,Silver,6,21,Right,1/31/2022,NR,1400,BB,17,49,109,NR,NR,"Swam away from sound in first 30 seconds, went back towards the sound around 1 minute in, looking for a way out"
-137,6,FALSE,2 days,Bighead,7,28,Right,1/31/2022,NR,1415,Acclimation,21,12,200,NR,NR,
-138,6,FALSE,2 days,Bighead,7,28,Right,1/31/2022,NR,1430,BB,14,20,23,NR,NR,"Startle freeze then shuttle, returned around 31 s"
-139,4,FALSE,2 days,Silver,4,11,Left,1/31/2022,NR,1445,Acclimation,6,9,167,NR,NR,
-140,4,FALSE,2 days,Silver,4,11,Left,1/31/2022,NR,1500,BB,16,30,210,NR,NR,
-141,2,FALSE,2 days,Silver,6,21,Left,1/31/2022,NR,1515,Acclimation,26,25,152,NR,NR,
-142,2,FALSE,2 days,Silver,6,21,Left,1/31/2022,NR,1530,BB,28,30,288,NR,NR,"shuttle to other tank, returned after 1 min, "
-143,5,FALSE,2 days,Bighead,7,28,Left,1/31/2022,NR,1545,Acclimation,46,18,57,NR,NR,
-144,5,FALSE,2 days,Bighead,7,28,Left,1/31/2022,NR,1600,BB,4,36,5,NR,NR,"sound played 1-2 s late, good shuttle response "
-145,7,FALSE,2 days,Bighead,7,28,Right,2/3/2022,NR,1300,Acclimation,16,99,146,NR,NR,
-146,7,FALSE,2 days,Bighead,7,28,Right,2/3/2022,NR,1330,BB,42,28,127,NR,NR,Only 3 fish remain. Cancelling future trials.
-147,4,FALSE,2 days,Silver,5,14,Right,2/3/2022,NR,1345,Acclimation,1,20,1,NR,NR,strongly preferred left side
-148,4,FALSE,2 days,Silver,5,14,Right,2/3/2022,NR,1400,BB,61,166,190,NR,NR,moved to right side with net
-149,8,FALSE,2 days,Bighead,7,28,Left,2/3/2022,NR,1415,Acclimation,19,35,48,NR,NR,
-150,8,FALSE,2 days,Bighead,7,28,Left,2/3/2022,NR,1430,BB,55,108,38,NR,NR,"startle, freeze, then shuttle. Seemed averse to sound. Only 4 fish remain, canceling future trials. "
-151,3,FALSE,2 days,Silver,5,14,Left,2/3/2022,NR,1445,Acclimation,3,91,333,NR,NR,
-152,3,FALSE,2 days,Silver,5,14,Left,2/3/2022,NR,1530,BB,70,193,139,NR,NR,Only 3 fish remain. Stopping future trials. 
-153,9,FALSE,2 days,Bighead,1,1,Left,2/4/2022,NR,1230,Acclimation,31,209,132,NR,NR,
-154,9,FALSE,2 days,Bighead,1,1,Left,2/4/2022,NR,1245,BB,8,149,18,NR,NR,
-155,10,TRUE,2 days,Silver,1,1,Right,2/4/2022,NR,1615,Acclimation,32,47,84,NA,NA,
-156,10,TRUE,2 days,Silver,1,1,Right,2/4/2022,NR,1630,BB,6,243,329,NA,NA,
-157,5,TRUE,2 days,Bighead,8,35,Right,2/7/2022,15.9,1130,Acclimation,7,27,334,NA,NA,
-158,5,TRUE,2 days,Bighead,8,35,Right,2/7/2022,15.9,1200,BB,14,34,258,NA,NA,Stopped sound playback on return.
-159,2,TRUE,2 days,Silver,7,28,Right,2/7/2022,15.8,1215,Acclimation,33,99,128,NA,NA,
-160,2,TRUE,2 days,Silver,7,28,Right,2/7/2022,15.8,1230,BB,88,39,163,NA,NA,Stopped video about a minute after sound ended. 
-161,9,FALSE,2 days,Bighead,2,4,Right,2/7/2022,15.8,1245,Acclimation,14,103,348,NA,NA,
+202,13,TRUE,0 days,Silver,1,1,Left,2/28/2022,16.6,1230,BB,13,60,281,NA,NA,
+230,11,TRUE,0 days,Silver,6,21,Left,3/10/2022,16.6,1300,BB,13,17,162,NA,NA,
+273,15,TRUE,0 days,Silver,7,28,Left,3/28/2022,17.3,1145,Acclimation,13,23,153,NA,NA,
+302,20,TRUE,0 days,Bighead,1,1,Right,4/18/2022,17.9,1445,BB,13,121,117,NA,NA,really good avoidance of sound side
+7,3,FALSE,1 day,Silver,1,1,Right,10/29/2021,NR,915,Acclimation,12,19,136,NR,24,
+68,6,FALSE,2 days,Bighead,3,7,Right,1/10/2022,NR,1230,BB,12,73,103,NR,NR,Anec: Initial shuttle but returned mid trial 
+82,2,FALSE,2 days,Silver,2,4,Left,1/14/2022,NR,1015,BB,12,27,313,NR,NR,"Seem to be avoiding the sound; even though they swim toward the speaker at first, swim out of the tank"
+104,8,FALSE,2 days,Bighead,5,14,Left,1/20/2022,NR,1230,BB,12,23,120,NR,NR,Anec: Freeze and then shuttle away within 30 s
 162,9,TRUE,2 days,Bighead,2,4,Right,2/7/2022,15.8,1300,BB,12,49,278,NA,NA,
 163,10,TRUE,2 days,Silver,2,4,Left,2/7/2022,15.6,1315,Acclimation,12,30,143,NA,NA,
-164,10,TRUE,2 days,Silver,2,4,Left,2/7/2022,15.6,1330,BB,109,11,185,NA,NA,
-165,1,TRUE,2 days,Silver,7,28,Left,2/7/2022,15.5,1345,Acclimation,38,21,182,NA,NA,
-166,1,TRUE,2 days,Silver,7,28,Left,2/7/2022,15.5,1400,BB,24,9,200,NA,NA,Stopped sound playback on return.
-167,6,TRUE,2 days,Bighead,8,35,Left,2/7/2022,15.3,1415,Acclimation,31,56,131,NA,NA,
-168,6,TRUE,2 days,Bighead,8,35,Left,2/7/2022,15.3,1430,BB,44,22,204,NA,NA,Stopped sound playback on return.
-169,10,TRUE,2 days,Silver,3,7,Left,2/10/2022,16.8,1045,Acclimation,7,26,285,NA,NA,
-170,10,TRUE,2 days,Silver,3,7,Left,2/10/2022,16.8,1100,BB,1,48,0,NA,NA,
-171,9,TRUE,2 days,Bighead,3,7,Right,2/10/2022,16.7,1115,Acclimation,36,37,210,NA,NA,
-172,9,TRUE,2 days,Bighead,3,7,Right,2/10/2022,16.7,1130,BB,20,93,40,NA,NA,
-173,9,TRUE,2 days,Bighead,4,11,Right,2/14/2022,15.8,1145,Acclimation,14,71,47,NA,NA,
-174,9,TRUE,2 days,Bighead,4,11,Right,2/14/2022,15.8,1200,BB,54,34,134,NA,NA,
-175,10,TRUE,2 days,Silver,4,11,Right,2/14/2022,15.9,1215,Acclimation,11,10,111,NA,NA,
-176,10,TRUE,2 days,Silver,4,11,Right,2/14/2022,15.9,1230,BB,10,27,140,NA,NA,
 177,9,TRUE,2 days,Bighead,5,14,Left,2/17/2022,16.9,1315,Acclimation,12,16,215,NA,NA,
-178,9,TRUE,2 days,Bighead,5,14,Left,2/17/2022,16.9,1330,BB,3,118,187,NA,NA,"Sound played at 7 s, great avoidance "
-179,11,TRUE,0 days,Silver,1,1,Left,2/17/2022,16.6,1345,Acclimation,9,26,124,NA,NA,Skip these for today (6/24)
-180,11,TRUE,0 days,Silver,1,1,Left,2/17/2022,16.6,1400,BB,77,10,253,NA,NA,"When school is behind speaker at playback, they struggle to find exit....."
+228,14,TRUE,0 days,Silver,4,11,Left,3/10/2022,16.4,1215,BB,12,38,139,NA,NA,4 fish on live speaker side at start. School seemed split on deterrence
+253,14,TRUE,0 days,Silver,6,21,Left,3/21/2022,18.9,1045,Acclimation,12,22,156,NA,NA,
+322,19,TRUE,0 days,Bighead,6,21,Left,5/9/2022,20.1,1145,BB,12,31,341,NA,NA,
+24,4,FALSE,1 day,Silver,3,7,Left,11/4/2021,NR,1140,2000,11,22,318,NR,41,
+47,4,FALSE,1 day,Silver,5,21,Right,11/18/2021,NR,1200,Acclimation,11,31,273,NR,23,
+72,8,FALSE,2 days,Bighead,2,4,Right,1/10/2022,NR,1300,BB,11,24,106,NR,NR,Anec: Initial shuttle (strong reaction) but returned after 30 seconds
+108,2,FALSE,2 days,Silver,4,11,Left,1/21/2022,NR,1030,BB,11,13,215,NR,NR,
+121,4,FALSE,2 days,Silver,2,4,Left,1/24/2022,NR,1145,Acclimation,11,13,193,NR,NR,
+175,10,TRUE,2 days,Silver,4,11,Right,2/14/2022,15.9,1215,Acclimation,11,10,111,NA,NA,
 181,10,TRUE,2 days,Silver,5,14,Right,2/17/2022,16.3,1415,Acclimation,11,21,104,NA,NA,All fish on R side @ 60 s
-182,10,TRUE,2 days,Silver,5,14,Right,2/17/2022,16.3,1430,BB,55,52,310,NA,NA,sound played @ 6s
-183,12,TRUE,0 days,Silver,1,1,Right,2/17/2022,16.2,1445,Acclimation,10,18,132,NA,NA,Skip these for today (6/24)
 184,12,TRUE,0 days,Silver,1,1,Right,2/17/2022,16.2,1500,BB,11,9,225,NA,NA,
-185,11,TRUE,0 days,Silver,2,4,Left,2/21/2022,17.2,1130,Acclimation,17,135,306,NA,NA,fish jumps out @4.15. First left side @ 2:47 
-186,11,TRUE,0 days,Silver,2,4,Left,2/21/2022,17.2,1145,BB,32,8,19,NA,NA,
-187,12,TRUE,0 days,Silver,2,4,Right,2/21/2022,17.1,1200,Acclimation,33,53,164,NA,NA,
-188,12,TRUE,0 days,Silver,2,4,Right,2/21/2022,17.1,1215,BB,148,13,151,NA,NA,"Jump after sound playback, takes awhile for 3/5ths of school to exit"
-189,10,TRUE,2 days,Silver,6,21,Right,2/24/2022,15.3,1245,Acclimation,43,15,112,NA,NA,
-190,10,TRUE,2 days,Silver,6,21,Right,2/24/2022,15.3,1300,BB,68,23,161,NA,NA,
-191,11,TRUE,0 days,Silver,3,7,Right,2/24/2022,15.7,1315,Acclimation,25,12,96,NA,NA,Jackie throws a fish back into the tank :) 
-192,11,TRUE,0 days,Silver,3,7,Right,2/24/2022,15.7,1330,BB,2,11,358,NA,NA,
-193,12,TRUE,0 days,Silver,3,7,Left,2/24/2022,15.7,1330,Acclimation,32,170,49,NA,NA,
-194,12,TRUE,0 days,Silver,3,7,Left,2/24/2022,15.7,1345,BB,10,125,81,NA,NA,
-195,9,TRUE,2 days,Bighead,6,21,Left,2/24/2022,15.6,1400,Acclimation,38,33,118,NA,NA,"At start of vid, 4 fish on left, 1 on right side. "
-196,9,TRUE,2 days,Bighead,6,21,Left,2/24/2022,15.6,1415,BB,18,57,53,NA,NA,
-197,11,TRUE,0 days,Silver,4,11,Right,2/28/2022,17.2,1115,Acclimation,7,10,38,NA,NA,
-198,11,TRUE,0 days,Silver,4,11,Right,2/28/2022,17.2,1130,BB,5,9,247,NA,NA,
-199,12,TRUE,0 days,Silver,4,11,Right,2/28/2022,16.8,1145,Acclimation,20,12,173,NA,NA,
-200,12,TRUE,0 days,Silver,4,11,Right,2/28/2022,16.8,1200,BB,52,16,266,NA,NA,Sound starts @ 1 s into video
-201,13,TRUE,0 days,Silver,1,1,Left,2/28/2022,16.6,1215,Acclimation,7,14,328,NA,NA,Skip these for today (6/24)
-202,13,TRUE,0 days,Silver,1,1,Left,2/28/2022,16.6,1230,BB,13,60,281,NA,NA,
-203,15,TRUE,0 days,Silver,1,1,Left,2/28/2022,16.5,1245,Acclimation,4,9,297,NA,NA,Skip these for today (6/24)
-204,15,TRUE,0 days,Silver,1,1,Left,2/28/2022,16.5,1300,BB,8,7,189,NA,NA,"first fish shuttled at 5s, third fish never got to shuttle-used avg time. "
-205,14,TRUE,0 days,Silver,1,1,Right,2/28/2022,16.4,1315,Acclimation,24,10,49,NA,NA,"first fish kept swimming in circles the longest, used avg time"
-206,14,TRUE,0 days,Silver,1,1,Right,2/28/2022,16.4,1330,BB,45,21,107,NA,NA,"1st fish never shuttled, used avg time"
-207,9,TRUE,2 days,Bighead,7,28,Right,3/3/2022,16.9,1200,Acclimation,19,37,153,NA,NA,Strong startle response and shuttle away
 208,9,TRUE,2 days,Bighead,7,28,Right,3/3/2022,16.9,1215,BB,11,43,130,NA,NA,
 209,11,TRUE,0 days,Silver,5,14,Right,3/3/2022,16.9,1215,Acclimation,11,6,224,NA,NA,
-210,11,TRUE,0 days,Silver,5,14,Right,3/3/2022,16.9,1230,BB,18,24,238,NA,NA,
+217,12,TRUE,0 days,Silver,5,14,Left,3/3/2022,16.7,1345,Acclimation,11,14,218,NA,NA,
+237,13,TRUE,0 days,Silver,5,14,Left,3/14/2022,17.7,1130,Acclimation,11,12,193,NA,NA,
+53,5,FALSE,2 days,Bighead,1,1,Left,1/4/2022,NR,1045,Acclimation,10,13,311,NR,NR,"""Acclimation"" video recorded after trial."
+176,10,TRUE,2 days,Silver,4,11,Right,2/14/2022,15.9,1230,BB,10,27,140,NA,NA,
+183,12,TRUE,0 days,Silver,1,1,Right,2/17/2022,16.2,1445,Acclimation,10,18,132,NA,NA,Skip these for today (6/24)
+194,12,TRUE,0 days,Silver,3,7,Left,2/24/2022,15.7,1345,BB,10,125,81,NA,NA,
+221,13,TRUE,0 days,Silver,3,7,Left,3/7/2022,17.1,1400,Acclimation,10,11,52,NA,NA,
+257,13,TRUE,0 days,Silver,6,21,Right,3/21/2022,18.6,1130,Acclimation,10,41,276,NA,NA,"@ 0:00, 4 left, 1 right. Data recorded as if Fish started on left. "
+9,4,FALSE,1 day,Silver,1,1,Left,10/29/2021,NR,945,Acclimation,9,55,253,NR,19,
+15,4,FALSE,1 day,Silver,2,5,Right,11/2/2021,NR,1145,Acclimation,9,11,24,NR,46,
+30,3,FALSE,1 day,Silver,4,10,Left,11/7/2021,NR,1030,2000,9,37,165,NR,15,
+54,5,FALSE,2 days,Bighead,1,1,Left,1/4/2022,NR,1015,BB,9,257,322,NR,NR,
+74,1,FALSE,2 days,Silver,1,1,Left,1/11/2022,NR,1000,BB,9,29,286,NR,NR,
+85,1,FALSE,2 days,Silver,2,4,Right,1/14/2022,NR,1215,Acclimation,9,24,120,NR,NR,
+93,5,FALSE,2 days,Bighead,5,14,Left,1/17/2022,NR,1035,Acclimation,9,102,146,NR,NR,One fish looks sick.
+179,11,TRUE,0 days,Silver,1,1,Left,2/17/2022,16.6,1345,Acclimation,9,26,124,NA,NA,Skip these for today (6/24)
+236,15,TRUE,0 days,Silver,4,11,Right,3/10/2022,16.3,1415,BB,9,51,45,NA,NA,
+256,18,TRUE,0 days,Bighead,2,4,Left,3/21/2022,18.8,1130,BB,9,27,16,NA,NA,
+12,1,FALSE,1 day,Silver,2,8,Right,10/29/2021,NR,1045,2000,8,22,226,NR,22,"10 days since start, 8 since end of training"
+36,4,FALSE,1 day,Silver,4,14,Left,11/11/2021,NR,1125,2000,8,16,200,NR,55,
+133,3,FALSE,2 days,Silver,4,11,Right,1/31/2022,NR,1300,Acclimation,8,12,287,NR,NR,
+154,9,FALSE,2 days,Bighead,1,1,Left,2/4/2022,NR,1245,BB,8,149,18,NR,NR,
+204,15,TRUE,0 days,Silver,1,1,Left,2/28/2022,16.5,1300,BB,8,7,189,NA,NA,"first fish shuttled at 5s, third fish never got to shuttle-used avg time. "
+220,14,TRUE,0 days,Silver,2,4,Left,3/3/2022,16.6,1430,BB,8,40,137,NA,NA,
+238,13,TRUE,0 days,Silver,5,14,Left,3/14/2022,17.7,1145,BB,8,24,135,NA,NA,
+241,14,TRUE,0 days,Silver,5,14,Right,3/14/2022,17.7,1230,Acclimation,8,48,182,NA,NA,"fish jumps out , jackie throws back in"
+4,2,FALSE,1 day,Silver,1,5,Right,10/26/2021,NR,1300,2000,7,13,176,NR,49,
+6,2,FALSE,1 day,Silver,2,7,Left,10/28/2021,NR,1550,2000,7,15,66,NR,38,"In the video, there was a weird timeskip at 4:09"
+20,1,FALSE,1 day,Silver,3,13,Left,11/2/2021,NR,1300,2000,7,19,117,NR,40,
+26,1,FALSE,1 day,Silver,4,15,Right,11/4/2021,NR,1300,2000,7,6,166,NR,62,
+95,2,FALSE,2 days,Silver,3,7,Right,1/17/2022,NR,1100,Acclimation,7,20,203,NR,NR,
+157,5,TRUE,2 days,Bighead,8,35,Right,2/7/2022,15.9,1130,Acclimation,7,27,334,NA,NA,
+169,10,TRUE,2 days,Silver,3,7,Left,2/10/2022,16.8,1045,Acclimation,7,26,285,NA,NA,
+197,11,TRUE,0 days,Silver,4,11,Right,2/28/2022,17.2,1115,Acclimation,7,10,38,NA,NA,
+201,13,TRUE,0 days,Silver,1,1,Left,2/28/2022,16.6,1215,Acclimation,7,14,328,NA,NA,Skip these for today (6/24)
+243,11,TRUE,0 days,Silver,7,28,Right,3/17/2022,18.1,1230,Acclimation,7,22,343,NA,NA,
+307,20,TRUE,0 days,Bighead,2,4,Left,4/21/2022,17.9,1315,Acclimation,7,83,31,NA,NA,
+5,2,FALSE,1 day,Silver,2,7,Left,10/28/2021,NR,1535,Acclimation,6,10,158,NR,62,
+25,1,FALSE,1 day,Silver,4,15,Right,11/4/2021,NR,1245,Acclimation,6,9,173,NR,53,Started acclimation video when they entered R side / Good schooling figure 8 behavior example
+39,1,FALSE,1 day,Silver,5,22,Left,11/11/2021,NR,1205,Acclimation,6,18,194,NR,37,
+70,7,FALSE,2 days,Bighead,2,4,Left,1/10/2022,NR,1315,BB,6,43,313,NR,NR,Anec: Initial shuttle but returned after 30 sec
+118,6,FALSE,2 days,Bighead,6,21,Left,1/24/2022,NR,1100,BB,6,17,150,NR,NR,"Anec: Freeze and then shuttled away, after a while returned to loud chamber"
+139,4,FALSE,2 days,Silver,4,11,Left,1/31/2022,NR,1445,Acclimation,6,9,167,NR,NR,
+156,10,TRUE,2 days,Silver,1,1,Right,2/4/2022,NR,1630,BB,6,243,329,NA,NA,
 211,13,TRUE,0 days,Silver,2,4,Right,3/3/2022,16.9,1245,Acclimation,6,50,6,NA,NA,
 212,13,TRUE,0 days,Silver,2,4,Right,3/3/2022,16.9,1300,BB,6,47,122,NA,NA,
-213,15,TRUE,0 days,Silver,2,4,Right,3/3/2022,16.9,1300,Acclimation,30,12,101,NA,NA,
-214,15,TRUE,0 days,Silver,2,4,Right,3/3/2022,16.9,1315,BB,3,29,45,NA,NA,
-215,10,TRUE,2 days,Silver,7,28,Left,3/3/2022,16.8,1315,Acclimation,14,20,127,NA,NA,
-216,10,TRUE,2 days,Silver,7,28,Left,3/3/2022,16.8,1330,BB,85,44,93,NA,NA,
-217,12,TRUE,0 days,Silver,5,14,Left,3/3/2022,16.7,1345,Acclimation,11,14,218,NA,NA,
 218,12,TRUE,0 days,Silver,5,14,Left,3/3/2022,16.7,1400,BB,6,37,136,NA,NA,
-219,14,TRUE,0 days,Silver,2,4,Left,3/3/2022,16.6,1415,Acclimation,41,42,151,NA,NA,
-220,14,TRUE,0 days,Silver,2,4,Left,3/3/2022,16.6,1430,BB,8,40,137,NA,NA,
-221,13,TRUE,0 days,Silver,3,7,Left,3/7/2022,17.1,1400,Acclimation,10,11,52,NA,NA,
-222,13,TRUE,0 days,Silver,3,7,Left,3/7/2022,17.1,1415,BB,32,12,217,NA,NA,
-223,15,TRUE,0 days,Silver,3,7,Left,3/7/2022,16.9,1430,Acclimation,2,19,98,NA,NA,Angle was taken @38 seconds
-224,15,TRUE,0 days,Silver,3,7,Left,3/7/2022,16.9,1445,BB,28,11,225,NA,NA,
-225,14,TRUE,0 days,Silver,3,7,Right,3/7/2022,16.9,1500,Acclimation,19,18,99,NA,NA,
-226,14,TRUE,0 days,Silver,3,7,Right,3/7/2022,16.9,1515,BB,15,11,258,NA,NA,
-227,14,TRUE,0 days,Silver,4,11,Left,3/10/2022,16.4,1200,Acclimation,16,12,155,NA,NA,"@ 0:00, 3 left, 1 shuttle, 1 right "
-228,14,TRUE,0 days,Silver,4,11,Left,3/10/2022,16.4,1215,BB,12,38,139,NA,NA,4 fish on live speaker side at start. School seemed split on deterrence
-229,11,TRUE,0 days,Silver,6,21,Left,3/10/2022,16.6,1230,Acclimation,26,11,36,NA,NA,
-230,11,TRUE,0 days,Silver,6,21,Left,3/10/2022,16.6,1300,BB,13,17,162,NA,NA,
 231,12,TRUE,0 days,Silver,6,21,Right,3/10/2022,16.6,1300,Acclimation,6,13,40,NA,NA,
-232,12,TRUE,0 days,Silver,6,21,Right,3/10/2022,16.6,1315,BB,76,12,174,NA,NA,
-233,13,TRUE,0 days,Silver,4,11,Right,3/10/2022,16.4,1315,Acclimation,14,18,260,NA,NA,
 234,13,TRUE,0 days,Silver,4,11,Right,3/10/2022,16.4,1330,BB,6,42,92,NA,NA,
-235,15,TRUE,0 days,Silver,4,11,Right,3/10/2022,16.3,1400,Acclimation,16,8,135,NA,NA,"1 fish dead (6.4 cm), replaced with new fish (7.4 cm)"
-236,15,TRUE,0 days,Silver,4,11,Right,3/10/2022,16.3,1415,BB,9,51,45,NA,NA,
-237,13,TRUE,0 days,Silver,5,14,Left,3/14/2022,17.7,1130,Acclimation,11,12,193,NA,NA,
-238,13,TRUE,0 days,Silver,5,14,Left,3/14/2022,17.7,1145,BB,8,24,135,NA,NA,
-239,15,TRUE,0 days,Silver,5,14,Left,3/14/2022,17.8,1200,Acclimation,5,17,103,NA,NA,
-240,15,TRUE,0 days,Silver,5,14,Left,3/14/2022,17.8,1215,BB,20,11,193,NA,NA,
-241,14,TRUE,0 days,Silver,5,14,Right,3/14/2022,17.7,1230,Acclimation,8,48,182,NA,NA,"fish jumps out , jackie throws back in"
 242,14,TRUE,0 days,Silver,5,14,Right,3/14/2022,17.7,1245,BB,6,20,208,NA,NA,
-243,11,TRUE,0 days,Silver,7,28,Right,3/17/2022,18.1,1230,Acclimation,7,22,343,NA,NA,
-244,11,TRUE,0 days,Silver,7,28,Right,3/17/2022,18.1,1245,BB,3,16,267,NA,NA,
-245,12,TRUE,0 days,Silver,7,28,Left,3/17/2022,18.1,1300,Acclimation,18,15,172,NA,NA,
-246,12,TRUE,0 days,Silver,7,28,Left,3/17/2022,18.1,1315,BB,55,31,232,NA,NA,
-247,16,TRUE,0 days,Bighead,1,1,Left,3/17/2022,17.9,1330,Acclimation,160,78,8,NA,NA,
-248,16,TRUE,0 days,Bighead,1,1,Left,3/17/2022,17.9,1345,BB,79,12,81,NA,NA,
-249,17,TRUE,0 days,Bighead,1,1,Left,3/17/2022,17.9,1400,Acclimation,44,53,72,NA,NA,"""Acclimation"" video recorded after trial. "
-250,17,TRUE,0 days,Bighead,1,1,Left,3/17/2022,17.9,1345,BB,Inf,NA,32,NA,NA,Freeze response?
-251,18,TRUE,0 days,Bighead,1,1,Right,3/17/2022,17.9,1415,Acclimation,NA,NA,49,NA,NA,"Trial error: Fish start on left side in video, but should be right"
-252,18,TRUE,0 days,Bighead,1,1,Right,3/17/2022,17.9,1430,BB,73,92,195,NA,NA,"fish start on left side, start time 8.63 to get better view"
-253,14,TRUE,0 days,Silver,6,21,Left,3/21/2022,18.9,1045,Acclimation,12,22,156,NA,NA,
-254,14,TRUE,0 days,Silver,6,21,Left,3/21/2022,18.9,1100,BB,25,18,162,NA,NA,
-255,18,TRUE,0 days,Bighead,2,4,Left,3/21/2022,18.8,1115,Acclimation,20,37,17,NA,NA,
-256,18,TRUE,0 days,Bighead,2,4,Left,3/21/2022,18.8,1130,BB,9,27,16,NA,NA,
-257,13,TRUE,0 days,Silver,6,21,Right,3/21/2022,18.6,1130,Acclimation,10,41,276,NA,NA,"@ 0:00, 4 left, 1 right. Data recorded as if Fish started on left. "
-258,13,TRUE,0 days,Silver,6,21,Right,3/21/2022,18.6,1145,BB,50,18,104,NA,NA,
-259,15,TRUE,0 days,Silver,6,21,Right,3/21/2022,18.5,1200,Acclimation,31,44,219,NA,NA,
-260,15,TRUE,0 days,Silver,6,21,Right,3/21/2022,18.5,1215,BB,78,89,228,NA,NA,
-261,16,TRUE,0 days,Bighead,2,4,Right,3/21/2022,18.3,1230,Acclimation,48,29,174,NA,NA,
-262,16,TRUE,0 days,Bighead,2,4,Right,3/21/2022,18.3,1245,BB,41,10,72,NA,NA,
-263,17,TRUE,0 days,Bighead,2,4,Right,3/21/2022,18.3,1300,Acclimation,45,52,339,NA,NA,"@ 0:00 1 left, 4 right "
-264,17,TRUE,0 days,Bighead,2,4,Right,3/21/2022,18.3,1315,BB,115,49,21,NA,NA,
-265,16,TRUE,0 days,Bighead,3,7,Left,3/24/2022,18.1,945,Acclimation,30,50,73,NA,NA,
-266,16,TRUE,0 days,Bighead,3,7,Left,3/24/2022,18.1,1000,BB,44,39,106,NA,NA,"This is an acclimation video, does it mean 266?"
-267,17,TRUE,0 days,Bighead,3,7,Left,3/24/2022,17.9,1015,Acclimation,117,27,53,NA,NA,
-268,17,TRUE,0 days,Bighead,3,7,Left,3/24/2022,17.9,1030,BB,105,24,144,NA,NA,
-269,18,TRUE,0 days,Bighead,3,7,Right,3/24/2022,17.7,1030,Acclimation,27,50,112,NA,NA,
-270,18,TRUE,0 days,Bighead,3,7,Right,3/24/2022,17.7,1045,BB,22,40,73,NA,NA,
-271,13,TRUE,0 days,Silver,7,28,Left,3/28/2022,17.5,1115,Acclimation,14,15,300,NA,NA,
-272,13,TRUE,0 days,Silver,7,28,Left,3/28/2022,17.5,1130,BB,5,31,77,NA,NA,Still seem deterred by sound in hesitancy to shuttle back towards it
-273,15,TRUE,0 days,Silver,7,28,Left,3/28/2022,17.3,1145,Acclimation,13,23,153,NA,NA,
-274,15,TRUE,0 days,Silver,7,28,Left,3/28/2022,17.3,1200,BB,20,18,171,NA,NA,
-275,18,TRUE,0 days,Bighead,4,11,Left,3/28/2022,17.3,1215,Acclimation,60,56,273,NA,NA,
-276,18,TRUE,0 days,Bighead,4,11,Left,3/28/2022,17.3,1230,BB,22,25,55,NA,NA,
-277,14,TRUE,0 days,Silver,7,28,Right,3/28/2022,17.1,1230,Acclimation,26,13,224,NA,NA,
 278,14,TRUE,0 days,Silver,7,28,Right,3/28/2022,17.1,1245,BB,6,17,278,NA,NA,
-279,16,TRUE,0 days,Bighead,4,11,Right,3/28/2022,17.1,1245,Acclimation,25,49,274,NA,NA,
-280,16,TRUE,0 days,Bighead,4,11,Right,3/28/2022,17.1,1300,BB,39,47,84,NA,NA,
-281,17,TRUE,0 days,Bighead,4,11,Right,3/28/2022,16.9,1315,Acclimation,85,6,134,NA,NA,
-282,17,TRUE,0 days,Bighead,4,11,Right,3/28/2022,16.9,1330,BB,116,43,47,NA,NA,
-283,16,TRUE,0 days,Bighead,5,14,Left,3/31/2022,17.7,1130,Acclimation,43,43,306,NA,NA,
-284,16,TRUE,0 days,Bighead,5,14,Left,3/31/2022,17.7,1145,BB,85,39,0,NA,NA,
-285,17,TRUE,0 days,Bighead,5,14,Left,3/31/2022,17.6,1145,Acclimation,32,134,293,NA,NA,
+11,1,FALSE,1 day,Silver,2,8,Right,10/29/2021,NR,1030,Acclimation,5,35,45,NR,21,"10 days since start, 8 since end of training / time skip at 2:05"
+31,4,FALSE,1 day,Silver,4,10,Right,11/7/2021,NR,1025,Acclimation,5,13,215,NR,80,
+35,4,FALSE,1 day,Silver,4,14,Left,11/11/2021,NR,1115,Acclimation,5,8,250,NR,48,
+40,1,FALSE,1 day,Silver,5,22,Left,11/11/2021,NR,1225,2000,5,9,146,NR,20,
+71,8,FALSE,2 days,Bighead,2,4,Right,1/10/2022,NR,1245,Acclimation,5,15,319,NR,NR,
+89,1,FALSE,2 days,Silver,3,7,Left,1/17/2022,NR,945,Acclimation,5,9,228,NR,NR,
+116,1,FALSE,2 days,Silver,5,14,Right,1/24/2022,NR,1030,BB,5,15,298,NR,NR,Anec: Fish shuttled away from the sound 
+198,11,TRUE,0 days,Silver,4,11,Right,2/28/2022,17.2,1130,BB,5,9,247,NA,NA,
+239,15,TRUE,0 days,Silver,5,14,Left,3/14/2022,17.8,1200,Acclimation,5,17,103,NA,NA,
+272,13,TRUE,0 days,Silver,7,28,Left,3/28/2022,17.5,1130,BB,5,31,77,NA,NA,Still seem deterred by sound in hesitancy to shuttle back towards it
 286,17,TRUE,0 days,Bighead,5,14,Left,3/31/2022,17.6,1200,BB,5,127,309,NA,NA,"2 fish went back very quickly, while three hid behind opposite speaker for awhile"
-287,18,TRUE,0 days,Bighead,5,14,Right,3/31/2022,17.4,215,Acclimation,18,20,75,NA,NA,
-288,18,TRUE,0 days,Bighead,5,14,Right,3/31/2022,17.4,1230,BB,15,24,34,NA,NA,
-289,18,TRUE,0 days,Bighead,6,21,Left,4/7/2022,17.9,1245,Acclimation,57,25,52,NA,NA,
-290,18,TRUE,0 days,Bighead,6,21,Left,4/7/2022,17.9,1300,BB,34,54,198,NA,NA, one fish left after ~5 seconds but returned to school on sound side
-291,16,TRUE,0 days,Bighead,6,21,Right,4/7/2022,17.8,1315,Acclimation,28,50,321,NA,NA,
-292,16,TRUE,0 days,Bighead,6,21,Right,4/7/2022,17.8,1330,BB,24,126,58,NA,NA,"@ 72 seconds they deflected, @ start we had startle and freeze"
-293,17,TRUE,0 days,Bighead,6,21,Right,4/7/2022,17.7,1345,Acclimation,35,17,103,NA,NA,
-294,17,TRUE,0 days,Bighead,6,21,Right,4/7/2022,17.7,1400,BB,60,238,40,NA,NA,2:35  deflection
-295,16,TRUE,0 days,Bighead,7,28,Left,4/14/2022,17.7,945,Acclimation,25,13,106,NA,NA,
-296,16,TRUE,0 days,Bighead,7,28,Left,4/14/2022,17.7,1000,BB,43,52,4,NA,NA,2 fish returned much earlier than the rest of the school
-297,17,TRUE,0 days,Bighead,7,28,Left,4/14/2022,17.8,1015,Acclimation,67,18,88,NA,NA,
-298,17,TRUE,0 days,Bighead,7,28,Left,4/14/2022,17.8,1030,BB,34,19,132,NA,NA,
-299,18,TRUE,0 days,Bighead,7,28,Right,4/14/2022,17.6,1045,Acclimation,30,32,97,NA,NA,
-300,18,TRUE,0 days,Bighead,7,28,Right,4/14/2022,17.6,1100,BB,128,29,146,NA,NA,
-301,20,TRUE,0 days,Bighead,1,1,Right,4/18/2022,17.9,1430,Acclimation,37,30,71,NA,NA,
-302,20,TRUE,0 days,Bighead,1,1,Right,4/18/2022,17.9,1445,BB,13,121,117,NA,NA,really good avoidance of sound side
-303,19,TRUE,0 days,Bighead,1,1,Right,4/18/2022,17.9,1500,Acclimation,100,131,220,NA,NA,
-304,19,TRUE,0 days,Bighead,1,1,Right,4/18/2022,17.9,1515,BB,58,67,98,NA,NA,startle response
-305,19,TRUE,0 days,Bighead,2,4,Left,4/21/2022,18.3,1245,Acclimation,94,41,42,NA,NA,
-306,19,TRUE,0 days,Bighead,2,4,Left,4/21/2022,18.3,1300,BB,104,151,183,NA,NA,
-307,20,TRUE,0 days,Bighead,2,4,Left,4/21/2022,17.9,1315,Acclimation,7,83,31,NA,NA,
-308,20,TRUE,0 days,Bighead,2,4,Left,4/21/2022,17.9,1330,BB,153,93,73,NA,NA,2 returned around 3:30
-309,20,TRUE,0 days,Bighead,3,7,Right,4/25/2022,18.2,1115,Acclimation,34,31,351,NA,NA,
-310,20,TRUE,0 days,Bighead,3,7,Right,4/25/2022,18.2,1130,BB,35,25,185,NA,NA,
-311,19,TRUE,0 days,Bighead,3,7,Right,4/25/2022,18.2,1145,Acclimation,53,42,116,NA,NA,
-312,19,TRUE,0 days,Bighead,3,7,Right,4/25/2022,18.2,1200,BB,81,42,160,NA,NA,
-313,19,TRUE,0 days,Bighead,4,11,Left,4/28/2022,17.3,1315,Acclimation,55,21,40,NA,NA,
-314,19,TRUE,0 days,Bighead,4,11,Left,4/28/2022,17.3,1330,BB,Inf,8,87,NA,NA,had to loop sound twice
-315,20,TRUE,0 days,Bighead,4,11,Left,4/28/2022,17.3,1400,Acclimation,71,37,318,NA,NA,
-316,20,TRUE,0 days,Bighead,4,11,Left,4/28/2022,17.3,1415,BB,41,64,12,NA,NA,
-317,19,TRUE,0 days,Bighead,5,14,Right,5/2/2022,17.9,1130,Acclimation,154,106,32,NA,NA,
-318,19,TRUE,0 days,Bighead,5,14,Right,5/2/2022,17.9,1145,BB,36,96,67,NA,NA,
-319,20,TRUE,0 days,Bighead,5,14,Right,5/2/2022,18.1,1200,Acclimation,50,46,13,NA,NA,
-320,20,TRUE,0 days,Bighead,5,14,Right,5/2/2022,18.1,1215,BB,17,131,309,NA,NA,
-321,19,TRUE,0 days,Bighead,6,21,Left,5/9/2022,20.1,1130,Acclimation,33,45,39,NA,NA,
-322,19,TRUE,0 days,Bighead,6,21,Left,5/9/2022,20.1,1145,BB,12,31,341,NA,NA,
-323,20,TRUE,0 days,Bighead,6,21,Left,5/9/2022,20.1,1200,Acclimation,122,46,205,NA,NA,Replaced 7.5 cm fish with 7.7 cm
-324,20,TRUE,0 days,Bighead,6,21,Left,5/9/2022,20.1,1215,BB,69,33,33,NA,NA,Startled but stayed on speaker side
-325,19,TRUE,0 days,Bighead,7,28,Right,5/16/2022,20.8,1115,Acclimation,17,80,150,NA,NA,
-326,19,TRUE,0 days,Bighead,7,28,Right,5/16/2022,20.8,1130,BB,14,33,228,NA,NA,
-327,20,TRUE,0 days,Bighead,7,28,Right,5/16/2022,20.8,1145,Acclimation,15,100,315,NA,NA,
-328,20,TRUE,0 days,Bighead,7,28,Right,5/16/2022,20.8,1200,BB,19,93,238,NA,NA,
+23,4,FALSE,1 day,Silver,3,7,Left,11/4/2021,NR,1125,Acclimation,4,11,282,NR,69,
+33,3,FALSE,1 day,Silver,4,14,Right,11/11/2021,NR,1015,Acclimation,4,19,162,NR,35,
+96,2,FALSE,2 days,Silver,3,7,Right,1/17/2022,NR,1130,BB,4,55,301,NR,NR,Anec: Still avoiding sound
+101,7,FALSE,2 days,Bighead,5,14,Right,1/20/2022,NR,900,Acclimation,4,42,298,NR,NR,
+105,1,FALSE,2 days,Silver,4,11,Right,1/21/2022,NR,945,Acclimation,4,13,259,NR,NR,
+144,5,FALSE,2 days,Bighead,7,28,Left,1/31/2022,NR,1600,BB,4,36,5,NR,NR,"sound played 1-2 s late, good shuttle response "
+203,15,TRUE,0 days,Silver,1,1,Left,2/28/2022,16.5,1245,Acclimation,4,9,297,NA,NA,Skip these for today (6/24)
+49,3,FALSE,1 day,Silver,7,35,Left,12/2/2021,NR,1100,Acclimation,3,41,314,NR,15,
+73,1,FALSE,2 days,Silver,1,1,Left,1/11/2022,NR,945,Acclimation,3,37,44,NR,NR,
+97,8,FALSE,2 days,Bighead,4,11,Right,1/17/2022,NR,1135,Acclimation,3,33,330,NR,NR,
+151,3,FALSE,2 days,Silver,5,14,Left,2/3/2022,NR,1445,Acclimation,3,91,333,NR,NR,
+178,9,TRUE,2 days,Bighead,5,14,Left,2/17/2022,16.9,1330,BB,3,118,187,NA,NA,"Sound played at 7 s, great avoidance "
+214,15,TRUE,0 days,Silver,2,4,Right,3/3/2022,16.9,1315,BB,3,29,45,NA,NA,
+244,11,TRUE,0 days,Silver,7,28,Right,3/17/2022,18.1,1245,BB,3,16,267,NA,NA,
+18,2,FALSE,1 day,Silver,3,12,Right,11/2/2021,NR,1230,2000,2,35,342,NR,41,
+119,2,FALSE,2 days,Silver,5,14,Left,1/24/2022,NR,1115,Acclimation,2,64,330,NR,NR,Anec: Jumping --> avoidance?
+135,1,FALSE,2 days,Silver,6,21,Right,1/31/2022,NR,1345,Acclimation,2,22,311,NR,NR,
+192,11,TRUE,0 days,Silver,3,7,Right,2/24/2022,15.7,1330,BB,2,11,358,NA,NA,
+223,15,TRUE,0 days,Silver,3,7,Left,3/7/2022,16.9,1430,Acclimation,2,19,98,NA,NA,Angle was taken @38 seconds
+2,1,FALSE,1 day,Silver,1,5,Left,10/26/2021,NR,1230,2000,1,10,323,NR,26,"7 days since start of training, 5 days since end of training....."
+17,2,FALSE,1 day,Silver,3,12,Right,11/2/2021,NR,1215,Acclimation,1,16,62,NR,47,
+29,3,FALSE,1 day,Silver,4,10,Left,11/7/2021,NR,1015,Acclimation,1,13,357,NR,46,
+32,4,FALSE,1 day,Silver,4,10,Right,11/7/2021,NR,1050,2000,1,5,296,NR,72,
+46,3,FALSE,1 day,Silver,5,21,Left,11/18/2021,NR,1150,2000,1,62,0,NR,10,
+120,2,FALSE,2 days,Silver,5,14,Left,1/24/2022,NR,1130,BB,1,28,25,NR,NR,
+129,4,FALSE,2 days,Silver,3,7,Right,1/27/2022,NR,1230,Acclimation,1,12,104,NR,NR,
+147,4,FALSE,2 days,Silver,5,14,Right,2/3/2022,NR,1345,Acclimation,1,20,1,NR,NR,strongly preferred left side
+170,10,TRUE,2 days,Silver,3,7,Left,2/10/2022,16.8,1100,BB,1,48,0,NA,NA,
