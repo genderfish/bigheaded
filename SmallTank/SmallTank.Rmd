@@ -3,11 +3,11 @@ title: "SmallTank"
 author: "Jackie Culotta"
 date: "2022-06-14"
 output:
-  html_document: default
   word_document: default
+  html_document: default
 ---
 
-This Rmd file analyzes the time until first exit and first return for bigheaded carp in the small tank.
+This Rmd file analyzes the time until first exit and first return for bigheaded carps in the small tank.
 Mixed ANOVAs and t-tests are computed.
 Boxplots for the associated manuscript are generated.
 
@@ -89,7 +89,7 @@ box_m(dataNoOut[, "Exit_s", drop = FALSE], dataNoOut$Trained)
 ```
 
 ```{r first exit anova computation}
-# mixed ANOVA computation
+# mixed ANOVA computation & model selection
 mod1 <- lmer(Exit_s ~ Trained*Sound + Days_Since_Train + (1|School_ID), data = dataNoOut)
 Anova(mod1)
 
@@ -97,7 +97,7 @@ mod2 <- lmer(Exit_s ~ Trained*Sound*Days_Since_Train + (1|School_ID), data = dat
 Anova(mod2)
 
 anova(mod1,mod2) # if p < 0.05, reject the simpler model
-mod <- mod2 # better model of the two is THE model
+mod <- mod2 # select the better model of the two, here that is the most complex one
 ```
 
 ```{r SmallBoxplotExit figure}
@@ -108,7 +108,7 @@ SmallboxplotExit <- ggplot(data3, aes(x = Day,y = Exit_s, fill = Trained)) +
   geom_boxplot(position = position_dodge(1)) +
   stat_compare_means(aes(group = Trained), method = "t.test", 
                      label = "p.signif", hide.ns = TRUE) + 
-  labs(x = "Day", y ="Seconds to Exit Sound Chamber") +
+  labs(x = "Day", y ="Time to Exit Sound Chamber (s)") +
   scale_fill_brewer(palette = "Greys") +
   theme_classic2()
   # geom_dotplot(binaxis='y', stackdir='center', position=position_dodge(1)) # add dots
@@ -126,12 +126,19 @@ modDay1 <- t.test(data = data4, Exit_s ~ Trained)
 # ANOVA (including acclimation)
 modSummary <- as.data.frame(Anova(mod)) %>% rename(pval = 3)
 
+## sound
 soundPval <- modSummary %>% slice(2) %>% select(pval)
 soundPval <- format(round(as.numeric(soundPval), 3), nsmall = 2, big.mark = ",")
 
 soundChisq <- modSummary %>% slice(2) %>% select(Chisq)
 soundChisq <- format(round(as.numeric(soundChisq), 2), nsmall = 2, big.mark = ",")
 
+## trained & days since interaction
+TrainedxDayPval <- modSummary %>% slice(5) %>% select(pval)
+TrainedxDayPval <- format(round(as.numeric(TrainedxDayPval), 3), nsmall = 2, big.mark = ",")
+
+TrainedxDayChisq <- modSummary %>% slice(2) %>% select(Chisq)
+TrainedxDayChisq <- format(round(as.numeric(TrainedxDayChisq), 2), nsmall = 2, big.mark = ",")
 
 # t test, day 1 sound only
 day1Untrained <- modDay1$estimate[1]
@@ -154,18 +161,21 @@ day1Pval <- format(round(as.numeric(day1Pval), 2), nsmall = 2, big.mark = ",")
 
 ## Results
 
-All trained carp exhibited negative phonotaxis by shuttling out of the sound chamber.
-Two untrained schools did not exit the sound chamber within the allotted five minutes of acoustic playback.
-Sound was the only predictor that had a significant effect on seconds until first exit (Mixed ANOVA, Χ^2^ = `r soundChisq`, p = `r soundPval`).
-Notably on the first day of phonotaxis trials, trained schools initially left the sound chamber in `r day1Trained` s, whereas untrained schools took `r day1Untrained` s to exit (`r day1Method`, df = `r day1DF`, t = `r day1Stat`, p = `r day1Pval`).
-There were no differences in time to exit due to training treatment on later sound presentations (Fig SmallBoxplotExit).
+All conditioned carp exhibited negative phonotaxis by shuttling out of the sound chamber.
+Two unconditioned schools did not exit the sound chamber within the five minutes of acoustic playback.
+Sound had a significant effect on time until first exit (Mixed ANOVA, Χ^2^ = `r soundChisq`, p < `r soundPval`).
+There was a significant interaction between conditioning treatment and day since conditioning (Mixed ANOVA, X^2^ = `r TrainedxDayChisq`, p = `r TrainedxDayPval`).
+Notably on the first day of phonotaxis trials, conditioned schools initially left the sound chamber in `r day1Trained` s, whereas unconditioned schools took `r day1Untrained` s to exit (`r day1Method`, df = `r day1DF`, t = `r day1Stat`, p = `r day1Pval`).
+There were no differences in time to exit due to conditioning treatment on later sound presentations (Fig SmallBoxplotExit).
 
 ```{r Small boxplot exit figure}
 SmallboxplotExit
 ```
 
-**Fig SmallBoxplotExit. Seconds in the sound chamber until exiting to the quiet chamber.** On the first day, trained schools initially left the sound chamber in `r day1Trained` s, whereas untrained schools took `r day1Untrained` s to exit (`r day1Method`, df = `r day1DF`, t = `r day1Stat`, p = `r day1Pval`).
-There were no differences in time to exit due to training treatment on later sound presentations.
+**Fig SmallBoxplotExit. Time (s) in the sound chamber until exiting to the opposite chamber in the small tank.** Boxplots include median ± quartiles for each species.
+Whiskers extend to 1.5 times IQR.
+There was a marginally significant difference between conditioned and unconditioned schools on the first day (`r day1Method`, df = `r day1DF`, t = `r day1Stat`, p = `r day1Pval`).
+There were no differences in time to exit due to conditioning treatment on later sound presentations.
 
 ```{r export exit boxplot, eval=FALSE, include=FALSE}
 ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig6_smallboxplotExit.eps",
@@ -193,7 +203,9 @@ rm(data2)
 ```
 
 # Time to Return
-
+In the small tank, the assumptions of no outliers, normality, and homogeneity of variances are met.
+A significant result for Box's M-test for Homogeneity of Covariance Matrices is likely due to unequal sample sizes between conditioned and unconditioned groups after removal of outliers.
+A mixed ANOVA is run noting this violation.
 ```{r first return anova assumptions, echo=TRUE}
 data2 <- data %>% filter(!is.na(Return_s), !is.infinite(Return_s))
 
@@ -241,7 +253,7 @@ smallboxplotReturn <- ggplot(data3, aes(x = Day,y=Return_s, fill = Trained)) +
   geom_boxplot(position = position_dodge(1)) +
   stat_compare_means(aes(group = Trained), method = "t.test", 
                      label = "p.signif", hide.ns = TRUE) + 
-  labs(x = "Day", y = "Seconds in Quiet Chamber until Return") + 
+  labs(x = "Day", y = "Time in Opposite Chamber until Return (s)") + 
   scale_fill_brewer(palette = "Greys") +
   theme_classic2()
   # geom_dotplot(binaxis='y', stackdir='center', position=position_dodge(1)) # add dots
@@ -302,14 +314,11 @@ interactChisq <- modSummary %>% slice(7) %>% select(Chisq)
 interactChisq <- format(round(as.numeric(interactChisq), 2), nsmall = 2, big.mark = ",")
 ```
 
-The assumptions of no outliers, normality, and homogeneity of variances are met.
-A significant result for Box's M-test for Homogeneity of Covariance Matrices is likely due to unequal sample sizes between trained and untrained groups after removal of outliers.
-A mixed ANOVA is run noting this violation.
 
-Training with CO~2~ had a marginally significant effect on seconds to return to the sound chamber (Mixed ANOVA, Χ^2^ = `r trainChisq`, p = `r trainPval`).
+Conditioning with CO~2~ had a marginally significant effect on seconds to return to the sound chamber (Mixed ANOVA, Χ^2^ = `r trainChisq`, p = `r trainPval`).
 Presence of the acoustic signal had a highly significant effect on time to return (Χ^2^ = `r soundChisq`, p = `r soundPval`).
-Additionally, the number of days since training had a significant effect on time to return (Χ^2^ = `r dayChisq`, p = `r dayPval`).
-Notably, there was a significant three-way interaction between training, presence of sound, and the number of days since trial onset (Χ^2^ = `r interactChisq`, p = `r interactPval`).
+Additionally, the number of days since conditioning had a significant effect on time to return (Χ^2^ = `r dayChisq`, p = `r dayPval`).
+Notably, there was a significant three-way interaction between conditioning treatment, presence of sound, and the number of days since trial onset (Χ^2^ = `r interactChisq`, p = `r interactPval`).
 
 ```{r t test in text numbers, include=FALSE}
 # t test, day 1 sound only
@@ -349,17 +358,17 @@ day7Pval <- modDay7$p.value
 day7Pval <- format(round(as.numeric(day7Pval), 2), nsmall = 2, big.mark = ",")
 ```
 
-On the first day of phonotaxis trials, trained schools spent `r day1Trained` s in the quiet chamber before returning to the loud chamber, whereas untrained schools took only `r day1Untrained` s to return (`r day1Method`, df = `r day1DF`, t = `r day1Stat`, p = `r day1Pval`).
-One week after training, trained schools spent `r day7Trained` s in the quiet chamber before returning, compared to `r day7Untrained` s for untrained schools (`r day7Method`, df = `r day7DF`, t = `r day7Stat`, p = `r day7Pval`).
-There were no differences in time to return to the sound chamber due to training treatment on sound presentations after one week (Fig SmallBoxplotReturn).
+On the first day of phonotaxis trials, conditioned schools spent `r day1Trained` s in the opposite chamber before returning to the sound chamber, whereas unconditioned schools took only `r day1Untrained` s to return (`r day1Method`, df = `r day1DF`, t = `r day1Stat`, p = `r day1Pval`).
+One week into the phonotaxis trials, conditioned schools spent `r day7Trained` s in the opposite chamber before returning, compared to `r day7Untrained` s for unconditioned schools (`r day7Method`, df = `r day7DF`, t = `r day7Stat`, p = `r day7Pval`).
+There were no differences in time to return to the sound chamber due to conditioning treatment on sound presentations after one week (Fig SmallBoxplotReturn).
 
 ```{r print return boxplot}
 smallboxplotReturn
 ```
 
-**Fig smallboxplotReturn Seconds in the quiet chamber until returning to the sound chamber.** On the first day, trained schools stayed in the quiet chamber for `r day1Trained` s, whereas untrained schools returned after only `r day1Untrained` s (`r day1Method`, df = `r day1DF`, t = `r day1Stat`, p = `r day1Pval`).
-On the seventh day, trained schools returned after `r day7Trained` s, compared to `r day7Untrained` s for untrained schools (`r day7Method`, df = `r day7DF`, t = `r day7Stat`, p = `r day7Pval`).
-There were no differences in time to return due to training treatment beyond one week after conditioning.
+**Fig smallboxplotReturn Time (s) in the opposite chamber until returning to the sound chamber in the small tank.** On the first day, conditioned schools stayed in the opposite chamber for `r day1Trained` s, whereas unconditioned schools returned after only `r day1Untrained` s (`r day1Method`, df = `r day1DF`, t = `r day1Stat`, p = `r day1Pval`).
+On the seventh day, conditioned schools returned after `r day7Trained` s, compared to `r day7Untrained` s for unconditioned schools (`r day7Method`, df = `r day7DF`, t = `r day7Stat`, p = `r day7Pval`).
+There were no differences in time to return due to conditioning treatment after one week.
 
 ```{r habituation}
 # Trained
@@ -409,9 +418,9 @@ untrainedPval <- moduntrained$p.value
 untrainedPval <- format(round(as.numeric(untrainedPval), 2), nsmall = 2, big.mark = ",")
 ```
 
-Untrained fish returned to the sound chamber `r untrainedDiff` s faster on the second sound presentation, which occurred on the 4th day after conditioning, than they had during the first presentation, although this difference was not significant (df = `r untrainedDF`, t = `r untrainedStat`, p = `r untrainedPval`).
-In contrast, trained fish returned to the sound chamber `r TrainedDiff` s faster than they had for the second sound presentation (df = `r TrainedDF`, t = `r TrainedStat`, p = `r TrainedPval`).
-This suggests trained fish may have habituated to the sound stimulus on the second presentation in a way the untrained fish did not.
+Unconditioned fish returned to the sound chamber `r untrainedDiff` s faster on the second sound presentation, which occurred on the 4th day after conditioning, than they had during the first presentation. This difference was not significant (df = `r untrainedDF`, t = `r untrainedStat`, p = `r untrainedPval`).
+In contrast, conditioned schools returned to the sound chamber `r TrainedDiff` s faster than they had for the second sound presentation (df = `r TrainedDF`, t = `r TrainedStat`, p = `r TrainedPval`).
+This suggests conditioned fish may have habituated to the sound stimulus on the second presentation in a way the unconditioned fish did not.
 
 # Extra unused code included in source file
 

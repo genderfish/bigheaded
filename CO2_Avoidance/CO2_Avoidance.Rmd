@@ -343,7 +343,7 @@ Water mixed uniformly within each chamber, as evidenced in the large tank by sim
 
 There was not a significant difference in dissolved CO~2~ avoidance thresholds between tank size (`r modTank$method`, Χ^2^ = `r chi2Tank`, p = `r pvalTank`) or species (`r modSpecies$method`, Χ^2^ = `r chi2Species`, p = `r pvalSpecies`, Fig 5).
 Across all trials in both tanks, bigheaded carp avoided pCO~2~ at approximately `r avoidPPM` ppm.
-This threshold pCO~2~ level was used for CO~2~ conditioning treatments by reaching an instantaneous pH of approximately `r pHThreshold` by the conditioning treatment midpoint in the small tank and endpoint in the large tank.
+This threshold pCO~2~ level was used with CO~2~ conditioning treatments by reaching an instantaneous pH of approximately `r pHThreshold`.
 Due to tank volume differences, it was possible to reach this threshold within two minutes in the small tank, and ten minutes in the large tank, when addition was stopped for researcher safety.
 
 ```{r graph in results, echo=FALSE, message=FALSE}
@@ -378,7 +378,7 @@ CO2_Avoidance_Table
 \
 \
 
-XXX Unused code below, cut before final archiving XXX
+## Unused code below, cut before final archiving
 
 ```{r Boxplot Figure OPTIONS, include=FALSE, eval=FALSE, message=FALSE, warning=FALSE}
 SmallExp1$Tank <- c("Small")

@@ -11,10 +11,10 @@ dataNoExtremeOut <- data2 %>% anti_join(extremeOutliers) # remove only extreme o
 dataNoOut <- data2 %>% anti_join(outliers) # remove all outliers
 
 # because this is a paired t test, must also remove pairs from outliers & NAs/Inf trials
-outlierPairs <- data2 %>% semi_join(outliers, by = c("FishID","TrainedWith","Fish_TrialNum"))
+outlierPairs <- data2 %>% semi_join(outliers, by = c("Fish_ID","TrainedWith","Fish_TrialNum"))
 dataNoOut <- dataNoOut %>% anti_join(outlierPairs)
 
-missingPairs <- data %>% semi_join(missing, by = c("FishID","TrainedWith","Fish_TrialNum"))
+missingPairs <- data %>% semi_join(missing, by = c("Fish_ID","TrainedWith","Fish_TrialNum"))
 dataNoOut <- dataNoOut %>% anti_join(missingPairs)
 
 # compute pairwise comparisons
@@ -38,7 +38,7 @@ largeBoxplot <- ggboxplot(
   fill = "Sound",
   facet.by = "Day",
 ) + 
-  labs(x = "Trained With", y = graphLabel) +
+  labs(x = "Conditioned With", y = graphLabel) +
   theme_classic2() +
   scale_fill_brewer(palette = "Greys", labels = c('Before','During')) +
   stat_pvalue_manual(pwc, label = "p.adj.signif", tip.length = 0, hide.ns = FALSE) +

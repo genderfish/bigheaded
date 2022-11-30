@@ -7,7 +7,10 @@ output:
   html_document: default
 ---
 
-This Rmd file analyzes the time until first exit and first return for bigheaded carps in the large shuttle tank. Mixed ANOVAs and t-tests are computed. Boxplots for the associated manuscript are generated. Additionally, paired t-tests are run on behavioral metrics from the fish tracking software. 
+This Rmd file analyzes the time until first exit and first return for bigheaded carps in the large shuttle tank.
+Mixed ANOVAs and t-tests are computed.
+Boxplots for the associated manuscript are generated.
+Additionally, paired t-tests are run on behavioral metrics from the fish tracking software.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE)
@@ -98,7 +101,7 @@ largeBoxplotExit <- ggboxplot(
   fill = "Sound",
   facet.by = "Day",
 ) + 
-  labs(x = "Trained With", y = "Seconds to Exit Sound Chamber") +
+  labs(x = "Trained With", y = "Time to Exit Sound Chamber (s)") +
   theme_classic2() +
   scale_fill_brewer(palette = "Greys", labels = c('Before','During')) +
   stat_pvalue_manual(pwc, label = "p.adj.signif", tip.length = 0, hide.ns = FALSE) +
@@ -186,16 +189,24 @@ day7AirPval <- pwc %>% slice(5) %>% select(p.adj)
 day7AirPval <- format(round(as.numeric(day7AirPval), 3), nsmall = 2, big.mark = ",")
 ```
 
-In the large tank, two predictors of time to exit were highly significant: sound (Χ^2^ = `r soundChisq`, p `r soundPval`) and day (Χ^2^ = `r dayChisq`, p = `r dayPval`). The three-way interaction of training treatment, sound, and day was marginally significant (Χ^2^ = `r interactChisq`, p = `r interactPval`).
-Bighead carp conditioned with CO~2~ exited the sound chamber significantly faster when the sound stimulus was playing than during the pre-stimulus period on the first day (t = `r day1CO2Stat`, df = `r day1CO2DF`, p = `r day1CO2Pval`, Fig largeBoxplotExit). In contrast, bighead carp trained with air exited as quickly as they had during the pre-stimulus period on the first day. Carp exited the sound chamber similarly regardless of training treatment on the second day. On the seventh day, bighead carp trained with air exited the sound chamber more quickly than they had during the acclimation period (t = `r day7AirStat`, df = `r day7AirDF`, p = `r day7AirPval`), suggesting sound may encourage leaving an area regardless of conditioning.
+In the large tank, two predictors of time to exit were highly significant: sound (Χ^2^ = `r soundChisq`, p `r soundPval`) and day (Χ^2^ = `r dayChisq`, p = `r dayPval`).
+The three-way interaction of training treatment, sound, and day was marginally significant (Χ^2^ = `r interactChisq`, p = `r interactPval`).
+Bighead carp conditioned with CO~2~ exited the sound chamber significantly faster when the sound stimulus was playing than during the pre-stimulus period on the first day (t = `r day1CO2Stat`, df = `r day1CO2DF`, p = `r day1CO2Pval`, Fig largeBoxplotExit).
+In contrast, bighead carp trained with air exited as quickly as they had during the pre-stimulus period on the first day.
+Carp exited the sound chamber similarly regardless of training treatment on the second day.
+On the seventh day, bighead carp trained with air exited the sound chamber more quickly than they had during the acclimation period (t = `r day7AirStat`, df = `r day7AirDF`, p = `r day7AirPval`), suggesting sound may encourage leaving an area regardless of conditioning.
 
 ```{r print exit return figure}
 largeBoxplotExit
 ```
 
-**Fig largeBoxplotExit Seconds until exit from the sound chamber in the large tank.** Bighead carp conditioned with CO~2~ exited more quickly than the pre-stimulus period on the first day. However, on the seventh day, carp conditioned with air also exited more quickly during acoustic playback. 
+**Fig largeBoxplotExit. Time (s) until exit from the sound chamber in the large tank.** Bighead carp conditioned with CO~2~ exited more quickly than the pre-stimulus period on the first day.
+However, on the seventh day, carp conditioned with air also exited more quickly during acoustic playback.
 
 # First Return
+
+For time to return in the large tank, the assumptions of no outliers, normality, and homogeneity of covariances are met.
+There was a significant result for Levene's Test For Equality of Variances on the first trial day and a mixed ANOVA is run noting this violation.
 
 ## Mixed ANOVA
 
@@ -292,7 +303,7 @@ largeBoxplotReturn <- ggboxplot(
   fill = "Sound",
   facet.by = "Day",
 ) + 
-  labs(x = "Trained With", y = "Seconds in Quiet Chamber until Return") +
+  labs(x = "Conditioned With", y = "Time (s) in Opposite Chamber until Return") +
   theme_classic2() +
   scale_fill_brewer(palette = "Greys", labels = c('Before','During')) +
   stat_pvalue_manual(pwc, label = "p.adj.signif", tip.length = 0, hide.ns = FALSE) +
@@ -357,11 +368,8 @@ soundDayChisq <- modSummary %>% slice(6) %>% select(Chisq)
 soundDayChisq <- format(round(as.numeric(soundDayChisq), 2), nsmall = 2, big.mark = ",")
 ```
 
-For time to return in the large tank, the assumptions of no outliers, normality, and homogeneity of covariances are met.
-There was a significant result for Levene's Test For Equality of Variances on the first trial day and a mixed ANOVA is run noting this violation.
-
 Similarly to the small tank, in the large tank the acoustic signal significantly affected time to return (Χ^2^ = `r soundChisq`, p `r soundPval`), as did the trial day (Χ^2^ = `r dayChisq`, p = `r dayPval`).
-Although there was not a significant three-way interaction as in the small tank, the interactions of sound with day (Χ^2^ = `r soundDayChisq`, p = `r soundDayPval`), and with training treatment (Χ^2^ = `r trainSoundChisq`, p = `r trainSoundPval`) were notable.
+Although there was not a significant three-way interaction as in the small tank, the interactions of sound with day was marginally significant (Χ^2^ = `r soundDayChisq`, p = `r soundDayPval`), and was significant with conditioning treatment (Χ^2^ = `r trainSoundChisq`, p = `r trainSoundPval`).
 
 ```{r in text t tests, include=FALSE}
 # summary of effect sizes
@@ -393,15 +401,13 @@ However, one week after conditioning, bighead carp conditioned with CO~2~ began 
 largeBoxplotReturn
 ```
 
-**Fig largeBoxplotReturn. Seconds in the quiet chamber until returning to the sound chamber in the large tank.**
-Bighead carp conditioned with sound and CO~2~ are more averse to sound alone for the first two days, but begin responding more like carp conditioned with air on the seventh day.
+**Fig largeBoxplotReturn. Time (s) in the opposite chamber until returning to the sound chamber in the large tank.** Bighead carp conditioned with sound and CO~2~ are more averse to sound alone for the first two days, but begin responding more like carp conditioned with air on the seventh day.
 
 ```{r cleanup 3, include=FALSE}
 library(gdata)
 keep(data) # lists everything that will be cleared from environment
 keep(data, sure = TRUE) # clears that data
 ```
-
 
 ```{r avoids, include=FALSE, eval = FALSE}
 data$var = data$Exit_N
@@ -423,51 +429,67 @@ largeBoxplot
 keep(data, sure = TRUE)
 ```
 
-
 # Metrics from Ethovision
 
-## Not Moving %
+Tracking software (Ethovision XT) was used to generate additional behavioral metrics for individual bighead carp in the large tank.
+
+## Time Stationary %
 
 ```{r not moving}
 keep(data, sure = TRUE)
 
 data$var = data$NotMoving_per
-graphLabel = "Time Not Moving (%)"
+graphLabel = "Stationary Time (%)"
 
 source('pwc_and_boxplot.R')
+StationaryFig <- largeBoxplot
 ```
 
-During the acclimation period before sound playback, carp typically swam in a figure-eight pattern through both chambers of the tank. In response to sound playback, carp often froze in place. In the large tank, this freezing behavior was quantified with tracking software. This strategy was chosen by many fish in both training treatments (Fig XXX Not moving). An acoustic deterrent can be considered successful by either causing a flight or a freeze response. However, carp conditioned with CO~2~ may be more likely to move away from the acoustic stimulus, as they did not spend more time in the loud side until the seventh day, unlike those trained with air (Fig XXX Duration in loud). Carp trained with air had closer average distances to the speaker during playback compared to the acclimation period for all days, whereas those trained with CO~2~ were not significantly closer to the speaker on the first and third days (Fig XXX Distance to speaker).
+During the acclimation period before sound playback, carp typically swam in a figure-eight pattern through both chambers of the tank.
+In response to sound playback, carp often froze in place.
+In the large tank, this freezing behavior was quantified with tracking software.
+This strategy was chosen by many fish in both training treatments (Fig XXX Not moving).
+An acoustic deterrent can be considered successful by either causing a flight or a freeze response.
+However, carp conditioned with CO~2~ may be more likely to move away from the acoustic stimulus, as they did not spend more time in the loud side until the seventh day, unlike those trained with air (Fig XXX Duration in loud).
+Carp conditioned with air had closer average distances to the speaker during playback compared to the acclimation period for all days, whereas those conditioned with CO~2~ were not significantly closer to the speaker on the first and third days (Fig XXX Distance to speaker).
 
 ```{r print not moving boxplot}
-largeBoxplot
+StationaryFig
 ```
 \
-**Fig Not moving. Duration not moving.** Carp from both training treatments often exhibited freezing responses to sound playback. 
+**Fig Not moving. Stationary time (%).** Carp from both training treatments often exhibited freezing responses to sound playback. 
+Boxplots include median ± quartiles for each conditioning treatment and sound stimulus.
+Whiskers extend to 1.5 times IQR.
+Points indicate responses outside of the IQR. 
 
 ```{r export not moving figure for publication, eval=FALSE, include=FALSE}
 ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig10_Not_moving.eps",
        dpi = 300, width = 6, height = 5, units = "in", limitsize = TRUE)
-largeBoxplot
+StationaryFig
 dev.off()
 
 tiff("C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/TIF/Fig10_Not_moving.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
-largeBoxplot
+StationaryFig
  dev.off()
 ```
 
 ## Duration In Sound Chamber (%)
+
 ```{r time in loud side}
-keep(data, sure = TRUE)
+keep(data, StationaryFig, sure = TRUE)
 
 data$var = data$InLoud_per
 graphLabel = "Time in Sound Chamber (%)"
 
 source('pwc_and_boxplot.R')
 largeBoxplot
+
+TimeInSoundFig <- largeBoxplot
 ```
+
 \
-**Fig XXX. Duration in sound chamber.** Carp trained with air spent a larger proportion of time in the sound chamber than they had during the acclimation period for all trial days. Carp trained with CO~2~ did not spend significantly more time in the sound chamber until the seventh day after conditioning. 
+**Fig XXX. Duration in sound chamber.** Carp trained with air spent a larger proportion of time in the sound chamber than they had during the acclimation period for all trial days.
+Carp trained with CO~2~ did not spend significantly more time in the sound chamber until the seventh day after conditioning.
 
 ```{r export duration in loud figure for publication, eval=FALSE, include=FALSE}
 ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig11_Duration_in_loud.eps",
@@ -480,11 +502,10 @@ largeBoxplot
  dev.off()
 ```
 
-
 ## Distance to Speaker (cm)
 
 ```{r distance to speaker}
-keep(data, sure = TRUE)
+keep(data, StationaryFig, TimeInSoundFig, sure = TRUE)
 
 data$var = data$DistanceToSpeaker_cm
 graphLabel = "Average Distance to Speaker (cm)"
@@ -492,9 +513,55 @@ graphLabel = "Average Distance to Speaker (cm)"
 source('pwc_and_boxplot.R')
 
 largeBoxplot
+DistanceToSpeakerFig <- largeBoxplot
 ```
+
 \
-**Fig XXX. Distance to the speaker.** Carp trained with air remained closer to the speaker during playback than during the acclimation period for all three days. In contrast, carp trained with CO~2~ were not significantly closer to the speaker during playback on the first and third days. By the seventh day after conditioning, carp trained with CO~2~ exhibited similar behavior to those trained with air by staying closer to the speaker than they had during the acclimation period.
+**Fig XXX. Distance to the speaker.** Carp trained with air remained closer to the speaker during playback than during the acclimation period for all three days.
+In contrast, carp trained with CO~2~ were not significantly closer to the speaker during playback on the first and third days.
+By the seventh day after conditioning, carp trained with CO~2~ exhibited similar behavior to those trained with air by staying closer to the speaker than they had during the acclimation period.
+
+
+
+```{r export distance to speaker figure for publication, eval=FALSE, include=FALSE}
+ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig12_Distance_to_speaker.eps",
+       dpi = 300, width = 6, height = 5, units = "in", limitsize = TRUE)
+largeBoxplot
+dev.off()
+
+tiff("C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/TIF/Fig12_Distance_to_speaker.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
+largeBoxplot
+ dev.off()
+```
+
+```{r export combined figure 10, include=FALSE, eval=FALSE}
+Fig10 <- ggarrange(DistanceToSpeakerFig,StationaryFig,TimeInSoundFig,
+                  labels = c("A","B", "C"),
+                  ncol = 2, nrow = 2,
+                 # align = "v",
+                  widths = c(1,1))
+Fig10
+
+ggsave(file = "./Figures/EPS/Fig10.eps",
+       dpi = 300, width = 5, height = 5, units = "in", limitsize = TRUE)
+Fig10
+dev.off()
+
+tiff("./Figures/Fig10.tif", width = (7*300), height = (6*300), units = "px", res = 300, compression = c("none"))
+Fig10
+dev.off()
+```
+
+# Additional code under the cut 
+```{r total distance moved, include=FALSE, eval=FALSE}
+data$var = data$DistanceMoved_cm
+graphLabel = "Total Distance Moved (cm)"
+
+source('pwc_and_boxplot.R')
+largeBoxplot
+
+keep(data, sure = TRUE)
+```
 
 ```{r unused inline code, include=FALSE, eval=FALSE}
 # inline code
@@ -514,29 +581,6 @@ day7CO2Pval <- pwc %>% slice(6) %>% select(p.adj)
 day7CO2Pval <- format(round(as.numeric(day7CO2Pval), 3), nsmall = 2, big.mark = ",")
 ```
 
-
-```{r export distance to speaker figure for publication, eval=FALSE, include=FALSE}
-ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig12_Distance_to_speaker.eps",
-       dpi = 300, width = 6, height = 5, units = "in", limitsize = TRUE)
-largeBoxplot
-dev.off()
-
-tiff("C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/TIF/Fig12_Distance_to_speaker.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
-largeBoxplot
- dev.off()
-```
-
-
-```{r total distance moved, include=FALSE, eval=FALSE}
-data$var = data$DistanceMoved_cm
-graphLabel = "Total Distance Moved (cm)"
-
-source('pwc_and_boxplot.R')
-largeBoxplot
-
-keep(data, sure = TRUE)
-```
-
 ```{r velocity, include=FALSE, eval=FALSE}
 data$var = data$Velocity
 graphLabel = "Velocity (UNITS? XXX)"
@@ -547,6 +591,7 @@ largeBoxplot
 # keep(data, sure = TRUE)
 ```
 
+
 # Citations
 
 ```{r}
@@ -555,4 +600,3 @@ citation("rstatix") # identify outliers
 citation("lme4") # mixed ANOVA computations
 citation("ggplot2") # data visualization
 ```
-
