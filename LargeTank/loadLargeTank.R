@@ -40,6 +40,9 @@ data <- left_join(ethoData,phonoData)
 str(data)
 summary(data)
 
+data$Sound <- as.factor(gsub("Acclimation", "Before", data$Sound))
+data$Sound <- as.factor(gsub("Sound", "During", data$Sound))
+
 data <- data %>% filter(VID_ID != '44')# removing trial 44 due to error on which side fish was on
 
 # clean up
