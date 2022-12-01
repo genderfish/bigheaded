@@ -5,8 +5,8 @@ library("ggpubr")
 library("dplyr")
 
 # uncomment to run script outside of CO2_Avoidance.Rmd
-#setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-#getwd()
+# setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+# getwd()
 
 # Prepare large tank pH values
 largeCO2 <- read.csv("./Data/CO2_Map_Large.csv") %>% select(-Time) 
@@ -63,3 +63,7 @@ pH_Trends_Both_Tanks <- ggplot(merge, aes(x = Seconds, y = value, color = variab
   facet_grid(Tank ~.)
 
 # pH_Trends_Both_Tanks
+
+tiff("./Figures/TIF/pH_Trend_Both_Tanks.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
+pH_Trends_Both_Tanks
+dev.off()
