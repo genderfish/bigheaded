@@ -3,14 +3,14 @@ title: "LargeTank"
 author: "Jackie Culotta"
 date: '2022-10-11'
 output: 
-  word_document: default
   html_document: default
+  word_document: default
 ---
 
 This Rmd file analyzes the time until first exit and first return for bigheaded carps in the large shuttle tank.
 Mixed ANOVAs and t-tests are computed.
 Boxplots for the associated manuscript are generated.
-Additionally, paired t-tests are run on behavioral metrics from the fish tracking software.
+Finally, paired t-tests are run on behavioral metrics from the fish tracking software (Ethovision). Boxplots are created and t-tests are added.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE)
@@ -72,44 +72,16 @@ Anova(mod)
 ## T tests
 
 ```{r exit pairwise comparisons and boxplot}
-# compute pairwise comparisons
-  # because this is a paired test, must also remove pairs from outliers & NAs/Inf trials
-outlierPairs <- data2 %>% semi_join(outliers, by = c("Fish_ID","TrainedWith","Fish_TrialNum"))
-dataNoOut <- dataNoOut %>% anti_join(outlierPairs)
+keep(data, mod, dataSummary, sure = TRUE)
 
-missing <- data %>% filter(is.na(Exit_s) | is.infinite(Exit_s))
-missingPairs <- data %>% semi_join(missing, by = c("Fish_ID","TrainedWith","Fish_TrialNum"))
-dataNoOut <- dataNoOut %>% anti_join(missingPairs)
+data$var = data$Exit_s
+yPosition = 110
+graphLabel = "Time to Exit Sound Chamber (s)"
 
-pwc <- dataNoOut %>% 
-  group_by(Day,TrainedWith) %>% 
-  pairwise_t_test(
-    Exit_s ~ Sound, 
-    paired = TRUE, # run as false to see N for each sample
-   # conf.level = 0.95,
-    detailed = FALSE, # TRUE gives confidence intervals
-    p.adjust.method = "bonferroni"
-  )
-pwc %>% select(-df,-statistic,-p)
-
-pwc <- pwc %>% add_xy_position(x = "TrainedWith") # add (x,y) coord on graph for display
-
-
-# First exit graph
-largeBoxplotExit <- ggboxplot(
-  dataNoOut, x = "TrainedWith", y = "Exit_s",
-  fill = "Sound",
-  facet.by = "Day",
-) + 
-  labs(x = "Trained With", y = "Time to Exit Sound Chamber (s)") +
-  theme_classic2() +
-  scale_fill_brewer(palette = "Greys", labels = c('Before','During')) +
-  stat_pvalue_manual(pwc, label = "p.adj.signif", tip.length = 0, hide.ns = FALSE) +
-  labs(
-    caption = get_pwc_label(pwc)
-  )
-
-# largeBoxplotExit
+source('pwc_and_boxplot.R')
+largeBoxplot_Crop <- ggpar(largeBoxplot, ylim = c(0,120))
+largeBoxplotExit_Fig <- largeBoxplot_Crop
+# largeBoxplotExit_Fig
 ```
 
 ```{r cleanup 1, include=FALSE}
@@ -120,13 +92,13 @@ rm(missing)
 ```
 
 ```{r export exit figure for publication, eval=FALSE, include=FALSE}
-ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig7_Seconds_to_exit.eps",
+ggsave(file = "./Figures/Time_to_exit.eps",
        dpi = 300, width = 6, height = 5, units = "in", limitsize = TRUE)
-largeBoxplotExit
+largeBoxplotExit_Fig
 dev.off()
 
-tiff("C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/TIF/Fig7_Seconds_to_exit.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
-largeBoxplotExit
+tiff("./Figures/Time_to_exit.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
+largeBoxplotExit_Fig
 dev.off()
 ```
 
@@ -197,7 +169,7 @@ Carp exited the sound chamber similarly regardless of training treatment on the 
 On the seventh day, bighead carp trained with air exited the sound chamber more quickly than they had during the acclimation period (t = `r day7AirStat`, df = `r day7AirDF`, p = `r day7AirPval`), suggesting sound may encourage leaving an area regardless of conditioning.
 
 ```{r print exit return figure}
-largeBoxplotExit
+largeBoxplotExit_Fig
 ```
 
 **Fig largeBoxplotExit. Time (s) until exit from the sound chamber in the large tank.** Bighead carp conditioned with CO~2~ exited more quickly than the pre-stimulus period on the first day.
@@ -265,53 +237,24 @@ Anova(mod)
 
 ## T tests
 
-```{r pairwise comparisons and boxplot}
-missing <- data %>% filter(is.na(Return_s) | is.infinite(Return_s))
-data2 <- data %>% anti_join(missing)
+```{r return pwc and boxplot}
+keep(data, mod, dataSummary, sure = TRUE)
 
-outliers <- data2 %>% 
-  group_by(Day, TrainedWith, Sound) %>%
-  identify_outliers(Return_s)
+data_temp <- data
 
-# compute pairwise comparisons
-  # because this is a paired t test, must also remove pairs from outliers & NAs/Inf trials
-outlierPairs <- data2 %>% semi_join(outliers, by = c("Fish_ID","TrainedWith","Fish_TrialNum"))
-dataNoOut <- data2 %>% anti_join(outlierPairs)
+data <- data %>%  filter(VID_ID != '45') # because trial 44 was removed earlier, 45 is also as the pair
 
-missingPairs <- data %>% semi_join(missing, by = c("Fish_ID","TrainedWith","Fish_TrialNum"))
-dataNoOut <- dataNoOut %>% anti_join(missingPairs)
+data$var = data$Return_s
+yPosition = 110
+graphLabel = "Time in Opposite Chamber until Return (s)"
 
-dataNoOut <- dataNoOut %>%  filter(VID_ID != '45') # because trial 44 was removed earlier, 45 is also as the pair
+source('pwc_and_boxplot.R')
 
-pwc <- dataNoOut %>% 
-  group_by(Day,TrainedWith) %>% 
-  pairwise_t_test(
-    Return_s ~ Sound, 
-    paired = TRUE, # run as false to see N for each sample
-   # conf.level = 0.95,
-    detailed = FALSE, # TRUE gives confidence intervals
-    p.adjust.method = "bonferroni"
-  )
-pwc # %>% select(-df,-statistic,-p)
+largeBoxplot_Crop <- ggpar(largeBoxplot, ylim = c(0,120))
+largeBoxplotReturn_Fig <- largeBoxplot_Crop
+# largeBoxplotReturn_Fig
 
-pwc <- pwc %>% add_xy_position(x = "TrainedWith") # add (x,y) coord on graph for display
-
-
-# First Return graph
-largeBoxplotReturn <- ggboxplot(
-  dataNoOut, x = "TrainedWith", y = "Return_s",
-  fill = "Sound",
-  facet.by = "Day",
-) + 
-  labs(x = "Conditioned With", y = "Time (s) in Opposite Chamber until Return") +
-  theme_classic2() +
-  scale_fill_brewer(palette = "Greys", labels = c('Before','During')) +
-  stat_pvalue_manual(pwc, label = "p.adj.signif", tip.length = 0, hide.ns = FALSE) +
-  labs(
-    caption = get_pwc_label(pwc)
-  )
-
-# largeBoxplotReturn
+data <- data_temp
 ```
 
 ```{r cleanup 2, include=FALSE}
@@ -323,14 +266,14 @@ rm(missing)
 ```
 
 ```{r export return figure for publication, eval=FALSE, include=FALSE}
-ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig9_Seconds_to_return.eps",
+ggsave(file = "./Figures/Time_to_return.eps",
        dpi = 300, width = 6, height = 5, units = "in", limitsize = TRUE)
-largeBoxplotReturn
+largeBoxplotReturn_Fig
 dev.off()
 
-# Beware: apparently tiff files exported from R have a max resolution of 72
-tiff("C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/TIF/Fig9_Seconds_to_return.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
-largeBoxplotReturn
+# Beware: apparently tiff files exported from RStudio have a max resolution of 72
+tiff("./Figures/Time_to_return.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
+largeBoxplotReturn_Fig
  dev.off()
 ```
 
@@ -398,7 +341,7 @@ Bighead carp conditioned with air returned to the sound chamber significantly fa
 However, one week after conditioning, bighead carp conditioned with CO~2~ began returning to the sound chamber more quickly than they had during the acclimation period (t = `r day7AirStat`, df = `r day7AirDF`, p = `r day7AirPval`), exhibiting similar behavior to carp trained with air.
 
 ```{r print return figure}
-largeBoxplotReturn
+largeBoxplotReturn_Fig
 ```
 
 **Fig largeBoxplotReturn. Time (s) in the opposite chamber until returning to the sound chamber in the large tank.** Bighead carp conditioned with sound and CO~2~ are more averse to sound alone for the first two days, but begin responding more like carp conditioned with air on the seventh day.
@@ -406,7 +349,7 @@ largeBoxplotReturn
 ```{r cleanup 3, include=FALSE}
 library(gdata)
 keep(data) # lists everything that will be cleared from environment
-keep(data, sure = TRUE) # clears that data
+keep(data, sure = TRUE) # clears everything besides 'data'
 ```
 
 ```{r avoids, include=FALSE, eval = FALSE}
@@ -435,10 +378,11 @@ Tracking software (Ethovision XT) was used to generate additional behavioral met
 
 ## Time Stationary %
 
-```{r not moving}
+```{r stationary figure}
 keep(data, sure = TRUE)
 
 data$var = data$NotMoving_per
+yPosition = 65
 graphLabel = "Stationary Time (%)"
 
 source('pwc_and_boxplot.R')
@@ -463,12 +407,12 @@ Whiskers extend to 1.5 times IQR.
 Points indicate responses outside of the IQR. 
 
 ```{r export not moving figure for publication, eval=FALSE, include=FALSE}
-ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig10_Not_moving.eps",
+ggsave(file = "./Figures/Stationary_Time.eps",
        dpi = 300, width = 6, height = 5, units = "in", limitsize = TRUE)
 StationaryFig
 dev.off()
 
-tiff("C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/TIF/Fig10_Not_moving.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
+tiff("./Figures/Stationary_Time.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
 StationaryFig
  dev.off()
 ```
@@ -479,12 +423,13 @@ StationaryFig
 keep(data, StationaryFig, sure = TRUE)
 
 data$var = data$InLoud_per
+yPosition = 105
 graphLabel = "Time in Sound Chamber (%)"
 
 source('pwc_and_boxplot.R')
-largeBoxplot
-
 TimeInSoundFig <- largeBoxplot
+
+TimeInSoundFig
 ```
 
 \
@@ -492,13 +437,13 @@ TimeInSoundFig <- largeBoxplot
 Carp trained with CO~2~ did not spend significantly more time in the sound chamber until the seventh day after conditioning.
 
 ```{r export duration in loud figure for publication, eval=FALSE, include=FALSE}
-ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig11_Duration_in_loud.eps",
+ggsave(file = "./Figures/Time_in_Sound.eps",
        dpi = 300, width = 6, height = 5, units = "in", limitsize = TRUE)
-largeBoxplot
+TimeInSoundFig 
 dev.off()
 
-tiff("C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/TIF/Fig11_Duration_in_loud.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
-largeBoxplot
+tiff("./Figures/Time_in_Sound.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
+TimeInSoundFig 
  dev.off()
 ```
 
@@ -508,12 +453,13 @@ largeBoxplot
 keep(data, StationaryFig, TimeInSoundFig, sure = TRUE)
 
 data$var = data$DistanceToSpeaker_cm
+yPosition = 190
 graphLabel = "Average Distance to Speaker (cm)"
 
 source('pwc_and_boxplot.R')
 
-largeBoxplot
 DistanceToSpeakerFig <- largeBoxplot
+DistanceToSpeakerFig
 ```
 
 \
@@ -521,22 +467,20 @@ DistanceToSpeakerFig <- largeBoxplot
 In contrast, carp trained with CO~2~ were not significantly closer to the speaker during playback on the first and third days.
 By the seventh day after conditioning, carp trained with CO~2~ exhibited similar behavior to those trained with air by staying closer to the speaker than they had during the acclimation period.
 
-
-
 ```{r export distance to speaker figure for publication, eval=FALSE, include=FALSE}
-ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig12_Distance_to_speaker.eps",
+ggsave(file = "./Figures/Distance_to_speaker.eps",
        dpi = 300, width = 6, height = 5, units = "in", limitsize = TRUE)
-largeBoxplot
+DistanceToSpeakerFig
 dev.off()
 
-tiff("C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/TIF/Fig12_Distance_to_speaker.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
-largeBoxplot
+tiff("./Figures/Distance_to_speaker.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
+DistanceToSpeakerFig
  dev.off()
 ```
 
 ```{r export combined figure 10, include=FALSE, eval=FALSE}
 Fig10 <- ggarrange(DistanceToSpeakerFig,StationaryFig,TimeInSoundFig,
-                  labels = c("A","B", "C"),
+                  labels = c("A","B","C"),
                   ncol = 2, nrow = 2,
                  # align = "v",
                   widths = c(1,1))
