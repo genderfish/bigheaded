@@ -234,9 +234,9 @@ compareSpecies <- list(c("Bighead", "Silver"))
 CO2_Avoidance_Boxplot_1 <-  ggplot(BothExp1, aes(x = Tank, y = Avoid)) +
   stat_compare_means(label.x = 1.4) +
   geom_boxplot(position = position_dodge(1)) +
-  geom_point(binaxis = 'y',           # add dots
+  geom_jitter(binaxis = 'y',           # add dots
+              width = .3,
                stackdir = 'center',
-               position = position_dodge(.15),
                size = 3,
                aes(color = Species)) + 
   labs(x = "Tank Size", 
@@ -248,14 +248,14 @@ CO2_Avoidance_Boxplot_1 # better compares tanks
 CO2_Avoidance_Boxplot_2 <-  ggplot(BothExp1, aes(x = Species, y = Avoid)) +
   stat_compare_means(label.x = 1.4) +
   geom_boxplot(position = position_dodge(1)) +
-  geom_point(binaxis = 'y',           # add dots
-               stackdir = 'center',
-               position = position_dodge(.15),
-               size = 3,
-               aes(color = Tank)) + 
+  geom_jitter(binaxis = 'y',           # add dots
+              width = .1,
+              stackdir = 'center',
+              size = 3,
+              aes(color = Tank)) + 
   labs(x = "Species", 
        y = expression("pCO"[2]*" (ppm) at Last Exit")) +
-  theme_classic2() + scale_color_grey()
+  theme_classic2() + scale_color_discrete(type = c("#7570b3", "#d95f02"))
 
 
 CO2_Avoidance_Boxplot_2 # better compares species
