@@ -63,7 +63,34 @@ pH_Trends_Both_Tanks <- ggplot(merge, aes(x = Seconds, y = value, color = variab
   facet_grid(Tank ~.)
 
 # pH_Trends_Both_Tanks
-
 tiff("./Figures/TIF/pH_Trend_Both_Tanks.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
 pH_Trends_Both_Tanks
+dev.off()
+
+# Version 3
+# Remove interior locations in large tank
+removeLevels <- c(2:5) # select factor levels to remove as integers
+merge_cut <- merge %>% 
+  filter(!as.integer(variable) %in% removeLevels)
+
+yLab <- c(expression("pH in CO"[2]*' Chamber'))
+
+# now, add a line in large tank only
+pH_Trends <- ggplot(merge_cut, aes(x = Seconds, y = value, color = variable)) + 
+  # geom_point(size = 1) +
+  geom_line(size = 1.5) +
+  xlim(c(0,500)) +
+  theme_pubr(legend = "right") +
+  labs(y = "pH", x = "Time (s)") +
+  geom_hline(yintercept = 6.44, linetype = "dashed") + # add approximate threshold value
+  scale_color_brewer('Chamber',
+                     direction = -1,
+                     palette = 'Dark2', 
+                     labels = c(expression('CO'[2]*' Input'),'Air Input')) +
+  facet_grid(Tank ~.)
+
+ pH_Trends
+ 
+tiff("./Figures/TIF/pH_Trend_Both_Tanks.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
+pH_Trends
 dev.off()
