@@ -104,16 +104,51 @@ mod <- mod2 # select the better model of the two, here that is the most complex 
 # Including only sound trials, ie excluding acclimation period
 data3 <- dataNoOut %>% filter(Sound == 'BB')
 
-SmallboxplotExit <- ggplot(data3, aes(x = Day,y = Exit_s, fill = Trained)) +
-  geom_boxplot(position = position_dodge(1)) +
+smallboxplotExit <- ggboxplot(data3, 
+          x = "Day", #org data 3
+          y = "Exit_s",
+          fill = "Trained",
+          outlier.shape = NA,
+          palette = c("#7570b3", "#d95f02"),) +
   stat_compare_means(aes(group = Trained), method = "t.test", 
                      label = "p.signif", hide.ns = TRUE) + 
-  labs(x = "Day", y ="Time to Exit Sound Chamber (s)") +
-  scale_fill_brewer(palette = "Greys") +
+  labs(x = "Day", y = "Time to Exit Sound Chamber (s)") + 
+ # geom_dotplot(binaxis='y', stackdir='center', position = position_dodge(1)) + # add dots
   theme_classic2()
-  # geom_dotplot(binaxis='y', stackdir='center', position=position_dodge(1)) # add dots
 
- # SmallboxplotExit
+# smallboxplotExit
+```
+
+```{r alt figure style, eval=FALSE, include=FALSE}
+# compute pairwise comparisons
+pwc <- dataNoOut %>% 
+  group_by(Day,Trained) %>% 
+  pairwise_t_test(
+    Exit_s ~ Sound, # alt ~ TrainedWith
+    paired = FALSE, # run as false to see N for each sample
+    # conf.level = 0.95, # 95% is the default
+    detailed = TRUE, # TRUE gives confidence intervals
+    p.adjust.method = "bonferroni"
+  )
+pwc # %>% select(-df,-statistic,-p)
+
+pwc <- pwc %>% add_xy_position(x = "Trained")
+
+smallboxplotExit2 <- ggboxplot(dataNoOut, 
+          x = "Trained", #org data 3
+          y = "Exit_s",
+          fill = "Sound",
+          facet.by = "Day",
+          outlier.shape = NA,
+          palette = c("#7570b3", "#d95f02"),) +
+  stat_compare_means(aes(group = Trained), method = "t.test", 
+                     label = "p.signif", hide.ns = TRUE) + 
+  labs(x = "Day", y = "Time to Exit Sound Chamber (s)") + 
+ # geom_dotplot(binaxis='y', stackdir='center', position = position_dodge(1)) + # add dots
+  theme_classic2() +
+    stat_pvalue_manual(pwc, label = "p.adj.signif", tip.length = 0, hide.ns = FALSE)
+
+ smallboxplotExit2
 ```
 
 ```{r day 1 t test}
@@ -169,7 +204,7 @@ Notably on the first day of phonotaxis trials, conditioned schools initially lef
 There were no differences in time to exit due to conditioning treatment on later sound presentations (Fig SmallBoxplotExit).
 
 ```{r Small boxplot exit figure}
-SmallboxplotExit
+smallboxplotExit
 ```
 
 **Fig SmallBoxplotExit. Time (s) in the sound chamber until exiting to the opposite chamber in the small tank.** Boxplots include median ± quartiles for each species.
@@ -178,13 +213,13 @@ There was a marginally significant difference between conditioned and unconditio
 There were no differences in time to exit due to conditioning treatment on later sound presentations.
 
 ```{r export exit boxplot, eval=FALSE, include=FALSE}
-ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig6_smallboxplotExit.eps",
+ggsave(file = "./Figures/Fig6_smallboxplotExit.eps",
        dpi = 300, width = 5, height = 5, units = "in", limitsize = TRUE)
-SmallboxplotExit
+smallboxplotExit
 dev.off()
 
-tiff("C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/TIF/Fig6_smallboxplotExit.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
- SmallboxplotExit
+tiff("./Figures/Fig6_smallboxplotExit.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
+ smallboxplotExit
 dev.off()
 ```
 
@@ -249,25 +284,45 @@ Anova(mod)
 # Including only sound trials, ie excluding acclimation period
 data3 <- dataNoOut %>% filter(Sound == 'BB')
 
-smallboxplotReturn <- ggplot(data3, aes(x = Day,y=Return_s, fill = Trained)) +
-  geom_boxplot(position = position_dodge(1)) +
+smallboxplotReturn1 <- ggboxplot(data3, 
+          x = "Day", #org data 3
+          y = "Return_s",
+          fill = "Trained",
+          outlier.shape = NA,
+          palette = c("#7570b3", "#d95f02"),) +
   stat_compare_means(aes(group = Trained), method = "t.test", 
                      label = "p.signif", hide.ns = TRUE) + 
   labs(x = "Day", y = "Time in Opposite Chamber until Return (s)") + 
-  scale_fill_brewer(palette = "Greys") +
+ # geom_dotplot(binaxis='y', stackdir='center', position = position_dodge(1)) + # add dots
   theme_classic2()
-  # geom_dotplot(binaxis='y', stackdir='center', position=position_dodge(1)) # add dots
 
-# smallboxplotReturn
+smallboxplotReturn
+```
+
+```{r alt return boxplot, eval=FALSE, include=FALSE}
+smallboxplotReturn2 <- ggboxplot(dataNoOut, 
+          x = "Trained", #org data 3
+          y = "Return_s",
+          fill = "Sound",
+          facet.by = "Day",
+          outlier.shape = NA,
+          palette = c("#7570b3", "#d95f02"),) +
+  stat_compare_means(aes(group = Trained), method = "t.test", 
+                     label = "p.signif", hide.ns = TRUE) + 
+  labs(x = "Day", y = "Time in Opposite Chamber until Return (s)") + 
+ # geom_dotplot(binaxis='y', stackdir='center', position = position_dodge(1)) + # add dots
+  theme_classic2()
+
+ smallboxplotReturn2
 ```
 
 ```{r export return boxplot, eval=FALSE, include=FALSE}
-ggsave(file = "C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/EPS/Fig8_smallboxplotReturn.eps",
+ggsave(file = "./Figures/Fig8_smallboxplotReturn.eps",
        dpi = 300, width = 5, height = 5, units = "in", limitsize = TRUE)
 smallboxplotReturn
 dev.off()
 
-tiff("C:/Users/jacki/OneDrive/Documents (Onedrive)/Thesis/Analysis/R_Statistics/Figures/TIF/Fig8_smallboxplotReturn.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
+tiff("./Figures/Fig8_smallboxplotReturn.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
  smallboxplotReturn
 dev.off()
 ```
