@@ -9,8 +9,8 @@ output:
 
 This Rmd file analyzes the time until first exit and first return for bigheaded carps in the large shuttle tank.
 Mixed ANOVAs and t-tests are computed.
-Boxplots for the associated manuscript are generated.
-Finally, paired t-tests are run on behavioral metrics from the fish tracking software (Ethovision). Boxplots are created and t-tests are added.
+Finally, paired t-tests are run on behavioral metrics from the fish tracking software (Ethovision).
+Boxplots and t-tests for the associated manuscript are generated.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE)
@@ -401,7 +401,7 @@ Carp conditioned with air had closer average distances to the speaker during pla
 StationaryFig
 ```
 \
-**Fig Not moving. Stationary time (%).** Carp from both training treatments often exhibited freezing responses to sound playback. 
+**Fig Not moving. Stationary time (%).** Carp from both training treatments exhibited freezing responses to sound playback. 
 Boxplots include median ± quartiles for each conditioning treatment and sound stimulus.
 Whiskers extend to 1.5 times IQR.
 Points indicate responses outside of the IQR. 
