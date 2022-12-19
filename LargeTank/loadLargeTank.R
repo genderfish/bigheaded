@@ -9,7 +9,7 @@ ethoData$DistanceToSpeaker_cm <- ifelse(ethoData$Speaker == 'Left', ethoData$Lef
 ethoData$InLoud_per <- ifelse(ethoData$Speaker == 'Left', ethoData$InLeft_per, ethoData$InRight_per)
 
 # remove extra vars
-ethoData <- ethoData %>% select(-c(LeftDistance_cm,RightDistance_cm,InLeft_per,InRight_per))
+ethoData <- ethoData %>% select(-c(LeftDistance_cm,RightDistance_cm,InLeft_per,InRight_per,Accel_max,TimeToLeft_s,TimeToRight_s))
 
 # fix variable types
 factorColumns <- c("Day", "Fish_ID", "Sound", "Speaker")
@@ -51,3 +51,6 @@ rm(factorColumns)
 rm(ethoData)
 rm(missingTrial)
 rm(phonoData)
+
+# export to csv
+# write.csv(data, "LargeTank_Phonotaxis_merge_2022_12_19.csv", row.names = FALSE)
