@@ -6,5 +6,6 @@
 *.docx
 *.pdf
 *.eps
-*.tif* 
+*.tif*
 figures/
+LargeTank_Phonotaxis_merge_2022_12_19.csv
