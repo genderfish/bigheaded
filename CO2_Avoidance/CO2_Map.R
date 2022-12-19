@@ -86,6 +86,6 @@ pH_Trends <- ggplot(merge_cut, aes(x = Seconds, y = value, color = variable)) +
 
 # pH_Trends
  
-tiff("./Figures/TIF/pH_Trend_Both_Tanks.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
-pH_Trends
-dev.off()
+#tiff("./Figures/TIF/pH_Trend_Both_Tanks.tif", width = 2100, height = 1200, units = "px", res = 300, compression = c("none"))
+#pH_Trends
+#dev.off()
