@@ -486,7 +486,7 @@ Fig10 <- ggarrange(DistanceToSpeakerFig,StationaryFig,TimeInSoundFig,
                   widths = c(1,1))
 Fig10
 
-ggsave(file = "./Figures/EPS/Fig10.eps",
+ggsave(file = "./Figures/Fig10.eps",
        dpi = 300, width = 5, height = 5, units = "in", limitsize = TRUE)
 Fig10
 dev.off()

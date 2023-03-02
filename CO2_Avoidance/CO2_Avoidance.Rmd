@@ -360,8 +360,6 @@ In the small shuttle tank, schools of five juvenile untrained bighead (n = 5) an
 
 In the large shuttle tank, individual bighead carp (n = 10) exhibited CO~2~ avoidance at `r largeBighead` ± `r largeBighead_SE` ppm (Table 1).
 Schools of five silver carp (n = 9) last exited at `r largeSilver` ± `r largeSilver_SE` ppm.
-In the large tank, the last exit occurred at `r largeBoth` ppm CO~2~ on average for both species, as estimated by pH (Fig 2).
-The average pCO~2~ in the increasing chamber was measured at `r largeMeasured` ± `r largeMeasured_SE` ppm (n = `r largeMeasured_N`) three minutes after the last exit.
 
 **Table 1. Carbon dioxide avoidance and ambient water parameters in both tanks.** The pCO~2~ is estimated from instantaneous pH at the last exit and measured from water samples.
 
@@ -374,6 +372,9 @@ CO2_Avoidance_Table
 \
 
 ## Unused code below, cut before final archiving
+
+In the large tank, the last exit occurred at `r largeBoth` ppm CO~2~ on average for both species, as estimated by pH (Fig 2).
+The average pCO~2~ in the increasing chamber was measured at `r largeMeasured` ± `r largeMeasured_SE` ppm (n = `r largeMeasured_N`) three minutes after the last exit.
 
 ```{r Boxplot Figure OPTIONS, include=FALSE, eval=FALSE, message=FALSE, warning=FALSE}
 SmallExp1$Tank <- c("Small")
