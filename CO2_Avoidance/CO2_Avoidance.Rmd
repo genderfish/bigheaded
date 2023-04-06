@@ -254,7 +254,7 @@ CO2_Avoidance_Boxplot_2 <-  ggplot(BothExp1, aes(x = Species, y = Avoid)) +
               size = 3,
               aes(color = Tank)) + 
   labs(x = "Species", 
-       y = expression("pCO"[2]*" (ppm) at Last Exit")) +
+       y = expression("pCO"[2]*" (ppm)")) +
   theme_classic2() + scale_color_discrete(type = c("#7570b3", "#d95f02"))
 
 

@@ -1,10 +1,11 @@
 ---
 title: "LargeTank"
 author: "Jackie Culotta"
-date: '2022-10-11'
-output: 
-  html_document: default
+date: "2022-10-11"
+output:
+  pdf_document: default
   word_document: default
+  html_document: default
 ---
 
 This Rmd file analyzes the time until first exit and first return for bigheaded carps in the large shuttle tank.
@@ -28,7 +29,7 @@ library('gdata') # keep function
 ```{r load clean and merge data, include=FALSE}
 source('loadLargeTank.R')
 
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) # apparently requires wifi lol
 getwd()
 ```
 
@@ -543,4 +544,6 @@ R.version # Originally R version 4.1.0
 citation("rstatix") # identify outliers
 citation("lme4") # mixed ANOVA computations
 citation("ggplot2") # data visualization
+
+sessionInfo()
 ```

@@ -3,8 +3,9 @@ title: "CO2_Conditioning"
 author: "Jackie Culotta"
 date: "2022-11-15"
 output:
-  word_document: default
+  pdf_document: default
   html_document: default
+  word_document: default
 ---
 This Rmd file summarizes water parameters for the conditioning treatments in both tanks.
 

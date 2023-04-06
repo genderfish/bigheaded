@@ -1,6 +1,5 @@
 This readme.txt file was generated on 20221108 by Jackie Culotta
-Recommended citation for the data: XXX
-
+Suggested citation: Culotta, Jackie; Vetter, Brooke, J; Mensinger, Allen, F; Kramer, Cassandra, A; Ervin, Marie, L. (2023). Chemotaxis and phonotaxis in a two-choice shuttle tank by bigheaded carps. Retrieved from the Data Repository for the University of Minnesota, https://hdl.handle.net/11299/252999.
 
 -------------------
 GENERAL INFORMATION
@@ -22,10 +21,23 @@ GENERAL INFORMATION
   Associate or Co-investigator Contact Information
         Name: Jackie Culotta
            Institution: University of Minnesota Duluth
-           Email: jackieculotta@pm.me
+           Email: culottajackie@gmail.com
 	   ORCID: 0000-0002-2533-0802
 
-3. Date published or finalized for release: XXX
+	Name:  Brooke Vetter
+		Institution: University of Saint Thomas
+		Email: brooke.vetter@stthomas.edu
+
+	Name:  Cassandra Kramer
+		Institution: University of Saint Thomas
+		Email: cassie@kramersonline.org
+
+	Name:  Marie Ervin
+		Institution: University of Saint Thomas
+		Email: marieervin00@gmail.com
+
+
+3. Date published or finalized for release: 4/6/2023
 
 4. Date of data collection (approximate range): 20210601 - 20220831
 
@@ -33,7 +45,7 @@ GENERAL INFORMATION
 
 6. Information about funding sources that supported the collection of the data: Funding for this project was provided by the Minnesota Environment and Natural Resources Trust Fund as recommended by the Minnesota Aquatic Invasive Species Research Center (MAISRC) and the Legislative-Citizen Commission on Minnesota Resources (LCCMR).
 
-7. Overview of the data (abstract): XXX
+7. Overview of the data (abstract): Dissolved carbon dioxide avoidance in silver and bighead carps. Additionally, carp were conditioned to associate broadband sound from outboard boat motors (0.06 – 10 kHz, ~150 dB re 1 μPa) with CO2 application (~35,000 ppm). Phonotaxis trials were conducted over one to four weeks in a both a small (80 L) and large (3475 L) two-choice shuttle tank.
 
 
 --------------------------
@@ -60,7 +72,7 @@ DATA & FILE OVERVIEW
 
 1. File List
    A. Filename: CO2_Avoidance.Rmd
-      Short description: Calculates pCO2 avoidance thresholds in the small and large tank.     
+      Short description: Calculates pCO2 avoidance thresholds in the small and large tank.      
 
    B. Filename: LargeTank.Rmd
       Short description: Mixed ANOVAs for first return and exit in the large tank. Paired t-tests computed for tracking metrics.          
@@ -69,7 +81,7 @@ DATA & FILE OVERVIEW
       Short description: Mixed ANOVAs for first return and exit in the small tank. 
 
 
-2. Relationship between files: Behavioral data from each tank is separate. 
+2. Relationship between files: Each of the three experiments are analyzed separately. Carbon dioxide avoidance thresholds, and behavioral response data from the small and large tank are separate. 
 
 
 
@@ -102,77 +114,78 @@ DATA-SPECIFIC INFORMATION
         NR Not recorded
 
 
-2. Variable List
+2. Variable List (Predictors)
                   
     A. Name: VID_ID
        Description: Identifier for each video file. 
 
-    L. Name: Fish_ID or School_ID
+    B. Name: Fish_ID or School_ID
        Description: Identifier for each fish or school of five fish. 
 
-    A. Name: Sound
-       Description: Whether sound was playing or not.
+    C. Name: Sound
+       Description: Whether sound was playing (during the trial), or not playing (ambient conditions during acclimation period).
                     Sound, Acclimation
 
-    B. Name: Speaker
+    D. Name: Speaker
        Description: Whether the active speaker was placed in the right or left chamber. 
                     Right, Left
 
-    C. Name: TrainedWith
+    E. Name: TrainedWith
        Description: Conditioning treatment assignment in the large tank. 
                     CO2, Air
 
-    D. Name: Trained
+    F. Name: Trained
        Description: Conditioning treatment assignment in the small tank.  
                     0 days, 2 days
 
-    E. Name: Days_Since_Train
+    G. Name: Days_Since_Train
        Description: The number of days since the fish or school underwent conditioning. 
 
-    J. Name: pH
+    H. Name: pH
        Description: Ambient water pH at trial onset, unless otherwise noted. 
                     
-    K. Name: Temp_C
+    I. Name: Temp_C
        Description: Ambient water temperature in celsius at trial onset. 
 
-    M. Name: Time
+    J. Name: Time
        Description: Approximate time of trial. Rounded to the nearest 15 minute mark. 
 
-    N. Name: Fish_TrialNum
+    K. Name: Fish_TrialNum
        Description: The trial number for that fish or school of fish. 
 
-    O. Name: Species
+    L. Name: Species
        Description: Species of the experimental animal(s).
 	Silver, Bighead
 
-    P. Name: Stopped_Sound_On_Return
+    M. Name: Stopped_Sound_On_Return
        Description: Whether sound was stopped after fish returned to speaker side or continued for trial duration.
 	FALSE, TRUE
 
+    N. Name: dB
+       Description: Sound pressure level (SPL) in decibels. 
 
-Response vars
+    O. Name: RMS
+       Description: Mean root mean square voltage to calculate SPL
+
+
+3. Variable List (Response)
 
  
-
-    F. Name: Exit_N
+    A. Name: Exit_N
        Description: Number of shuttles away from the active speaker side.
                     
-    G. Name: Return_N
+    B. Name: Return_N
        Description: Number of shuttles towards the active speaker side.
 
-    H. Name: Exit_s  
+    C. Name: Exit_s  
        Description: Seconds until first shuttle away from the active speaker side.
                     
-    I. Name: Return_s
+    D. Name: Return_s
        Description: Seconds in opposite chamber until first shuttle towards the active speaker side.
 
 
 
 
-specific to certain files 
-
-    Q. Name: Angle
-       Description: Angle of between the fish, speaker, and exit in small tank. 
 
 
 	

@@ -3,8 +3,9 @@ title: "SmallTank"
 author: "Jackie Culotta"
 date: "2022-06-14"
 output:
-  word_document: default
+  pdf_document: default
   html_document: default
+  word_document: default
 ---
 
 This Rmd file analyzes the time until first exit and first return for bigheaded carps in the small tank.
@@ -284,7 +285,7 @@ Anova(mod)
 # Including only sound trials, ie excluding acclimation period
 data3 <- dataNoOut %>% filter(Sound == 'BB')
 
-smallboxplotReturn1 <- ggboxplot(data3, 
+smallboxplotReturn <- ggboxplot(data3, 
           x = "Day", #org data 3
           y = "Return_s",
           fill = "Trained",
